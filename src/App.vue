@@ -4,22 +4,20 @@
       <h1> SGTravelBuddy </h1>
         <nav> 
           <ul> 
-            <li> Home </li>
-            <li> Profile </li>
-            <li> Plan </li>
-            <li> PlantPal </li>
-            <li> How To Use </li>
+            <li><router-link to="/" exact>Home</router-link></li>
+            <li><router-link to="/profile" exact>Profile</router-link></li>
+            <li><router-link to="/plan" exact>Plan</router-link></li>
+            <li><router-link to="/plantpal" exact>PlantPal</router-link></li>
+            <li><router-link to="/howtouse" exact>How To Use</router-link></li>
           </ul>
         </nav>
     </header>
     <div id="content">
-
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'App',
   components: {
