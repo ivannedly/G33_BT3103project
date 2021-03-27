@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <header>
       <h1> SGTravelBuddy </h1>
         <nav> 
           <ul> 
@@ -11,9 +10,18 @@
             <li><router-link to="/howtouse" exact>How To Use</router-link></li>
           </ul>
         </nav>
-    </header>
+        <router-view></router-view>
+
     <div id="content">
     </div>
+
+    <div id="footer">
+      <footer>
+        <h3> Contact Us </h3>
+        Tel: 6123 2342 <br>
+        Email: helpdesk@sgtravelbuddy.com.sg 
+      </footer>
+      </div>
   </div>
 </template>
 
@@ -59,11 +67,17 @@ li {
 }
 
 #content {
-  float: center;
+  float: bottom;
   padding: 60px;
-  width: 91.5%;
   background-color: rgb(171, 249, 207);
   height: 500px; 
+  border: none;
+}
+
+#footer { 
+  background-color: rgb(125, 194, 156);
+  height: 120px;
+  padding: 10px;
   border: none;
 }
 </style>
