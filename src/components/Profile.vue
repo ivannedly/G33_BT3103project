@@ -1,5 +1,11 @@
 <template>
-  <div>
-    hello
+  <div id="content">
   </div>
 </template>
+
+<script>
+export default {
+  
+}
+</script>
+

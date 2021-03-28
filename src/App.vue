@@ -26,6 +26,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'App',
   components: {
@@ -70,7 +71,7 @@ li {
   float: bottom;
   padding: 60px;
   background-color: rgb(171, 249, 207);
-  height: 500px; 
+
   border: none;
 }
 

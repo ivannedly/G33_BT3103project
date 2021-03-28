@@ -1,28 +1,23 @@
 <template>
   <div>
     <div>
-      <h2>Search and add a pin</h2>
-      <GmapAutocomplete
-        @place_changed='setPlace'
-      />
-      <button
-        @click='addMarker'
-      >
-        Add
-      </button>
+      <h2>Your Location</h2>
+      <GmapAutocomplete @place_changed='setPlace'> </GmapAutocomplete>
+      <button v-on:click='addMarker'> Add </button>
     </div>
     <br>
     <GmapMap
-      :center='center'
+      :center='center' 
       :zoom='12'
       style='width:100%;  height: 400px;'
-    >
+      >
       <GmapMarker
         :key="index"
         v-for="(m, index) in markers"
         :position="m.position"
         @click="center=m.position"
-      />
+      >
+      </GmapMarker>
     </GmapMap>
   </div>
 </template>
@@ -35,7 +30,7 @@ export default {
       center: { lat: 1.364917, lng: 103.822872 },
       currentPlace: null,
       markers: [],
-      places: [],
+      places: []
     }
   },
   mounted() {
@@ -65,6 +60,42 @@ export default {
         };
       });
     },
+    initMap: function() {
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+      const directionsService = new google.maps.DirectionsService();
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 7,
+        center: { lat: 41.85, lng: -87.65 },
+      });
+      directionsRenderer.setMap(map);
+      directionsRenderer.setPanel(document.getElementById("right-panel"));
+      const control = document.getElementById("floating-panel");
+      control.style.display = "block";
+      map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+
+      const onChangeHandler = function () {
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+      };
+      document.getElementById("start").addEventListener("change", onChangeHandler);
+      document.getElementById("end").addEventListener("change", onChangeHandler);
+    },
+    calculateAndDisplayRoute: function(directionsService, directionsRenderer) {
+      const start = document.getElementById("start").value;
+      const end = document.getElementById("end").value;
+      directionsService.route({
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING,
+      },
+      (response, status) => {
+        if (status === "OK") {
+          directionsRenderer.setDirections(response);
+        } else {
+          window.alert("Directions request failed due to " + status);
+        }
+      }
+      );
+    }
   },
 };
 </script>

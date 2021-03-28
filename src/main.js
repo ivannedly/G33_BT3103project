@@ -8,7 +8,7 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyBlKHEG09krNAP06zJwtsoiqnlw5JUPxXE',
+    key: 'INSERT API KEY',
     libraries: 'places',
   }
 });
