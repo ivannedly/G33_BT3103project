@@ -1,66 +1,60 @@
 <template>
   <div>
-    <div>
-      <h2>Your Location</h2>
-      <GmapAutocomplete @place_changed='setPlace'> </GmapAutocomplete>
-      <button v-on:click='addMarker'> Add </button>
-    </div>
-    <br>
-    <GmapMap
-      :center='center' 
-      :zoom='12'
-      style='width:100%;  height: 400px;'
-      >
-      <GmapMarker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        @click="center=m.position"
-      >
-      </GmapMarker>
+    <b>Start:</b>
+    <GmapAutocomplete @place_changed = 'setPlace'>
+    </GmapAutocomplete>
+    <b>End:</b>
+    <GmapAutocomplete @place_changed = 'setDestination'>
+    </GmapAutocomplete>
+    <GmapMap :zoom="12" :center="{ lat: 1.364917, lng: 103.822872 }">
+      <DirectionsRenderer
+        travelMode="TRANSIT"
+        :origin="origin"
+        :destination="destionation"
+      />
     </GmapMap>
   </div>
 </template>
 
 <script>
+import DirectionsRenderer from "@/components/DirectionsRenderer";
+
 export default {
-  name: 'GoogleMap',
-  data() {
-    return {
-      center: { lat: 1.364917, lng: 103.822872 },
-      currentPlace: null,
-      markers: [],
-      places: []
-    }
+  components: {
+    DirectionsRenderer,
   },
-  mounted() {
-    this.geolocate();
+
+  data: () => ({
+    start: "",
+    end: "",
+  }),
+
+  computed: {
+    origin() {
+      if (!this.start) return null;
+      console.log( this.start );
+      return { query: this.start };
+    },
+    destionation() {
+      if (!this.end) return null;
+      return { query: this.end };
+    },
   },
+
   methods: {
-    setPlace(place) {
-      this.currentPlace = place;
-    },
-    addMarker() {
-      if (this.currentPlace) {
-        const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng(),
-        };
-        this.markers.push({ position: marker });
-        this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;
-      }
-    },
-    geolocate: function() {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-      });
+    setPlace: function(place) {
+      this.start = place.name
     },
 
-  },
+    setDestination: function(place) {
+      this.end = place.name
+    }
+  }
 };
 </script>
+
+<style>
+.vue-map-container {
+  height: 600px;
+}
+</style>
