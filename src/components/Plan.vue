@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <GoogleMap />
-    <div id = "directions_panel">I am directions panel.</div>
   </div>
 </template>
 
