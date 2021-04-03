@@ -9,46 +9,35 @@
     <GmapMap :zoom="12" :center="{ lat: 1.364917, lng: 103.822872 }">
       <DirectionsRenderer
         travelMode="TRANSIT"
-        :origin="origin"
-        :destination="destionation"
+        :origin="start"
+        :destination="end"
       />
     </GmapMap>
   </div>
 </template>
 
 <script>
-import DirectionsRenderer from "@/components/DirectionsRenderer";
+import DirectionsRenderer from "./DirectionsRenderer.js";
 
 export default {
   components: {
     DirectionsRenderer,
   },
 
-  data: () => ({
-    start: "",
-    end: "",
-  }),
-
-  computed: {
-    origin() {
-      if (!this.start) return null;
-      console.log( this.start );
-      return { query: this.start };
-    },
-    destionation() {
-      if (!this.end) return null;
-      return { query: this.end };
-    },
+  data: function() {
+    return {
+      start: "",
+      end: "",
+    }
   },
-
+  
   methods: {
     setPlace: function(place) {
       this.start = place.name
     },
-
     setDestination: function(place) {
       this.end = place.name
-    }
+    },
   }
 };
 </script>
@@ -56,5 +45,6 @@ export default {
 <style>
 .vue-map-container {
   height: 600px;
+  width: 600px;
 }
 </style>

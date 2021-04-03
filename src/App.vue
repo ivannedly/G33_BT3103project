@@ -81,4 +81,7 @@ li {
   padding: 10px;
   border: none;
 }
+#map {
+  height: 100%;
+}
 </style>
