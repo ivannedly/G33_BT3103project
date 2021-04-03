@@ -10,7 +10,7 @@ export default MapElementFactory({
   props: {
     origin: { type: Object },
     destination: { type: Object },
-    travelMode: { type: String }
+    travelMode: { type: String },
   }, 
   afterCreate(directionsRenderer) {
     let directionsService = new window.google.maps.DirectionsService();
@@ -19,7 +19,7 @@ export default MapElementFactory({
       () => {
         let { origin, destination, travelMode } = this;
         directionsService.route(
-          { origin, destination, travelMode },
+          { origin, destination, travelMode},
           (response, status) => {
             if (status == "OK") {
             directionsRenderer.setDirections(response);

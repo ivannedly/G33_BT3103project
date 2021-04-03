@@ -10,7 +10,9 @@ import GoogleMap from './GoogleMap.vue'
 export default {
   name: 'App',
   components: {
-    GoogleMap
+    GoogleMap,
+  },
+  methods: {
   }
 }
 </script>
