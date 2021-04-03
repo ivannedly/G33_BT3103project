@@ -13,10 +13,12 @@
         :destination="end"
       />
     </GmapMap>
+    <br>
   </div>
 </template>
 
 <script>
+
 import DirectionsRenderer from "./DirectionsRenderer.js";
 
 export default {
