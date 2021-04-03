@@ -13,8 +13,10 @@
         <img src = "https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8dHJlZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt = "Photo of Tree"> <!--need to make sure they are all cropped to the same size-->
         <br> <!--To be changed later-->
         <button>Change Profile Photo</button>
-        <p><b>NAME</b><br>{{name}}</p>
-        <p><b>EMAIL</b><br>{{email}}</p>
+        <p><b>NAME</b></p>
+        <p class="field">{{name}}</p>
+        <p><b>EMAIL</b></p>
+        <p class="field">{{email}}</p>
         <button>Change Password</button> 
         <button>Update Personal Information</button>
         <br><br>
@@ -65,5 +67,22 @@ export default ({
 })
 </script>
 
+<!--
 <style scoped>
+p {
+    text-align: left;
+}
+
+button {
+    margin: 15px;
+}
+
+.field {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    width: 300px;
+    border-radius: 15px;
+}
 </style> 
+-->

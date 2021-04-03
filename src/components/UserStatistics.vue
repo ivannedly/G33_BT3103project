@@ -7,7 +7,7 @@
         Carbon Footprint Reduced
         Money Saved (from rewards)
         -->
-        <h1>Journey Statistics</h1>
+        <h1 style="color: white;">JOURNEY STATISTICS</h1>
         <p><b>TOTAL NUMBER OF JOUNEYS: </b>{{travelNum}}</p>
         <p><b>TOTAL DISTANCE TRAVELLED (KM): </b>{{distance}}</p>
         <p><b>CARBON FOOTPRINT REDUCED (KG): </b>{{carbonCut}}</p>
@@ -57,6 +57,5 @@ export default ({
 })
 </script>
 
-<style scoped>
-
-</style>
+<!--<style scoped>
+</style>-->
