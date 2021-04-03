@@ -2,24 +2,16 @@
     <div>
         <!--
         ##### Order of Items #####
-        Photo
-        "Change Profile Photo" Button
-        Name Label and Field 
-        Email Label and Field    
-        Password Label and Field (to be changed?)
-        "Update Personal Information" Button
-        "Edit Card Details" Button
+        Number of Journeys
+        Total Distance Travelled
+        Carbon Footprint Reduced
+        Money Saved (from rewards)
         -->
-        <img src = "https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8dHJlZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt = "Photo of Tree"> <!--need to make sure they are all cropped to the same size-->
-        <br> <!--To be changed later-->
-        <button>Change Profile Photo</button>
-        <p><b>NAME</b><br>{{name}}</p>
-        <p><b>EMAIL</b><br>{{email}}</p>
-        <button>Change Password</button> 
-        <button>Update Personal Information</button>
-        <br><br>
-        <button>Edit Card Details</button>
-
+        <h1>Journey Statistics</h1>
+        <p><b>TOTAL NUMBER OF JOUNEYS: </b>{{travelNum}}</p>
+        <p><b>TOTAL DISTANCE TRAVELLED (KM): </b>{{distance}}</p>
+        <p><b>CARBON FOOTPRINT REDUCED (KG): </b>{{carbonCut}}</p>
+        <p><b>MONEY SAVED (IN SGD): </b>{{moneySave}}</p>
     </div>
 </template>
 
@@ -66,4 +58,5 @@ export default ({
 </script>
 
 <style scoped>
-</style> 
+
+</style>
