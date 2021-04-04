@@ -12,10 +12,12 @@
       <DirectionsRenderer travelMode="TRANSIT" :origin="start" :destination="end">
         </DirectionsRenderer>
     </GmapMap>
+    <br>
   </div>
 </template>
 
 <script>
+
 import DirectionsRenderer from "./DirectionsRenderer.js";
 
 export default {
