@@ -59,11 +59,11 @@ export default {
         db.collection("users").doc(cred.user.uid).set(
           Object.assign({}, new_user)
         )
-        this.$router.push({path:"/profile"})
+        this.$router.push({path:"/"})
+        this.$parent.forceRerender();
       })
-      this.$router.push()
     }
-  },
+  }
 }
 </script>
 
