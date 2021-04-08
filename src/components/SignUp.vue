@@ -53,7 +53,12 @@ export default {
         creditNum: this.creditNum,
         csv: this.csv,
         expiry: this.expiry,
-        travelNum: 0, distance: 0, carbonCut: 0, moneySave: 0
+        travelNum: 0, 
+        distance: 0, 
+        carbonCut: 0, 
+        moneySave: 0, 
+        start: "singapore", 
+        end: "singapore" 
       }
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred =>{
         db.collection("users").doc(cred.user.uid).set(

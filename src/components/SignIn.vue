@@ -30,7 +30,7 @@ export default {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(userCredential =>{
           var user = userCredential.user;
           alert("You are now successfully logged in as " + user.email);
-          this.$router.push({path: "/"})
+          this.$router.push({path: "/home"})
           this.$parent.forceRerender()
       })
     }
