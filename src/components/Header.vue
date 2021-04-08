@@ -20,8 +20,8 @@
 
             <div v-else class="login">
                 <ul>
-                    <li><router-link to="/login" exact>LogIn</router-link></li>
-                    <li><router-link to="/signUp" exact>SignUp</router-link></li>
+                    <li><router-link to="/login" exact>Log In</router-link></li>
+                    <li><router-link to="/signUp" exact>Sign Up</router-link></li>
                 </ul>
             </div>
 
@@ -38,7 +38,7 @@ import logo from "../assets/logo.jpg";
 export default {
     data(){
         return{
-            signedIn: false,
+            signedIn: firebase.auth().currentUser,
             currentUser: false,
             logo: logo,
         }
