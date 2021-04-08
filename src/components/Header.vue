@@ -3,10 +3,12 @@
     <header>
         <nav>
             <div>
-                <a href="#" class="app-logo">
-                   <img src="src/assets/logo.jpg"/>
+                <a class="app-logo">
+                   <img :src="logo"/>
+                   <h1>SGTravel Buddy</h1>
                 </a>
             </div>
+
 
             <div v-if="signedIn" class="login">
                 <ul>
@@ -16,13 +18,11 @@
                 </ul>
             </div>
 
-            <div v-else>
-            <div class="login">
+            <div v-else class="login">
                 <ul>
                     <li><router-link to="/login" exact>LogIn</router-link></li>
                     <li><router-link to="/signUp" exact>SignUp</router-link></li>
                 </ul>
-            </div>
             </div>
 
         </nav>
@@ -33,23 +33,24 @@
 <script>
 import firebase from "@firebase/app";
 require('firebase/auth');
+import logo from "../assets/logo.jpg";
 
 export default {
     data(){
         return{
             signedIn: false,
             currentUser: false,
+            logo: logo,
         }
     },
     methods: {
         logOut: function() {
             firebase.auth().signOut().then(() => {
                 this.$router.push('/login')
-                this.$parent.forceRerender();
             })
         },
         loginCheck: function() {
-            if(firebase.auth().currentUser) {
+            if(firebase.auth().currentUser != null) {
                 console.log(this.signedIn)
                 this.signedIn = true;
                 this.currentUser = firebase.auth().currentUser;
@@ -57,9 +58,11 @@ export default {
         },
     },
     created() {
-        this.loginCheck(); //check whether user is logged in already.
-    }
-}
+        this.loginCheck();
+        console.log('check');
+        console.log(firebase.auth().currentUser);
+    },
+};
 </script>
 
 
@@ -73,7 +76,7 @@ header {
 }
 img {
     width: 150px;
-    height: 100px;
+    height: 150px;
 }
 .app-logo {
     display: flex;
@@ -81,6 +84,7 @@ img {
     height: 50%;
     width: 50%;
     float: left;
+    text-align: center;
 }
 .login {
     display: flex;

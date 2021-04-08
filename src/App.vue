@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <h1> SGTravelBuddy </h1>
+      <Header></Header>
         <nav> 
           <ul> 
             <li><router-link to="/" exact>Home</router-link></li>
@@ -10,9 +10,10 @@
             <li><router-link to="/howtouse" exact>How To Use</router-link></li>
           </ul>
         </nav>
-        <router-view></router-view>
+        
 
     <div id="content">
+      <router-view></router-view>
     </div>
 
     <div id="footer">
@@ -26,10 +27,12 @@
 </template>
 
 <script>
+import Header from './components/Header.vue'
 
 export default {
   name: 'App',
   components: {
+    Header,
   }
 }
 </script>

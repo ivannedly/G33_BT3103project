@@ -31,7 +31,6 @@ export default {
           var user = userCredential.user;
           alert("You are now successfully logged in as " + user.email);
           this.$router.push({path: "/"})
-          this.$parent.forceRerender()
       })
     }
   },

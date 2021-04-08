@@ -60,7 +60,6 @@ export default {
           Object.assign({}, new_user)
         )
         this.$router.push({path:"/"})
-        this.$parent.forceRerender();
       })
     }
   }
