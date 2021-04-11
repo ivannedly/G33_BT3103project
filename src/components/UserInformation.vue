@@ -44,16 +44,20 @@
 
 <script>
 import database from '../firebase.js';
-import firebase from 'firebase';
-
+//import firebase from 'firebase';
+import firebase from '@firebase/app';
 
 export default ({
     data() {
         return {
             //userInformation: [],
             carbonCut: 0,
+            cardholder: "",
+            creditNum: "",
+            csv: "",
             distance: 0,
             email: "",
+            expiry: "",
             mobile: "",
             moneySave: "",
             name: "",
@@ -65,21 +69,21 @@ export default ({
     },
     methods: {
         fetchUserData() {
-            //Uncommented after figuring out how to add in "firebase"
-            //var user = firebase.auth().currentUser;
-
-            //Using speific uid first
-            database.collection('users').doc("LLE0xYwfEFSV9SvSwnoqvAx9tpz2").get().then(doc => {
-                //this.userInformation.push(doc.data());
-                //console.log(doc.data());
+            // Problem accessing current user
+            //database.collection('users').doc(firebase.auth().currentUser.uid).get().then(doc => {
+            database.collection('users').doc("kF6WPySduVVLpNHxD6gFLP12uA52").get().then(doc => {
                 this.carbonCut = doc.data().carbonCut;
+                this.cardHolder = doc.data().cardHolder;
+                this.creditNum = doc.data().creditNum;
+                this.csv = doc.data().csv;
                 this.distance = doc.data().distance;
                 this.email = doc.data().email;
+                this.expiry = doc.data().expiry;
                 this.mobile = doc.data().mobile;
                 this.moneySave = doc.data().moneySave;
                 this.name = doc.data().name;
                 this.travelNum = doc.data().travelNum;
-                console.log(this.name);
+                console.log(this.expiry);
             })
         },
         openChangePasswordBox() {
@@ -106,11 +110,11 @@ export default ({
         }
     },
     created() {
+        //alert("Current User ID: " + firebase.auth().currentUser.uid);
         this.fetchUserData();
     }
 })
 </script>
-
 <!--
 <style scoped>
 p {
@@ -167,5 +171,5 @@ form {
     text-align: left;
 }
 
-</style> 
+</style>
 -->
