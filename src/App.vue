@@ -16,23 +16,19 @@
       <router-view></router-view>
     </div>
 
-    <div id="footer">
-      <footer>
-        <h3> Contact Us </h3>
-        Tel: 6123 2342 <br>
-        Email: helpdesk@sgtravelbuddy.com.sg 
-      </footer>
-      </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
+    Footer
   }
 }
 </script>
@@ -78,12 +74,6 @@ li {
   border: none;
 }
 
-#footer { 
-  background-color: rgb(125, 194, 156);
-  height: 120px;
-  padding: 10px;
-  border: none;
-}
 #map {
   height: 100%;
 }
