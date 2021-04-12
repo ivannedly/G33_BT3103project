@@ -44,7 +44,6 @@
 
 <script>
 import database from '../firebase.js';
-//import firebase from 'firebase';
 import firebase from '@firebase/app';
 
 export default ({
@@ -115,7 +114,7 @@ export default ({
     }
 })
 </script>
-<!--
+
 <style scoped>
 p {
     text-align: left;
@@ -129,7 +128,8 @@ button {
     background-color: green;
     color: white;
     padding: 10px;
-    width: 300px;
+    align-content: center;
+    width: auto;
     border-radius: 15px;
 }
 
@@ -172,4 +172,3 @@ form {
 }
 
 </style>
--->
