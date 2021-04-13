@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <UserInformation id="userInformation"></UserInformation>
-    <UserStatistics id="userStatistics"></UserStatistics>
+  <div class="row">
+    <div class='left'>
+    <UserInformation id="userInformation"></UserInformation></div>
+    <div class="right">
+    <UserStatistics id="userStatistics"></UserStatistics></div>
   </div>
 </template>
 
@@ -21,15 +23,25 @@ export default ({
 </script>
 
 <style scoped>
-#userInformation {
+.left {
   float: left;
   width: 30%;
-  height: 100%;
+  
+}
+.right{
+    float: left;
+    width: 68%;
+    padding-left: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 #userStatistics {
-  float: right;
-  width: 60%;
   background-color: #CFD171;
   border-radius: 15px;
   height: 100%
