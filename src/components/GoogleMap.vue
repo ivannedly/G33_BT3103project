@@ -24,7 +24,8 @@ export default {
   data: function() {
     return {
       start: "",
-      end: ""
+      end: "",
+      name: ""
     }
   },
 
@@ -34,12 +35,15 @@ export default {
       database.collection('users').doc(user).get().then(doc => {
       this.start = doc.data().start;
       this.end = doc.data().end;
-    });
+      this.name = doc.data().name;
+      });
     }
   },
 
   created() {
     this.fetchItems();
+    console.log(firebase.auth().currentUser.uid);
+    console.log("hello")
   }
 }
 </script>
