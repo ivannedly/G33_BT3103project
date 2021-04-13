@@ -36,11 +36,15 @@ export default ({
                 title: "Covid Graph"
             },
         data2: [{
-            x: [2,3,4],
-            y: [4,5,6],
+            x: [2,9,4,10,8],
+            y: [4,5,9,15,2],
             mode:'markers',
             name: 'West',
-            text:['Kent Ridge', 'Clementi', 'Holland Village'],
+            text:['West: Kent Ridge - Number of Cases: 12', 
+                'West: Clementi - Number of Cases: 20', 
+                'West: Holland Village - Number of Cases: 30',
+                'West: NUS - Number of Cases: 20',
+                'West: Jurong West - Number of Cases: 20'],
             marker: {
                 color: 'rgb(255, 217, 102)',
                 size: 12
