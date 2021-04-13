@@ -1,15 +1,9 @@
 <template>
-<<<<<<< HEAD
-  <div>
-    <UserInformation id="userInformation"></UserInformation>
-    <UserStatistics id="userStatistics"></UserStatistics>
-=======
   <div class="row">
     <div class='left'>
     <UserInformation id="userInformation"></UserInformation></div>
     <div class="right">
     <UserStatistics id="userStatistics"></UserStatistics></div>
->>>>>>> 9debfada622617346b34b269e43c55025edbd023
   </div>
 </template>
 
@@ -54,7 +48,3 @@ export default ({
 }
 
 </style>
-<<<<<<< HEAD
-
-=======
->>>>>>> 9debfada622617346b34b269e43c55025edbd023
