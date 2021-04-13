@@ -8,8 +8,8 @@ export default MapElementFactory({
   events: [],
   mappedProps: {},
   props: {
-    origin: { type: Object },
-    destination: { type: Object },
+    origin: { type: String },
+    destination: { type: String },
     travelMode: { type: String },
   }, 
   afterCreate(directionsRenderer) {
