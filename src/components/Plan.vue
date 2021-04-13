@@ -8,9 +8,14 @@
     <GmapAutocomplete @place_changed = 'setDestination'>
     </GmapAutocomplete>
     <br>
+    <div>
     <button v-on:click = "planTravel"> Plan </button>
+    </div>
     <br>
-    <GoogleMap/>
+    <GmapMap :zoom="12" :center="{ lat: 1.364917, lng: 103.822872 }">
+      <DirectionsRenderer travelMode="TRANSIT" :origin="start" :destination="end">
+        </DirectionsRenderer>
+    </GmapMap>
   </div>
 </template>
 
@@ -19,11 +24,11 @@
 import firebase from '@firebase/app';
 require('firebase/auth');
 import database from '../firebase.js';
-import GoogleMap from './GoogleMap.vue'
+import DirectionsRenderer from './DirectionsRenderer.js'
 
 export default {
   components: {
-    GoogleMap
+    DirectionsRenderer
   },
 
   data: function() {

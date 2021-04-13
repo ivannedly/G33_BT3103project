@@ -14,9 +14,9 @@
         <br> <!--To be changed later with photo url from databse-->
         <button>Change Profile Photo</button>
         <p><b>NAME</b></p>
-        <p class="field">{{name}}</p>
+        <p class="field"> {{this.name}}</p>
         <p><b>EMAIL</b></p>
-        <p class="field">{{email}}</p>
+        <p class="field">{{this.email}}</p>
         <button id="changePasswordButton" v-on:click="openChangePasswordBox">Change Password</button> 
         <button>Update Personal Information</button>
         <br><br>
@@ -67,10 +67,11 @@ export default ({
         }
     },
     methods: {
-        fetchUserData() {
+        fetchUserData: function() {
             // Problem accessing current user
-            //database.collection('users').doc(firebase.auth().currentUser.uid).get().then(doc => {
-            database.collection('users').doc("kF6WPySduVVLpNHxD6gFLP12uA52").get().then(doc => {
+            var user = firebase.auth().currentUser.uid;
+            database.collection('users').doc(user).get().then(doc => {
+            //database.collection('users').doc("kF6WPySduVVLpNHxD6gFLP12uA52").get().then(doc => {
                 this.carbonCut = doc.data().carbonCut;
                 this.cardHolder = doc.data().cardHolder;
                 this.creditNum = doc.data().creditNum;
@@ -82,20 +83,19 @@ export default ({
                 this.moneySave = doc.data().moneySave;
                 this.name = doc.data().name;
                 this.travelNum = doc.data().travelNum;
-                console.log(this.expiry);
             })
         },
-        openChangePasswordBox() {
+        openChangePasswordBox: function() {
             console.log("Activating openChangePasswordBox...");
             var modal = document.getElementById("changePasswordBox");
             modal.style.display = "block";
         },
-        closeChangePasswordBox() {
+        closeChangePasswordBox: function() {
             var modal = document.getElementById("changePasswordBox");
             modal.style.display = "none";
         },
         // Need to try this method again after sign-in page has been added as "user" currently has null value.
-        changePassword() {
+        changePassword: function() {
             if (this.newPassword1 != this.newPassword2 || this.newPassword1.length == 0) {
                 console.log("Passwords do not match");
                 this.alertMessage = "The password(s) you have entered do not match. Please try again.";
@@ -111,6 +111,7 @@ export default ({
     created() {
         //alert("Current User ID: " + firebase.auth().currentUser.uid);
         this.fetchUserData();
+        console.log(this.name);
     }
 })
 </script>
