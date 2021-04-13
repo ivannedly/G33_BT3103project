@@ -20,24 +20,19 @@ export default ({
 })
 </script>
 
-<!--
 <style scoped>
-
-div {
-    padding-top: 100px;
-}
-
 #userInformation {
   float: left;
-  padding-left: 200px;
+  width: 30%;
+  height: 100%;
 }
 
 #userStatistics {
   float: right;
-  padding-right: 250px;
+  width: 60%;
   background-color: #CFD171;
   border-radius: 15px;
+  height: 100%
 }
 
 </style>
--->
