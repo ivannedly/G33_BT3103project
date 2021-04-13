@@ -44,16 +44,19 @@
 
 <script>
 import database from '../firebase.js';
-import firebase from 'firebase';
-
+import firebase from '@firebase/app';
 
 export default ({
     data() {
         return {
             //userInformation: [],
             carbonCut: 0,
+            cardholder: "",
+            creditNum: "",
+            csv: "",
             distance: 0,
             email: "",
+            expiry: "",
             mobile: "",
             moneySave: "",
             name: "",
@@ -65,21 +68,21 @@ export default ({
     },
     methods: {
         fetchUserData() {
-            //Uncommented after figuring out how to add in "firebase"
-            //var user = firebase.auth().currentUser;
-
-            //Using speific uid first
-            database.collection('users').doc("LLE0xYwfEFSV9SvSwnoqvAx9tpz2").get().then(doc => {
-                //this.userInformation.push(doc.data());
-                //console.log(doc.data());
+            // Problem accessing current user
+            //database.collection('users').doc(firebase.auth().currentUser.uid).get().then(doc => {
+            database.collection('users').doc("kF6WPySduVVLpNHxD6gFLP12uA52").get().then(doc => {
                 this.carbonCut = doc.data().carbonCut;
+                this.cardHolder = doc.data().cardHolder;
+                this.creditNum = doc.data().creditNum;
+                this.csv = doc.data().csv;
                 this.distance = doc.data().distance;
                 this.email = doc.data().email;
+                this.expiry = doc.data().expiry;
                 this.mobile = doc.data().mobile;
                 this.moneySave = doc.data().moneySave;
                 this.name = doc.data().name;
                 this.travelNum = doc.data().travelNum;
-                console.log(this.name);
+                console.log(this.expiry);
             })
         },
         openChangePasswordBox() {
@@ -106,12 +109,12 @@ export default ({
         }
     },
     created() {
+        //alert("Current User ID: " + firebase.auth().currentUser.uid);
         this.fetchUserData();
     }
 })
 </script>
 
-<!--
 <style scoped>
 p {
     text-align: left;
@@ -121,11 +124,25 @@ button {
     margin: 15px;
 }
 
+img {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 5px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
 .field {
     background-color: green;
     color: white;
     padding: 10px;
-    width: 300px;
+    align-content: center;
+    width: auto;
     border-radius: 15px;
 }
 
@@ -167,5 +184,4 @@ form {
     text-align: left;
 }
 
-</style> 
--->
+</style>

@@ -1,6 +1,6 @@
 <template>
 <div class="row">
-  <div class="column">
+  <div class="left">
       <a>
           <div><button type="button" v-on:click="showPart1()">What is SGTravel Buddy?</button></div>
           <div><button type="button" v-on:click="showPart2()">PlantPal</button></div>
@@ -9,7 +9,8 @@
       </a>
   </div>
 
-  <div>
+  <div class="right">
+
       <div v-if="part1">
           <p>SGTravelBuddy is your companion, determined to help you save the world, one ride at a time. We believe that we can all do our part in making Sinagpore and the world clean and green. The pandemic may be here to stay, but we can still do our part fot the environment!</p>
       </div>
@@ -70,10 +71,15 @@ export default {
 }
 </script>
 
-<style>
-.column {
+<style scoped>
+.left {
   float: left;
   width: 30%;
+  
+}
+.right{
+    float: left;
+    width: 70%;
 }
 
 /* Clear floats after the columns */
@@ -84,7 +90,15 @@ export default {
 }
 
 button {
-    border: none;
+    text-align: center;
     background: none;
+    transition-duration: 0.4s;
+    padding: 10px 24px;
+    border: 2px solid #4CAF50; /* Green */
+    width: 300px;
+}
+button:hover{
+    background-color: #4CAF50;
+    color: white;
 }
 </style>
