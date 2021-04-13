@@ -1,33 +1,30 @@
 <template>
   <div id="app">
-      <Header></Header>
-        <nav> 
-          <ul> 
-            <li><router-link to="/" exact>Home</router-link></li>
-            <li><router-link to="/profile" exact>Profile</router-link></li>
-            <li><router-link to="/plan" exact>Plan</router-link></li>
-            <li><router-link to="/plantpal" exact>PlantPal</router-link></li>
-            <li><router-link to="/howtouse" exact>How To Use</router-link></li>
-          </ul>
-        </nav>
-        
+    <Header></Header>
+    <br>
+    <PageContent></PageContent>
 
     <div id="content">
+      <br>
       <router-view></router-view>
     </div>
 
     <Footer></Footer>
-  </div>
+ </div>
+
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import PageContent from './components/PageContent.vue'
 import Footer from './components/Footer.vue'
+
 
 export default {
   name: 'App',
   components: {
     Header,
+    PageContent,
     Footer
   }
 }
@@ -39,20 +36,39 @@ header {
   padding: 10px;
 }
 
+.topnav {
+  float: left;
+  overflow: hidden;
+  background-color: black;
+}
+
 ul {
-  display: flex;
-  flex-wrap: none;
+  float: left;
   list-style-type: none;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: sticky;
 }
 
 li {
-  flex-grow: 1;
-  flex-basis: 200px;
+  float: left;
+  display: inline;
+  border-right: 1px solid #bbb;
+}
+
+li a{
+  display: block;
+  color: white;
   text-align: center;
-  padding: 0px;
-  border: none;
-  margin: 0px;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
 }
 
 #app {
@@ -68,9 +84,11 @@ li {
 
 #content {
   float: bottom;
-  padding: 60px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 40px;
+  padding-bottom: 20px;
   background-color: rgb(171, 249, 207);
-
   border: none;
 }
 
