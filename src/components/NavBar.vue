@@ -27,28 +27,28 @@ require('firebase/auth');
 export default {
     data(){
         return{
-            signedIn: firebase.auth().currentUser,
+            signedIn: false,
             currentUser: false,
         }
     },
     methods: {
         logOut: function() {
             firebase.auth().signOut().then(() => {
-                this.$router.push('/login')
+                this.$router.push('/login');
+                this.$parent.forceRerender();
             })
         },
         loginCheck: function() {
-            if(firebase.auth().currentUser != null) {
-                console.log(this.signedIn)
-                this.signedIn = true;
-                this.currentUser = firebase.auth().currentUser;
-            }
+          if(firebase.auth().currentUser){
+            this.signedIn = true;
+            this.currentUser = firebase.auth().currentUser;
+          }
         },
     },
     created() {
         this.loginCheck();
         console.log('check');
-        console.log(firebase.auth().currentUser);
+        console.log(this.currentUser);
     },
 };
 </script>
