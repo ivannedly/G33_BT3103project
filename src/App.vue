@@ -84,7 +84,7 @@ li a:hover {
   padding-left: 20px;
   padding-right: 40px;
   padding-bottom: 20px;
-  background-color: rgb(171, 249, 207);
+  background-color: white;
   border: none;
 }
 
