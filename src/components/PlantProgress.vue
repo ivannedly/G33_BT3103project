@@ -1,41 +1,40 @@
 <template>
 <vue-ellipse-progress 
-  :data="circles"                    
-  :progress="progress"
-  :angle="-90"
-  color="blue"
-  :colorFill="colorFillGradient"
-  emptyColor="#8ec5fc"
-  :emptyColorFill="emptyColorFillGradient"                      
-  :size="300"
-  :thickness="10"
-  emptyThickness="10%"
-  lineMode="in 10"
-  :legend="true"
-  :legendValue="180"
-  legendClass="legend-custom-style"
-  dash="60 0.9"
-  animation="reverse 700 400"
-  :noData="false"
-  :loading="false"                      
-  fontColor="white"
-  :half="false"
-  :gap="10"
-  dot="10 blue"
-  fontSize="5rem">
+  :progress="getCurrentLevel()"
+  :legend= true
+  :legendValue= this.currentLevel%7>
   
-  <span slot="legend-value">/200</span>
-  <p slot="legend-caption">GOOD JOB</p>
-  
+  <span slot="legend-value">/20</span>
+  <p slot="legend-caption">Level {{Math.floor(this.currentLevel / 20)}}</p>
 </vue-ellipse-progress>
 </template>
 
 <script>
-import VueEllipseProgress from 'vue-ellipse-progress';
+import database from "../firebase.js"
+import firebase from '@firebase/app'
 
 export default {
-  components: {
-    VueEllipseProgress
+  data: function() {
+    return {
+      currentLevel: 0
+    }
+  },
+
+  methods: {
+    fetchItems:function() {
+      var user = firebase.auth().currentUser.uid;
+      database.collection('users').doc(user).get().then(doc => {
+      this.currentLevel = doc.data().ppLevel;
+    });
+    },
+
+    getCurrentLevel: function() {
+      return this.currentLevel
+    }
+  },
+
+  created() {
+    this.fetchItems();
   }
 }
 

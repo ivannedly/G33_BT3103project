@@ -44,11 +44,15 @@ export default {
     },
 
     planTravel: function() {
-      var user = firebase.auth().currentUser.uid
+      var user = firebase.auth().currentUser.uid;
+      const increaseBy = firebase.firestore.FieldValue.increment(4);
       database.collection('users').doc(user).update({
         start: this.start,
-        end: this.end
+        end: this.end,
+        ppLevel: increaseBy
       })
+      
+
     }
   }
 }
