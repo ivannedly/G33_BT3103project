@@ -11,7 +11,7 @@
     <h v-if="Math.floor(this.currentLevel/20) < 10"> <img :src="seeds"/> </h>
     <h v-else-if="Math.floor(this.currentLevel/20) < 20"> <img :src="sprout"/> </h>
     <h v-else-if="Math.floor(this.currentLevel/20) < 30"> <img :src="plant"/> </h>
-    <h v-else> <img :src="plant"/> </h>
+    <h v-else> <img :src="tree"/> </h>
 
   </div>
 
