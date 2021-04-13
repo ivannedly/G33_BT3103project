@@ -55,7 +55,7 @@ import NavBar from './NavBar.vue';
 export default {
     data(){
         return{
-            signedIn: firebase.auth().currentUser,
+            signedIn: false,
             currentUser: false,
             logo: logo,
         }
