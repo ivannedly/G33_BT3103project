@@ -4,9 +4,11 @@
             <a class="app-logo">
                <img :src="logo"/>
                <h1>SGTravel Buddy</h1>
-            </a>
+            </a><br>
+            <NavBar></NavBar>
         </div>
     </header>
+    
     <!--
     <div>
     <nav id="topnav"> 
@@ -47,6 +49,7 @@
 import firebase from "@firebase/app";
 require('firebase/auth');
 import logo from "../assets/logo.jpg";
+import NavBar from './NavBar.vue';
 
 export default {
     data(){
@@ -55,6 +58,9 @@ export default {
             currentUser: false,
             logo: logo,
         }
+    },
+    components: {
+        NavBar,
     },
     methods: {
         logOut: function() {

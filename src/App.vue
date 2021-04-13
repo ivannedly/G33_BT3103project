@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <Header></Header>
-    <br>
-    <PageContent></PageContent>
 
     <div id="content">
       <br>
@@ -16,7 +14,6 @@
 
 <script>
 import Header from './components/Header.vue'
-import PageContent from './components/PageContent.vue'
 import Footer from './components/Footer.vue'
 
 
@@ -24,7 +21,6 @@ export default {
   name: 'App',
   components: {
     Header,
-    PageContent,
     Footer
   }
 }
