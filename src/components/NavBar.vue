@@ -8,7 +8,7 @@
             <li><a><router-link to="/plantpal" exact>PlantPal</router-link></a></li>
             <li><a><router-link to="/howtouse" exact>How To Use</router-link></a></li>
             <div v-if="signedIn">
-              <li style="float:right"><a href="#" v-on:click = "logOut">LogOut</a></li>
+              <li style="float:right"><a v-on:click = "logOut">LogOut</a></li>
             </div>
 
             <div v-else>
@@ -27,7 +27,7 @@ require('firebase/auth');
 export default {
     data(){
         return{
-            signedIn: false,
+            signedIn: true,
             currentUser: false,
         }
     },

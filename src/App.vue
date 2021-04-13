@@ -6,8 +6,13 @@
       <br>
       <router-view></router-view>
     </div>
-
+    
+    <div id="footer">
     <Footer></Footer>
+    </div>
+
+    <div id="bottom">
+    </div>
  </div>
 
 </template>
@@ -90,5 +95,18 @@ li a:hover {
 
 #map {
   height: 100%;
+}
+
+#footer { 
+  background-color: rgb(125, 194, 156);
+  height: 160px;
+  padding: 10px;
+  border: none;
+}
+#bottom {
+  background-color: seagreen;
+  height: 30px;
+  border: none;
+  padding: 10px;
 }
 </style>

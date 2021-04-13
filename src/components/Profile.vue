@@ -33,14 +33,11 @@ export default ({
     width: 68%;
     padding-left: 20px;
 }
-
-/* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
-
 #userStatistics {
   background-color: #CFD171;
   border-radius: 15px;
