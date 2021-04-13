@@ -13,7 +13,7 @@ import UserStatistics from './UserStatistics.vue'
 
 export default ({
   data() {
-    
+    return {}
   },
   components: {
     UserInformation,
