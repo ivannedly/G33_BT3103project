@@ -101,4 +101,8 @@ button:hover{
     background-color: #4CAF50;
     color: white;
 }
+
+p {
+    padding: 20px;
+}
 </style>

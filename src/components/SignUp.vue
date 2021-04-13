@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import db from '../firebase.js';
+import database from '../firebase.js';
 import firebase from '@firebase/app';
 require('firebase/auth');
 export default {
@@ -61,10 +61,12 @@ export default {
         end: "singapore" 
       }
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred =>{
-        db.collection("users").doc(cred.user.uid).set(
-          Object.assign({}, new_user)
-        )
-        this.$router.push({path:"/"})
+        database.collection("users")
+                .doc(cred.user.uid)
+                .set(Object.assign({}, new_user));
+      }).then(() => {
+        this.$router.push({path: "/profile"});
+        this.$parent.forceRerender();
       })
     }
   }
