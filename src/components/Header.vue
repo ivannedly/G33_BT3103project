@@ -3,8 +3,9 @@
         <div>
             <a class="app-logo">
                <img :src="logo"/>
-               <h1>SGTravel Buddy</h1>
-            </a><br>
+               
+            </a>
+            <div class="topHeader">SGTravel Buddy</div>
             <NavBar></NavBar>
         </div>
     </header>
@@ -89,25 +90,22 @@ export default {
 router-link {
     text-decoration: none;
 }
-header {
-    padding: 10px;
-    height: 50%;
-}
 img {
     width: 150px;
     height: 150px;
 }
+.topHeader {
+    text-align: center;
+    font-family: Monaco;
+    font-size: 45px;
+    font-style: bold;
+}
 .app-logo {
-    display: flex;
-    margin-left: 50px;
-    height: 50%;
-    width: 50%;
-    float: left;
+    width: 100%;
     text-align: center;
 }
 
 .topnav {
-  overflow: hidden;
   background-color: black;
 }
 

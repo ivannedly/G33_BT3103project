@@ -7,14 +7,14 @@
             <li><a><router-link to="/plan" exact>Plan</router-link></a></li>
             <li><a><router-link to="/plantpal" exact>PlantPal</router-link></a></li>
             <li><a><router-link to="/howtouse" exact>How To Use</router-link></a></li>
-            <a v-if="signedIn">
+            <div v-if="signedIn">
               <li style="float:right"><a href="#" v-on:click = "logOut">LogOut</a></li>
-            </a>
+            </div>
 
-            <a v-else>
-              <li style="float:right"><router-link to="/login" exact>Log In</router-link></li>
-              <li style="float:right"><router-link to="/signUp" exact>Sign Up</router-link></li>
-            </a>
+            <div v-else>
+              <li style="float:right"><a><router-link to="/login" exact>Log In</router-link></a></li>
+              <li style="float:right"><a><router-link to="/signUp" exact>Sign Up</router-link></a></li>
+            </div>
           </ul>
     </nav>
 </div>   
@@ -56,6 +56,7 @@ export default {
 <style scoped>
 nav {
     overflow: hidden;
+    position: sticky;
 }
 ul {
   list-style-type: none;
@@ -67,7 +68,6 @@ ul {
 
 li {
   float: left;
-  display: inline;
   border-right: 1px solid #bbb;
 }
 
@@ -75,8 +75,10 @@ li a{
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
+  width: 110px;
+  height: 40px;
+  padding-top: 6px;
 }
 
 /* Change the link color to #111 (black) on hover */
