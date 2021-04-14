@@ -16,16 +16,19 @@
         Get connected with us to get the latest changes.
         <br><br>
         <a href="https://www.instagram.com/sgtravel_buddy/"><img :src="ins"/></a>
+        <a href="https://www.facebook.com/travelbuddy.sg.7/"><img :src="fb"/></a>
       </div>
     </div>
 </template>
 
 <script>
 import ins from "../assets/ins.png";
+import fb from "../assets/fb.png";
 export default {
     data(){
         return{
             ins: ins,
+            fb: fb,
         }
     },
 }
@@ -42,6 +45,7 @@ export default {
 img {
   height: 30px;
   width: 30px;
+  padding-right: 10px;
 }
 
 .left {
