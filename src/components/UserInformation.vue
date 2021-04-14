@@ -65,24 +65,10 @@ export default ({
     },
     methods: {
         fetchUserData() {
-            //Uncommented after figuring out how to add in "firebase"
-            //var user = firebase.auth().currentUser;
-
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    console.log("There is a current user!");
-                    database.collection('users').doc(user.uid).get().then(doc => {
-                        this.name = doc.data().name;
-                        this.email = doc.data().email;
-                        console.log("The name of user is: " + this.name);
-                        console.log("The user's email is: " + this.email);
-                        console.log("The user's uid is " + user.uid);
-                    })
-                } else {
-                    console.log("There is no current user!")
-                }
+            database.collection('users').doc(localStorage.uid).get().then(doc => {
+                this.name = doc.data().name;
+                this.email = doc.data().email;
             })
-
         },
         openChangePasswordBox() {
             console.log("Activating openChangePasswordBox...");

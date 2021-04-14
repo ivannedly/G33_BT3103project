@@ -27,10 +27,13 @@ export default {
   },
   methods:{
     signIn: function(){
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(userCredential =>{
-          var user = userCredential.user;
-          alert("You are now successfully logged in as " + user.email);
-          this.$router.push({path: "/"})
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) =>{
+          var currUser = user.user;
+          localStorage.uid = currUser.uid;
+          console.log(localStorage.uid)
+          alert("You are now successfully logged in as " + currUser.email);
+          this.$router.push({path: "/profile"})
+          this.$parent.forceRerender();
       })
     }
   },
@@ -41,14 +44,12 @@ export default {
 header {
   padding: 10px;
 }
-
 ul {
   display: flex;
   flex-wrap: none;
   list-style-type: none;
   padding: 0px;
 }
-
 li {
   flex-grow: 1;
   flex-basis: 200px;
@@ -57,7 +58,6 @@ li {
   border: none;
   margin: 0px;
 }
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   background-color: rgb(159, 227, 159);
@@ -68,15 +68,12 @@ li {
   margin-top: 0px;
   border: none;
 }
-
 #content {
   float: bottom;
   padding: 60px;
   background-color: rgb(171, 249, 207);
-
   border: none;
 }
-
 #footer { 
   background-color: rgb(125, 194, 156);
   height: 120px;

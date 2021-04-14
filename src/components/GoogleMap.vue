@@ -14,8 +14,6 @@
 
 import DirectionsRenderer from "./DirectionsRenderer.js";
 import database from '../firebase.js'
-import firebase from '@firebase/app'
-require('firebase/auth');
 
 export default {
   components: {
@@ -26,15 +24,14 @@ export default {
     return {
       start: "",
       end: "",
-      user: ""
+      uid: ""
     }
   },
 
   methods: { 
     fetchItems: function() {
-      console.log(localStorage.user)
-      this.user = firebase.auth().currentUser.uid;
-      console.log("hello");
+      this.user = localStorage.uid;
+      console.log(this.user);
       database.collection('users').doc(this.user).get().then(doc => {
         this.start = doc.data().start;
         this.end = doc.data().end;

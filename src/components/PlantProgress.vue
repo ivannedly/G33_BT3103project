@@ -19,7 +19,6 @@
 
 <script>
 import database from "../firebase.js"
-import firebase from '@firebase/app'
 import seeds from "../assets/seeds.jpg"
 import sprout from "../assets/sprout.jpg"
 import plant from "../assets/plant.jpg"
@@ -40,8 +39,7 @@ export default {
 
   methods: {
     fetchItems:function() {
-      var user = firebase.auth().currentUser.uid;
-      database.collection('users').doc(user).get().then(doc => {
+      database.collection('users').doc(localStorage.uid).get().then(doc => {
       this.currentLevel = doc.data().ppLevel;
     });
     },
