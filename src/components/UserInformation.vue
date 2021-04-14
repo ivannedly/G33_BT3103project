@@ -45,7 +45,7 @@
 <script>
 import database from '../firebase.js';
 import firebase from 'firebase';
-
+require('firebase/auth');
 
 export default ({
     data() {

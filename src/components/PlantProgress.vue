@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-ellipse-progress 
-      :progress="getCurrentLevel()"
+      :progress="currentLevel"
       :legend= true
       :legendValue= this.currentLevel%7>
       <span slot="legend-value">/20</span>
@@ -42,10 +42,6 @@ export default {
       database.collection('users').doc(localStorage.uid).get().then(doc => {
       this.currentLevel = doc.data().ppLevel;
     });
-    },
-
-    getCurrentLevel: function() {
-      return this.currentLevel
     }
   },
 
