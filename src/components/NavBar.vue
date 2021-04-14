@@ -28,7 +28,7 @@ require('firebase/auth');
 export default {
     data(){
         return{
-            signedIn: true,
+            signedIn: false,
             currentUser: false,
         }
     },
@@ -48,8 +48,6 @@ export default {
     },
     created() {
         this.loginCheck();
-        console.log('check');
-        console.log(this.currentUser);
     },
 };
 </script>

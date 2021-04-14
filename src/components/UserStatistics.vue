@@ -94,9 +94,7 @@ export default ({
                 this.moneySave = doc.data().moneySave;
                 this.name = doc.data().name;
                 this.travelNum = doc.data().travelNum;
-                
-                console.log(this.journeyCarbonCut);
-                console.log(this.journeyDate);
+            
             })
         },
     },

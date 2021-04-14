@@ -79,8 +79,6 @@ export default {
     },
     created() {
         this.loginCheck();
-        console.log('check');
-        console.log(firebase.auth().currentUser);
     },
 };
 </script>

@@ -5,7 +5,7 @@
       :legend= true
       :legendValue= this.currentLevel%7>
       <span slot="legend-value">/20</span>
-      <p slot="legend-caption">Level {{Math.floor(this.currentLevel/20)}}</p>
+      <p slot="legend-caption">Level {{ Math.floor(this.currentLevel/20) }}</p>
     </vue-ellipse-progress>
     <br>
     <h v-if="Math.floor(this.currentLevel/20) < 10"> <img :src="seeds"/> </h>

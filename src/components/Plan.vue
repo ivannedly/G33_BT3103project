@@ -34,7 +34,8 @@ export default {
   data: function() {
     return {
       start: "",
-      end: ""
+      end: "",
+      user: "",
     }
   },
   
@@ -49,15 +50,14 @@ export default {
     },
 
     planTravel: function() {
-      var user = firebase.auth().currentUser.uid;
+      this.user = firebase.auth().currentUser.uid;
       const increaseBy = firebase.firestore.FieldValue.increment(4);
-      database.collection('users').doc(user).update({
+      database.collection('users').doc(this.user).update({
         start: this.start,
         end: this.end,
-        ppLevel: increaseBy
+        ppLevel: increaseBy,
       })
-      
-
+      console.log("here")
     }
   }
 }

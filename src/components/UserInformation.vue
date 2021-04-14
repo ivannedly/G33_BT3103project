@@ -14,9 +14,9 @@
         <br> <!--To be changed later with photo url from databse-->
         <button>Change Profile Photo</button>
         <p><b>NAME</b></p>
-        <p class="field"> {{this.name}}</p>
+        <p class="field">{{name}}</p>
         <p><b>EMAIL</b></p>
-        <p class="field">{{this.email}}</p>
+        <p class="field">{{email}}</p>
         <button id="changePasswordButton" v-on:click="openChangePasswordBox">Change Password</button> 
         <button>Update Personal Information</button>
         <br><br>
@@ -44,19 +44,16 @@
 
 <script>
 import database from '../firebase.js';
-import firebase from '@firebase/app';
+import firebase from 'firebase';
+
 
 export default ({
     data() {
         return {
             //userInformation: [],
             carbonCut: 0,
-            cardholder: "",
-            creditNum: "",
-            csv: "",
             distance: 0,
             email: "",
-            expiry: "",
             mobile: "",
             moneySave: "",
             name: "",
@@ -67,35 +64,37 @@ export default ({
         }
     },
     methods: {
-        fetchUserData: function() {
-            // Problem accessing current user
-            var user = firebase.auth().currentUser.uid;
-            database.collection('users').doc(user).get().then(doc => {
-            //database.collection('users').doc("kF6WPySduVVLpNHxD6gFLP12uA52").get().then(doc => {
-                this.carbonCut = doc.data().carbonCut;
-                this.cardHolder = doc.data().cardHolder;
-                this.creditNum = doc.data().creditNum;
-                this.csv = doc.data().csv;
-                this.distance = doc.data().distance;
-                this.email = doc.data().email;
-                this.expiry = doc.data().expiry;
-                this.mobile = doc.data().mobile;
-                this.moneySave = doc.data().moneySave;
-                this.name = doc.data().name;
-                this.travelNum = doc.data().travelNum;
+        fetchUserData() {
+            //Uncommented after figuring out how to add in "firebase"
+            //var user = firebase.auth().currentUser;
+
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    console.log("There is a current user!");
+                    database.collection('users').doc(user.uid).get().then(doc => {
+                        this.name = doc.data().name;
+                        this.email = doc.data().email;
+                        console.log("The name of user is: " + this.name);
+                        console.log("The user's email is: " + this.email);
+                        console.log("The user's uid is " + user.uid);
+                    })
+                } else {
+                    console.log("There is no current user!")
+                }
             })
+
         },
-        openChangePasswordBox: function() {
+        openChangePasswordBox() {
             console.log("Activating openChangePasswordBox...");
             var modal = document.getElementById("changePasswordBox");
             modal.style.display = "block";
         },
-        closeChangePasswordBox: function() {
+        closeChangePasswordBox() {
             var modal = document.getElementById("changePasswordBox");
             modal.style.display = "none";
         },
         // Need to try this method again after sign-in page has been added as "user" currently has null value.
-        changePassword: function() {
+        changePassword() {
             if (this.newPassword1 != this.newPassword2 || this.newPassword1.length == 0) {
                 console.log("Passwords do not match");
                 this.alertMessage = "The password(s) you have entered do not match. Please try again.";
@@ -109,13 +108,12 @@ export default ({
         }
     },
     created() {
-        //alert("Current User ID: " + firebase.auth().currentUser.uid);
         this.fetchUserData();
-        console.log(this.name);
     }
 })
 </script>
 
+<!--
 <style scoped>
 p {
     text-align: left;
@@ -125,25 +123,11 @@ button {
     margin: 15px;
 }
 
-img {
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  padding: 5px;
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-}
-
-img:hover {
-  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-}
-
 .field {
     background-color: green;
     color: white;
     padding: 10px;
-    align-content: center;
-    width: auto;
+    width: 300px;
     border-radius: 15px;
 }
 
@@ -185,4 +169,5 @@ form {
     text-align: left;
 }
 
-</style>
+</style> 
+-->

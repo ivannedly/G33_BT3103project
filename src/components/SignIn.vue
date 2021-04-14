@@ -27,12 +27,10 @@ export default {
   },
   methods:{
     signIn: function(){
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) =>{
-          console.log(user);
-          var currUser = user.user;
-          alert("You are now successfully logged in as " + currUser.email);
-          this.$router.push({path: "/profile"})
-          this.$parent.forceRerender();
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(userCredential =>{
+          var user = userCredential.user;
+          alert("You are now successfully logged in as " + user.email);
+          this.$router.push({path: "/"})
       })
     }
   },

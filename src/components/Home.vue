@@ -7,6 +7,7 @@
 <script>
 import GoogleMap from './GoogleMap.vue'
 
+
 export default { 
   components: {
     GoogleMap
@@ -14,9 +15,8 @@ export default {
   
   data() {
     return {
+      user: ""
     };
-  },
-  created: function() {
   }
 }
 </script>
