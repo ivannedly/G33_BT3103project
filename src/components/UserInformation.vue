@@ -12,7 +12,10 @@
         -->
         <img src = "https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8dHJlZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt = "Photo of Tree"> <!--need to make sure they are all cropped to the same size-->
         <br> <!--To be changed later with photo url from databse-->
+        <img :src = pic1>
         <button>Change Profile Photo</button>
+        <input type="file" @change="onFileSelected">
+        <button @click="onUpload">Upload</button>
         <p><b>NAME</b></p>
         <p class="field">{{name}}</p>
         <p><b>EMAIL</b></p>
@@ -46,6 +49,7 @@
 import database from '../firebase.js';
 import firebase from 'firebase';
 require('firebase/auth');
+import 'firebase/storage';
 
 export default ({
     data() {
@@ -61,13 +65,39 @@ export default ({
             newPassword1: "",
             newPassword2: "",
             alertMessage: "",
+            selectedFile: null,
+            pic1: "",
         }
     },
     methods: {
+        onFileSelected(event) {
+            console.log(event);
+            // Stores the file in data
+            this.selectedFile = event.target.files[0];
+        },
+        onUpload() {
+            // Stores the file in Firestore Storgae
+            const ref = firebase.storage().ref().child('some-child');
+            ref.put(this.selectedFile).then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+                console.log(snapshot);
+            });
+
+            // Need to figure out how to get the link from Firestore Storage to Firestore Database
+
+            /*database.collection('users').doc(localStorage.uid).update({
+                profilePhoto: ref.getDownloadURL(),
+            })*/
+            /*uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                console.log('File available at', downloadURL);
+            });*/
+        },
         fetchUserData() {
             database.collection('users').doc(localStorage.uid).get().then(doc => {
                 this.name = doc.data().name;
                 this.email = doc.data().email;
+                this.originalFile = doc.data().profilePic;
+                this.pic1 = doc.data().pic1;
             })
         },
         openChangePasswordBox() {
@@ -120,20 +150,6 @@ p {
 button {
     margin: 15px;
 }
-
-img {
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  padding: 5px;
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-}
-
-img:hover {
-  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-}
-
 
 .field {
     background-color: green;
