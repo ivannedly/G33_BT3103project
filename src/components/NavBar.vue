@@ -35,15 +35,18 @@ export default {
     },
     methods: {
         logOut: function() {
-            firebase.auth().signOut().then(() => {
-                this.$router.push('/login');
-                this.$parent.forceRerender();
-            })
+          firebase.auth().signOut().then(() => {
+              localStorage.clear();
+              alert("You have successfully logged out!")
+          }).then(() => {
+            this.$router.push('/login');
+            location.reload();
+          })
         },
         loginCheck: function() {
-          if(firebase.auth().currentUser){
+          if(localStorage.uid != null){
             this.signedIn = true;
-            this.currentUser = firebase.auth().currentUser.uid;
+            this.currentUser = localStorage.uid;
           }
         },
     },
