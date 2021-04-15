@@ -11,7 +11,7 @@
 import UserInformation from './UserInformation.vue'
 import UserStatistics from './UserStatistics.vue'
 
-export default ({
+export default {
   data() {
     return {}
   },
@@ -19,7 +19,7 @@ export default ({
     UserInformation,
     UserStatistics,
   }
-})
+}
 </script>
 
 <style scoped>
