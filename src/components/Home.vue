@@ -32,6 +32,7 @@ export default {
 .map {
   float: left;
   width: 33%;
+  border-radius: 10px;
 }
 .userProfile {
   float: left;

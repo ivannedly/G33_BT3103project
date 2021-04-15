@@ -36,7 +36,6 @@ export default {
         this.start = doc.data().start;
         this.end = doc.data().end;
       });
-
     }
   },
 
