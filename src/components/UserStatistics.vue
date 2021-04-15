@@ -12,16 +12,13 @@
         <p><b>TOTAL DISTANCE TRAVELLED (KM): </b>{{distance}}</p>
         <p><b>CARBON FOOTPRINT REDUCED (KG): </b>{{carbonCut}}</p>
         <p><b>MONEY SAVED (IN SGD): </b>{{moneySave}}</p>
-        <p>{{journeyCarbonCut}}</p>
-        <p>{{journeyDate}}</p>
-        <Plotly :data="data1" :layout="layout1"></Plotly>
-        <Plotly :data="data2" :layout="layout2"></Plotly>
+        <StatisticsGraph v-bind:cumulativeCarbonCut="cumulativeCarbonCut" v-bind:journeyDate="journeyDate"></StatisticsGraph>
     </div>
 </template>
 
 <script>
 import database from '../firebase.js';
-import {Plotly} from 'vue-plotly';
+import StatisticsGraph from './StatisticsGraph.vue';
 
 export default ({
     data() {
@@ -33,47 +30,35 @@ export default ({
             moneySave: 0,
             travelNum: 0,
             cumulativeCarbonCut: [],
-            data1: [{
-                x: [1,2,3,4],
-                y: [10,15,13,17],
-                type: "scatter"
-            }],
-            layout1: {
-                title: "My Graph"
-            },
-            data2: [{
-                //x: this.journeyDate,
-                x: ["2019-12-31T16:00:00.000Z", "2020-01-31T16:00:00.000Z", "2020-02-29T16:00:00.000Z", "2020-03-31T16:00:00.000Z", "2020-04-30T16:00:00.000Z", "2020-05-31T16:00:00.000Z", "2020-06-30T16:00:00.000Z", "2020-07-31T16:00:00.000Z", "2020-08-31T16:00:00.000Z", "2020-09-30T16:00:00.000Z", "2020-10-31T16:00:00.000Z", "2020-11-30T16:00:00.000Z", "2020-12-31T16:00:00.000Z", "2021-01-31T16:00:00.000Z", "2021-02-28T16:00:00.000Z", "2021-03-31T16:00:00.000Z"],
-                y: this.cumulativeCarbonCut,
-                type: "scatter"
-            }],
-            layout2: {
-                title: "My Graph"
-            },
         }
     },
     components: {
-        Plotly,
+        StatisticsGraph
     },
     methods: {
         fetchUserData() {
+            console.log(localStorage.uid);
             database.collection('users').doc(localStorage.uid).get().then(doc => {
                 this.carbonCut = doc.data().carbonCut;
                 this.distance = doc.data().distance;
                 // Get carbon emissions saved
                 this.journeyCarbonCut = doc.data().journeyCarbonCut;
-                var journeyCarbonCutFromData = doc.data().journeyDate;
+                var journeyCarbonCutFromData = doc.data().journeyCarbonCut;
                 var currentCarbonCut = 0;
-                for (var i = 0; i < journeyCarbonCutFromData; i++) {
-                    currentCarbonCut += journeyCarbonCutFromData[i];
-                    this.cumulativeCarbonCut.push(currentCarbonCut);
+                for (var i = 0; i < journeyCarbonCutFromData.length; i++) {
+                    currentCarbonCut = Math.round((currentCarbonCut + journeyCarbonCutFromData[i]) * 1e12) / 1e12;
+                    this.cumulativeCarbonCut[i] = currentCarbonCut;
                 }
+                console.log(this.cumulativeCarbonCut);
                 // Get journey dates
                 var journeyDateFromData = doc.data().journeyDate;
                 for (var j = 0; j < journeyDateFromData.length; j++) {
                     var currentJourneyDate = journeyDateFromData[j];
                     this.journeyDate.push(currentJourneyDate.toDate().toISOString());
                 }
+                this.graphData[0] = this.cumulativeCarbonCut;
+                this.graphData[1] = this.journeyDate;
+                console.log("Graph Data: " + this.graphData);
 
                 this.moneySave = doc.data().moneySave;
                 this.travelNum = doc.data().travelNum;
