@@ -1,3 +1,5 @@
+<!-- link to firebase to get articles-->
+
 <template>
     <div class = "articles">
         
@@ -8,3 +10,7 @@
 <script>
 
 </script>
+
+<style scoped>
+
+</style>
