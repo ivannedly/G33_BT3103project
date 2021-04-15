@@ -99,8 +99,20 @@ export default ({
 })
 </script>
 
-<!--
+
 <style scoped>
+img {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 5px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
 p {
     text-align: left;
 }
@@ -156,4 +168,3 @@ form {
 }
 
 </style> 
--->
