@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-ellipse-progress 
-      :progress="currentLevel"
+      :progress="this.currentLevel"
       :legend= true
       :legendValue= this.currentLevel%3>
       <span slot="legend-value">/20</span>
