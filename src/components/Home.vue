@@ -1,8 +1,16 @@
 <template>
 <div class="row" v-if="signedIn">
-  <div class="map">
+  <div class="map" v-if="inTrip">
     <GoogleMap/>
+    <button type="button" class="payment-button">Pay for current trip</button>
+    <br><br>
   </div>
+  <div class="map-2" v-else>
+    <div class="trip-msgbox">
+    <a class="notrip-msg">You currently don't have upcoming trips.
+      <br>Go Plan page and start planning your next trip!</a></div>
+  </div>
+
   <div class="userProfile">
     <div class="welcome-msg">Welcome Back {{this.name}}!</div>
     <!-- temp profile photo to demonstrate the layout
@@ -20,6 +28,7 @@
     </div>
     <p class="message"><router-link to="/profile" exact>More in Profile</router-link></p>
   </div>
+
   <div class="plantInfo">
     <div class="plant-info">Your Plantpal</div>
     <PlantProgress></PlantProgress>
@@ -48,6 +57,7 @@ export default {
       name: "",
       carbonSaved: 0,
       signedIn: false,
+      inTrip: false,
     };
   },
 
@@ -85,6 +95,33 @@ img:hover {
   width: 30%;
   border-radius: 10px;
   height: 610px;
+  padding-bottom: 30px;
+  border:3px solid seagreen;
+}
+.map-2 {
+  float: left;
+  width: 30%;
+  border-radius: 10px;
+  height: 610px;
+  padding-bottom: 30px;
+  border:3px solid seagreen;
+  background-image: url("../assets/map.jpg");
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.trip-msgbox {
+  vertical-align: center;
+  background: rgba(143, 188, 139, 0.55);
+  padding-top: 250px;
+  padding-bottom: 255px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.notrip-msg {
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
+  vertical-align: center;
 }
 .userProfile {
   float: left;
@@ -103,6 +140,11 @@ img:hover {
   content: "";
   display: table;
   clear: both;
+}
+.payment-button {
+  text-align: center;
+  border: none;
+  font-size: 15px;
 }
 .welcome-msg {
   padding-top: 20px;
