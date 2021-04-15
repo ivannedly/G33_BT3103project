@@ -17,7 +17,10 @@
       </div>
 
       <div v-if="part2">
-          <p>temp payment</p>
+          <a class="payment-title">Payment methods:</a><br>
+          <img :src="visa"/> ｜
+          <img :src="mastercard"/> ｜
+          <img :src="americanexpress"/>
       </div>
 
       <div v-if="part3">
@@ -28,12 +31,19 @@
 </template>
 
 <script>
+import visa from "../assets/visa.png";
+import mastercard from "../assets/mastercard.png"
+import americanexpress from "../assets/americanexpress.png"
+
 export default {
     data() {
         return {
             part1: true,
             part2: false,
             part3: false,
+            visa: visa,
+            mastercard: mastercard,
+            americanexpress: americanexpress,
         }
     },
     methods: {
@@ -86,8 +96,18 @@ button:hover{
     background-color: #4CAF50;
     color: white;
 }
-
 p {
     padding: 20px;
+}
+.payment-title{
+    text-align: left;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 30px;
+}
+
+img {
+    width: 120px;
+    height: 80px;
 }
 </style>
