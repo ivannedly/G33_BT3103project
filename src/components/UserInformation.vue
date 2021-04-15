@@ -16,18 +16,20 @@
         <button>Change Profile Photo</button>
         <input type="file" @change="onFileSelected">
         <button @click="onUpload">Upload</button>
+        
         <p><b>NAME</b></p>
         <p class="field">{{name}}</p>
         <p><b>EMAIL</b></p>
         <p class="field">{{email}}</p>
+        
         <button v-on:click="openChangePasswordBox">Change Password</button> 
         <button>Update Personal Information</button>
         <br><br>
-        <button v-on:click="openEditCardDetailsBox">Edit Card Details</button>
+        <button v-on:click="openEditCardDetailsBox">Update Card Details</button>
         
         <!--Change Password Pop-up-->
         <div id="changePasswordBox">
-            <div id="changePasswordContent">
+            <div id="popUpContent">
                 <p class="close" v-on:click="closeChangePasswordBox">Close this Page</p>
                 <h1><b>Change Password</b></h1>
                 <form>
@@ -45,7 +47,7 @@
 
         <!--Change Card Details Pop-up-->
         <div id="editCardDetailsBox">
-            <div id="changePasswordContent">
+            <div id="popUpContent">
                 <p class="close" v-on:click="closeEditCardDetailsBox">Close this Page</p>
                 <h1><b>Update Card Details</b></h1>
                 <form>
@@ -240,7 +242,7 @@ button {
     background-color: rgba(0,0,0,0.4);
 }
 
-#changePasswordContent {
+#popUpContent {
     background-color: white;
     margin: 15% auto;
     padding: 20px;
