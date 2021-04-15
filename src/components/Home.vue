@@ -2,7 +2,7 @@
 <div class="row" v-if="signedIn">
   <div class="map" v-if="inTrip">
     <GoogleMap/>
-    <button type="button" class="payment-button">Pay for current trip</button>
+    <button type="button" class="payment-button" v-on:click="finishTrip">Pay for current trip</button>
     <br><br>
   </div>
   <div class="map-2" v-else>
@@ -68,8 +68,18 @@ export default {
           this.name = doc.data().name;
           this.carbonSaved = doc.data().carbonCut;
           this.signedIn = true;
+          if(doc.data().start != "singapore"){
+            this.inTrip=true;
+          }
         })
       }
+    },
+    finishTrip: function(){
+      //pop out QR code to scan
+      database.collection('users').doc(localStorage.uid).update({
+          start: "singapore",
+      })
+      location.reload();
     }
   },
 
