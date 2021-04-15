@@ -1,5 +1,5 @@
 <template>
-<div class="row">
+<div class="row" v-if="signedIn">
   <div class="map">
     <GoogleMap/>
   </div>
@@ -13,6 +13,9 @@
     <PlantProgress></PlantProgress>
   </div>
 </div>
+<div v-else>
+  <SignIn></SignIn>
+</div>
 </template>
 
 <script>
@@ -20,25 +23,31 @@ import GoogleMap from './GoogleMap.vue'
 import database from '../firebase.js';
 import PlantProgress from './PlantProgress.vue';
 import UserInfo from './UserInformation.vue';
+import SignIn from './SignIn.vue'
 
 export default { 
   components: {
     GoogleMap,
     PlantProgress,
     UserInfo,
+    SignIn,
   },
   
   data() {
     return {
       name: "",
+      signedIn: false,
     };
   },
 
   methods: {
     fetchUserName: function(){
-      database.collection('users').doc(localStorage.uid).get().then(doc => {
-        this.name = doc.data().name;
-      })
+      if(localStorage.uid != null){
+        database.collection('users').doc(localStorage.uid).get().then(doc => {
+          this.name = doc.data().name;
+          this.signedIn = true;
+        })
+      }
     }
   },
 
