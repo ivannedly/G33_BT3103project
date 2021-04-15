@@ -20,11 +20,12 @@
         <p class="field">{{name}}</p>
         <p><b>EMAIL</b></p>
         <p class="field">{{email}}</p>
-        <button id="changePasswordButton" v-on:click="openChangePasswordBox">Change Password</button> 
+        <button v-on:click="openChangePasswordBox">Change Password</button> 
         <button>Update Personal Information</button>
         <br><br>
-        <button>Edit Card Details</button>
+        <button v-on:click="openEditCardDetailsBox">Edit Card Details</button>
         
+        <!--Change Password Pop-up-->
         <div id="changePasswordBox">
             <div id="changePasswordContent">
                 <p class="close" v-on:click="closeChangePasswordBox">Close this Page</p>
@@ -36,8 +37,32 @@
                     <label for="pwd2">Confirm Your New Password: </label>
                     <input type="password" id="pwd2" name="pwd2" v-model="newPassword2">
                     <br><br>
-                    <p style="color: red;">{{alertMessage}}</p>
+                    <p style="color: red;">{{alertMessage1}}</p>
                     <input type="submit" value="Change Password" v-on:click.prevent="changePassword">
+                </form>
+            </div>
+        </div>
+
+        <!--Change Card Details Pop-up-->
+        <div id="editCardDetailsBox">
+            <div id="changePasswordContent">
+                <p class="close" v-on:click="closeEditCardDetailsBox">Close this Page</p>
+                <h1><b>Update Card Details</b></h1>
+                <form>
+                    <label for="cardholderName">Cardholder Name: </label>
+                    <input type="string" id="cardholderName" name="cardholderName" v-model="newCardholderName">
+                    <br><br>
+                    <label for="creditCardNumber">Credit Card Number: </label>
+                    <input type="string" id="creditCardNumber" name="creditCardNumber" v-model="newCreditCardNumber">
+                    <br><br>
+                    <label for="csv">CSV: </label>
+                    <input type="string" id="csv" name="csv" v-model="newCsv">
+                    <br><br>
+                    <label for="cardExpiryDate">Expiry Date: </label>
+                    <input type="date" id="cardExpiryDate" name="cardExpiryDate" v-model="newCardExpiryDate">
+                    <br><br>
+                    <p style="color: red;">{{alertMessage2}}</p>
+                    <input type="submit" value="Update Card Details" v-on:click.prevent="updateCardDetails">
                 </form>
             </div>
         </div>
@@ -64,9 +89,14 @@ export default ({
             travelNum: 0,
             newPassword1: "",
             newPassword2: "",
-            alertMessage: "",
+            alertMessage1: "",
             selectedFile: null,
             pic1: "",
+            newCardholderName: "",
+            newCreditCardNumber: "",
+            newCardExpiryDate: "",
+            newCsv: "",
+            alertMessage2: "",
         }
     },
     methods: {
@@ -113,13 +143,38 @@ export default ({
         changePassword() {
             if (this.newPassword1 != this.newPassword2 || this.newPassword1.length == 0) {
                 console.log("Passwords do not match");
-                this.alertMessage = "The password(s) you have entered do not match. Please try again.";
+                this.alertMessage1 = "The password(s) you have entered do not match. Please try again.";
             } else {
                 console.log("Passwords match");
-                this.alertMessage = "";
+                this.alertMessage1 = "";
                 var user = firebase.auth().currentUser;
                 user.updatePassword(this.newPassword1);
-                alert("Your password has been updated successfully");
+                alert("Your password has been updated successfully!");
+                location.reload();
+            }
+        },
+        openEditCardDetailsBox() {
+            var modal = document.getElementById("editCardDetailsBox");
+            modal.style.display = "block";
+        },        
+        closeEditCardDetailsBox() {
+            var modal = document.getElementById("editCardDetailsBox");
+            modal.style.display = "none";
+        },
+         updateCardDetails() {
+            if (this.newCardholderName.length==0 || this.newCreditCardNumber.length==0 || this.newCsv.length==0 || this.newCardExpiryDate.length==0) {
+                this.alertMessage2 = "You have not filled in one or more of the required fields. Please try again.";
+            } else {
+                this.alertMessage2 = "";
+                database.collection('users').doc(localStorage.uid).update({
+                    cardholder: this.newCardholderName,
+                    creditNum: this.newCreditCardNumber,
+                    csv: this.newCsv,
+                    expiry: this.newCardExpiryDate,
+                }).then(() => {
+                    alert("Your card details have been updated successfully!");
+                    location.reload()
+                });
             }
         }
     },
@@ -160,6 +215,19 @@ button {
 }
 
 #changePasswordBox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+#editCardDetailsBox {
     display: none;
     position: fixed;
     z-index: 1;
