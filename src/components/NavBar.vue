@@ -23,8 +23,8 @@
 </template>
 
 <script>
-//import firebase from "@firebase/app";
-//require('firebase/auth');
+import firebase from "@firebase/app";
+require('firebase/auth');
 
 export default {
     data(){
@@ -35,12 +35,13 @@ export default {
     },
     methods: {
         logOut: function() {
-          localStorage.clear();
-          this.$router.push('/login');
-            //firebase.auth().signOut().then(() => {
-              //this.$router.push('/login');
-              //this.$parent.forceRerender();
-            //})
+          firebase.auth().signOut().then(() => {
+              localStorage.clear();
+              alert("You have successfully logged out!")
+          }).then(() => {
+            this.$router.push('/login');
+            location.reload();
+          })
         },
         loginCheck: function() {
           if(localStorage.uid != null){
