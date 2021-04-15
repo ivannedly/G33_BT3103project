@@ -32,9 +32,10 @@ export default {
           localStorage.uid = currUser.uid;
           console.log(localStorage.uid)
           alert("You are now successfully logged in as " + currUser.email);
-          this.$router.push({path: "/profile"})
-          this.$parent.forceRerender();
-      })
+      }).then(() => {
+        this.$router.push('/profile');
+        location.reload();
+      });
     }
   },
 }
