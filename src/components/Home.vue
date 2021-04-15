@@ -4,27 +4,46 @@
     <GoogleMap/>
   </div>
   <div class="userProfile">
-    <a>temp profile</a>
+    <div class="welcome-msg">Welcome Back {{this.name}}!</div>
+    <UserInfo></Userinfo>
+    <p class="message"><router-link to="/profile" exact>More in Profile</router-link></p>
   </div>
   <div class="plantInfo">
-    <a> temp plant info</a>
+    <div class="plant-info">You are currently at: </div>
+    <PlantProgress></PlantProgress>
   </div>
 </div>
 </template>
 
 <script>
 import GoogleMap from './GoogleMap.vue'
-
+import database from '../firebase.js';
+import PlantProgress from './PlantProgress.vue';
+import UserInfo from './UserInformation.vue';
 
 export default { 
   components: {
-    GoogleMap
+    GoogleMap,
+    PlantProgress,
+    UserInfo,
   },
   
   data() {
     return {
-      user: ""
+      name: "",
     };
+  },
+
+  methods: {
+    fetchUserName: function(){
+      database.collection('users').doc(localStorage.uid).get().then(doc => {
+        this.name = doc.data().name;
+      })
+    }
+  },
+
+  created() {
+    this.fetchUserName();
   }
 }
 </script>
@@ -38,7 +57,6 @@ export default {
   width: 32%;
   background-color:mintcream;
   border-radius: 10px;
-  height: 600px;
   padding-left: 10px;
 }
 .plantInfo {
@@ -53,5 +71,17 @@ export default {
   content: "";
   display: table;
   clear: both;
+}
+
+.welcome-msg {
+  padding-top: 50px;
+  text-align: center;
+  padding-bottom: 30px;
+}
+.plant-info {
+  text-align: left;
+  padding-top: 50px;
+  padding-left: 20px;
+  padding-bottom: 30px;
 }
 </style>

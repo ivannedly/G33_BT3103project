@@ -56,7 +56,7 @@ img {
 .middle {
   float: left;
   width: 24%;
-  padding-left: 30px;
+  padding-left: 10px;
   text-align: left;
 }
 .right {

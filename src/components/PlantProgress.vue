@@ -51,3 +51,10 @@ export default {
 }
 
 </script>
+
+<style scoped>
+img {
+  height: 150px;
+  width: 150px;
+}
+</style>
