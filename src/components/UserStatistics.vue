@@ -26,19 +26,11 @@ import {Plotly} from 'vue-plotly';
 export default ({
     data() {
         return {
-            //userInformation: [],
             carbonCut: 0,
-            cardholder: "",
-            creditNum: "",
-            csv: "",
             distance: 0,
-            email: "",
-            expiry: "",
             journeyCarbonCut: [],
             journeyDate: [],
-            mobile: "",
-            moneySave: "",
-            name: "",
+            moneySave: 0,
             travelNum: 0,
             cumulativeCarbonCut: [],
             data1: [{
@@ -52,8 +44,7 @@ export default ({
             data2: [{
                 //x: this.journeyDate,
                 x: ["2019-12-31T16:00:00.000Z", "2020-01-31T16:00:00.000Z", "2020-02-29T16:00:00.000Z", "2020-03-31T16:00:00.000Z", "2020-04-30T16:00:00.000Z", "2020-05-31T16:00:00.000Z", "2020-06-30T16:00:00.000Z", "2020-07-31T16:00:00.000Z", "2020-08-31T16:00:00.000Z", "2020-09-30T16:00:00.000Z", "2020-10-31T16:00:00.000Z", "2020-11-30T16:00:00.000Z", "2020-12-31T16:00:00.000Z", "2021-01-31T16:00:00.000Z", "2021-02-28T16:00:00.000Z", "2021-03-31T16:00:00.000Z"],
-                //y: [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
-                y: this.journeyCarbonCut,
+                y: this.cumulativeCarbonCut,
                 type: "scatter"
             }],
             layout2: {
@@ -66,17 +57,10 @@ export default ({
     },
     methods: {
         fetchUserData() {
-            // Problem accessing current user
-            //database.collection('users').doc(firebase.auth().currentUser.uid).get().then(doc => {
-            database.collection('users').doc("kF6WPySduVVLpNHxD6gFLP12uA52").get().then(doc => {
+            database.collection('users').doc(localStorage.uid).get().then(doc => {
                 this.carbonCut = doc.data().carbonCut;
-                this.cardHolder = doc.data().cardHolder;
-                this.creditNum = doc.data().creditNum;
-                this.csv = doc.data().csv;
                 this.distance = doc.data().distance;
-                this.email = doc.data().email;
-                this.expiry = doc.data().expiry;
-
+                // Get carbon emissions saved
                 this.journeyCarbonCut = doc.data().journeyCarbonCut;
                 var journeyCarbonCutFromData = doc.data().journeyDate;
                 var currentCarbonCut = 0;
@@ -84,15 +68,14 @@ export default ({
                     currentCarbonCut += journeyCarbonCutFromData[i];
                     this.cumulativeCarbonCut.push(currentCarbonCut);
                 }
+                // Get journey dates
                 var journeyDateFromData = doc.data().journeyDate;
                 for (var j = 0; j < journeyDateFromData.length; j++) {
                     var currentJourneyDate = journeyDateFromData[j];
                     this.journeyDate.push(currentJourneyDate.toDate().toISOString());
                 }
 
-                this.mobile = doc.data().mobile;
                 this.moneySave = doc.data().moneySave;
-                this.name = doc.data().name;
                 this.travelNum = doc.data().travelNum;
             
             })
