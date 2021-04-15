@@ -1,14 +1,17 @@
 <template>
 <div class="row">
   
-  <div class="userProfile">
-    <div class="welcome-msg">Welcome Back {{this.name}}!</div>
-    <UserInfo></Userinfo>
-    <p class="message"><router-link to="/profile" exact>More in Profile</router-link></p>
+  <div class="article">
+    <Article></Article>
   </div>
+
   <div class="plantInfo">
     <div class="plant-info">You are currently at: </div>
     <PlantProgress></PlantProgress>
+  </div>
+
+  <div class="rewards">
+    <Reward></Reward>
   </div>
 </div>
 </template>
@@ -16,32 +19,39 @@
 <script>
 
 import PlantProgress from './PlantProgress.vue';
-
+import Article from './PlantArticles.vue';
+import Reward from './Rewards.vue';
 
 export default { 
   components: {
     PlantProgress,
-    //UserInfo,
+    Article,
+    Reward,
   },
   
 }
 </script>
 <style scoped>
-
-.userProfile {
+.article {
   float: left;
   width: 32%;
-  background-color:moccasin;
+  height: 700px;
+  background-color: darkseagreen;
   border-radius: 10px;
-  padding-left: 10px;
+  padding-right: 10px;
 }
 .plantInfo {
+  float: left;
+  width: 33%;
+  height: 700px;
+  padding-left: 20px;
+}
+.rewards {
   float: right;
-  width: 29%;
-  background-color:moccasin;
+  width: 30%;
+  background-color:paleturquoise;
   border-radius: 10px;
-  height: 600px;
-  padding: 5px;
+  height: 700px;
 }
 .row:after {
   content: "";

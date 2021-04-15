@@ -7,7 +7,6 @@
       <span slot="legend-value">/20</span>
       <p slot="legend-caption">Level {{ Math.floor(this.currentLevel/20) }}</p>
     </vue-ellipse-progress>
-    <br>
     <div>
       <h v-if="Math.floor(this.currentLevel/20) < 10"> <img :src="seeds" class="seed"/> </h>
       <h v-else-if="Math.floor(this.currentLevel/20) < 20"> <img :src="sprout" class="sprout"/> </h>
@@ -49,31 +48,32 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .seed { 
-    width: 2%;
+    width: 50%;
     padding: 100px;
     margin-left: auto;
     margin-right: auto;
   }
 
   .sprout {
-    width: 5%;
+    width: 50%;
     padding: 100px;
     margin-left: auto;
     margin-right: auto;
   }
 
   .plant {
-    width: 8%;
+    width: 50%;
     padding: 100px;
     margin-left: auto;
     margin-right: auto;
   }
 
   .tree {
-    width: 20%;
+    width: 50%;
     padding: 100px;
     margin-left: auto;
     margin-right: auto;  
   }
+</style>
