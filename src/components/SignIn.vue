@@ -33,7 +33,7 @@ export default {
           console.log(localStorage.uid)
           alert("You are now successfully logged in as " + currUser.email);
       }).then(() => {
-        this.$router.push('/profile');
+        this.$router.push('/');
         location.reload();
       });
     }

@@ -65,7 +65,7 @@ export default {
                 .doc(cred.user.uid)
                 .set(Object.assign({}, new_user));
       }).then(() => {
-        this.$router.push({path: "/profile"});
+        this.$router.push({path: "/login"});
         this.$parent.forceRerender();
       })
     }
