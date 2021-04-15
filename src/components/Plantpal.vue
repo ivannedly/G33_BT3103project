@@ -6,7 +6,7 @@
   </div>
 
   <div class="plantInfo">
-    <div class="plant-info">You are currently at: </div>
+    <div class="plant-info">Plant</div>
     <PlantProgress></PlantProgress>
   </div>
 
@@ -44,7 +44,7 @@ export default {
   float: left;
   width: 33%;
   height: 700px;
-  padding-left: 20px;
+  padding-left: 10px;
 }
 .rewards {
   float: right;
@@ -66,8 +66,10 @@ export default {
 }
 .plant-info {
   text-align: left;
-  padding-top: 50px;
+  padding-top: 20px;
   padding-left: 20px;
   padding-bottom: 30px;
+  font-size: 40px;
+  text-align: center;
 }
 </style>
