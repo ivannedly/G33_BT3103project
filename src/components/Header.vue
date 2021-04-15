@@ -50,18 +50,20 @@ export default {
 
 <style scoped>
 img {
+    padding-top: 10px;
     width: 150px;
     height: 150px;
 }
 
 .topHeader {
     text-align: center;
-    font-family: Monaco;
     font-size: 45px;
-    font-style: bold;
+    font-weight: bold;
+    color: black;
 }
 
 .app-logo {
+    padding-top: 10px;
     width: 100%;
     text-align: center;
 }

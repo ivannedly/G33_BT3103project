@@ -77,7 +77,7 @@ export default {
     finishTrip: function(){
       //pop out QR code to scan
       database.collection('users').doc(localStorage.uid).update({
-          start: "singapore",
+          start: "singapore", //after payment, reset the start state to origin
       })
       location.reload();
     }
@@ -136,7 +136,7 @@ img:hover {
 .userProfile {
   float: left;
   width: 32%;
-  padding-left: 60px;
+  padding-left: 30px;
 }
 .plantInfo {
   float: right;
