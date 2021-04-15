@@ -23,10 +23,28 @@
         <p class="field">{{email}}</p>
         
         <button v-on:click="openChangePasswordBox">Change Password</button> 
-        <button>Update Personal Information</button>
+        <button v-on:click="openUpdatePersonalInformationBox">Update Personal Information</button>
         <br><br>
         <button v-on:click="openEditCardDetailsBox">Update Card Details</button>
-        
+
+        <!--Update Personal Information Pop-up-->
+        <div id="updatePersonalInformationBox">
+            <div id="popUpContent">
+                <p class="close" v-on:click="closeUpdatePersonalInformationBox">Close this Page</p>
+                <h1><b>Update Personal Information</b></h1>
+                <form>
+                    <label for="newName">New Username: </label>
+                    <input type="string" id="newName" name="newName" v-model="newName">
+                    <br><br>
+                    <label for="newEmail">New Email Account: </label>
+                    <input type="string" id="newEmail" name="newEmail" v-model="newEmail">
+                    <br><br>
+                    <p style="color: red;">{{alertMessage3}}</p>
+                    <input type="submit" value="Update Personal Information" v-on:click.prevent="updatePersonalInformation">
+                </form>
+            </div>
+        </div>
+
         <!--Change Password Pop-up-->
         <div id="changePasswordBox">
             <div id="popUpContent">
@@ -99,6 +117,9 @@ export default ({
             newCardExpiryDate: "",
             newCsv: "",
             alertMessage2: "",
+            newName: "",
+            newEmail: "",
+            alertMessage3: "",
         }
     },
     methods: {
@@ -131,6 +152,40 @@ export default ({
                 this.originalFile = doc.data().profilePic;
                 this.pic1 = doc.data().pic1;
             })
+        },
+        openUpdatePersonalInformationBox() {
+            console.log("Activating openChangePasswordBox...");
+            var modal = document.getElementById("updatePersonalInformationBox");
+            modal.style.display = "block";
+        },
+        closeUpdatePersonalInformationBox() {
+            var modal = document.getElementById("updatePersonalInformationBox");
+            modal.style.display = "none";
+        },
+        updatePersonalInformation() {
+            if (this.newName.length == 0) {
+                if (this.newEmail.length == 0) {
+                    this.alertMessage3 = "You have not keyed in any new username or email in the fields above.";
+                } else {
+                    this.alertMessage3 = "";
+                    firebase.auth().currentUser.updateEmail(this.newEmail).then(() => {
+                        database.collection('users').doc(localStorage.uid).update({
+                            email: this.newEmail
+                        }).then(() => {
+                            alert("You have successfully updated your email!");
+                            location.reload();
+                        })
+                    })
+                }
+            } else {
+                this.alertMessage3 = "";
+                database.collection('users').doc(localStorage.uid).update({
+                    name: this.newName
+                }).then(() => {
+                    alert("You have successfully updated your username!");
+                    location.reload();
+                })
+            }
         },
         openChangePasswordBox() {
             console.log("Activating openChangePasswordBox...");
@@ -215,6 +270,20 @@ button {
     width: 300px;
     border-radius: 15px;
 }
+
+#updatePersonalInformationBox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
 
 #changePasswordBox {
     display: none;
