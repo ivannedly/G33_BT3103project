@@ -1,29 +1,19 @@
 <template>
     <div>
-        <!--
-        ##### Order of Items #####
-        Photo
-        "Change Profile Photo" Button
-        Name Label and Field 
-        Email Label and Field    
-        Password Label and Field (to be changed?)
-        "Update Personal Information" Button
-        "Edit Card Details" Button
-        -->
         <img :src = profilePicture>
         <br>
         <button v-on:click="openChangeProfilePictureBox">Change Profile Picture</button>
 
+        <!--Change Profile Picture Pop-up-->
         <div id = "changeProfilePictureBox">
             <div id = "popUpContent">
                 <p class="close" v-on:click="closeChangeProfilePictureBox">Close this Page</p>
                 <p>Please choose your new profile picture:</p>
-                <input id="uploadImage" type="file" @change="onFileSelected">
+                <input id="uploadImage" type="file" @change="updateSelectedFile">
                 <br>
-                <img id="uploadPreview" style="width: 100px; height: 100px;" />
-                <!--<img :src = selectedFile>-->
+                <img id="uploadPreview">
                 <br>
-                <button @click="onUpload">Upload</button>
+                <button @click="uploadSelectedFile">Upload</button>
             </div>
         </div>
         
@@ -109,30 +99,39 @@ import 'firebase/storage';
 export default ({
     data() {
         return {
-            carbonCut: 0,
-            distance: 0,
             email: "",
-            mobile: "",
-            moneySave: "",
             name: "",
-            travelNum: 0,
+            profilePicture: "",
+
+            selectedFile: null,
+
             newPassword1: "",
             newPassword2: "",
             alertMessage1: "",
-            selectedFile: null,
+
             newCardholderName: "",
             newCreditCardNumber: "",
             newCardExpiryDate: "",
             newCsv: "",
             alertMessage2: "",
+
             newName: "",
             newEmail: "",
             alertMessage3: "",
-            profilePicture: "",
         }
     },
     methods: {
-        onFileSelected(event) {
+        fetchUserData() {
+            database.collection('users').doc(localStorage.uid).get().then(doc => {
+                this.name = doc.data().name;
+                this.email = doc.data().email;
+            })
+            var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
+            storageRef.getDownloadURL().then((url) => {
+                this.profilePicture = url;
+            })
+        },
+        updateSelectedFile(event) {
             console.log(event);
             this.selectedFile = event.target.files[0];
             var oFReader = new FileReader();
@@ -141,22 +140,11 @@ export default ({
             document.getElementById("uploadPreview").src = oFREvent.target.result;
         };
         },
-        onUpload() {
+        uploadSelectedFile() {
             var storageRef = firebase.storage().ref('/profilePicture/'+ localStorage.uid);
             storageRef.put(this.selectedFile).then(() => {
                 alert("You have successfully changed your profile picture!");
                 location.reload();
-            })
-        },
-        fetchUserData() {
-            database.collection('users').doc(localStorage.uid).get().then(doc => {
-                this.name = doc.data().name;
-                this.email = doc.data().email;
-                this.originalFile = doc.data().profilePic;
-            })
-            var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
-            storageRef.getDownloadURL().then((url) => {
-                this.profilePicture = url;
             })
         },
         openChangeProfilePictureBox() {
@@ -202,7 +190,6 @@ export default ({
             }
         },
         openChangePasswordBox() {
-            console.log("Activating openChangePasswordBox...");
             var modal = document.getElementById("changePasswordBox");
             modal.style.display = "block";
         },
