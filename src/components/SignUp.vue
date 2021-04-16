@@ -18,7 +18,7 @@
         <div>CSV:</div>
         <input type="number" v-model="csv" placeholder="CSV"/>
         <div>Expiry date:</div>
-        <input type="text" v-model="expiry" placeholder="Expiry Date"/><br><br>
+        <input type="date" v-model="expiry" placeholder="Expiry Date"/><br><br>
         <button v-on:click.prevent = "signUp">Sign Up</button>
         <p class="message">Already have an account? Click <router-link to="/login" exact>here</router-link> to log in.</p>
       </form>
