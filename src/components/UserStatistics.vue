@@ -16,9 +16,9 @@
         <button type="button" v-on:click="showCarbonCutAgainstTimeGraph()"> Carbon Cut VS Time </button> 
         <button type="button" v-on:click="showDistanceAgainstTimeGraph()"> Distance VS Time </button>
         <button type="button" v-on:click="showNoOfJourneysAgainstTimeGraph()"> Number of Journeys VS Time </button>
-        <CarbonCutAgainstTimeGraph v-bind:cumulativeCarbonCut="cumulativeCarbonCut" v-bind:journeyDate="journeyDate"></CarbonCutAgainstTimeGraph>
-        <DistanceAgainstTimeGraph v-bind:cumulativeDistance="cumulativeDistance" v-bind:journeyDate="journeyDate"></DistanceAgainstTimeGraph>
-        <NoOfJourneysAgainstTimeGraph v-bind:cumulativeDistance="cumulativeNoOfJourneys" v-bind:journeyDate="journeyDate"></NoOfJourneysAgainstTimeGraph>    
+        <CarbonCutAgainstTimeGraph v-show="showGraph1" v-bind:cumulativeCarbonCut="cumulativeCarbonCut" v-bind:journeyDate="journeyDate"></CarbonCutAgainstTimeGraph>
+        <DistanceAgainstTimeGraph v-show="showGraph2" v-bind:cumulativeDistance="cumulativeDistance" v-bind:journeyDate="journeyDate"></DistanceAgainstTimeGraph>
+        <NoOfJourneysAgainstTimeGraph v-show="showGraph3" v-bind:cumulativeDistance="cumulativeNoOfJourneys" v-bind:journeyDate="journeyDate"></NoOfJourneysAgainstTimeGraph>    
     </div>
 </template>
 
@@ -40,6 +40,9 @@ export default ({
             cumulativeNoOfJourneys: [],
             cumulativeCarbonCut: [],
             cumulativeDistance: [],
+            showGraph1: true,
+            showGraph2: false,
+            showGraph3: false,
         }
     },
     components: {
@@ -78,6 +81,21 @@ export default ({
 
                 this.moneySave = doc.data().moneySave;            
             })
+        },
+        showCarbonCutAgainstTimeGraph() {
+            this.showGraph1 = true;
+            this.showGraph2 = false;
+            this.showGraph3 = false;
+        },
+        showDistanceAgainstTimeGraph() {
+            this.showGraph1 = false;
+            this.showGraph2 = true;
+            this.showGraph3 = false;
+        },
+        showNoOfJourneysAgainstTimeGraph() {
+            this.showGraph1 = false;
+            this.showGraph2 = false;
+            this.showGraph3 = true;
         },
     },
     created() {
