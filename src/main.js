@@ -9,10 +9,11 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueGoogleMaps, {
   load: {
-    key: '',
+    key: 'AIzaSyBDHe_sBzspAIHu8rAjNYjdYefxSHv6q2M',
     libraries: 'places',
   }
 });
+
 Vue.use(VueEllipseProgress)
 
 const myRouter = new VueRouter({

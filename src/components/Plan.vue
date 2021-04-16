@@ -9,7 +9,7 @@
     </GmapAutocomplete>
     <br>
     <div>
-    <button v-on:click = "planTravel"> Plan </button>
+    <button v-on:click = "planTravel(); getDistance()"> Plan </button>
     </div>
     <br>
     <GmapMap :zoom="12" :center="{ lat: 1.364917, lng: 103.822872 }">
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-
 import firebase from '@firebase/app';
 require('firebase/auth');
 import database from '../firebase.js';
@@ -34,8 +33,11 @@ export default {
   data: function() {
     return {
       start: "",
+      startcoords: {lat: 0, lng: 0},
       end: "",
-      user: "",
+      endcoords: {lat: 0, lng: 0},
+      uid: "",
+      distance: 0
     }
   },
   
@@ -43,21 +45,38 @@ export default {
 
     setPlace: function(place) {
       this.start = place.name;
+      this.startcoords.lat = place.geometry.location.lat();
+      this.startcoords.lng = place.geometry.location.lng();
     },
 
     setDestination: function(place) {
       this.end = place.name;
+      this.endcoords.lat = place.geometry.location.lat();
+      this.endcoords.lng = place.geometry.location.lng();
+      console.log(this.endcoords.lng)
+    },
+
+    getDistance: function() {
+      const earthRadius = 12742;
+      const mathPi = 0.017453292519943295; // (Math.PI / 180) for converting to radians
+      const cos = Math.cos; // Cos function
+      const distanceFactor = 0.5 - cos((this.endcoords.lat - this.startcoords.lat) * mathPi)/2 +
+        cos(this.startcoords.lat * mathPi) * cos(this.endcoords.lat * mathPi) *
+        (1 - cos((this.endcoords.lng - this.startcoords.lng) * mathPi))/2;
+      this.distance = parseFloat(Number(earthRadius * Math.asin(Math.sqrt(distanceFactor))).toFixed(1));
+      localStorage.distance = this.distance  
+      console.log(localStorage.distance)
     },
 
     planTravel: function() {
-      this.user = firebase.auth().currentUser.uid;
-      const increaseBy = firebase.firestore.FieldValue.increment(4);
-      database.collection('users').doc(this.user).update({
+      this.uid = firebase.auth().currentUser.uid;
+      const increaseBy = firebase.firestore.FieldValue.increment(7);
+      database.collection('users').doc(this.uid).update({
         start: this.start,
         end: this.end,
-        ppLevel: increaseBy,
+        ppLevel: increaseBy
       })
-      console.log("here")
+      console.log("Trip planned")
     }
   }
 }

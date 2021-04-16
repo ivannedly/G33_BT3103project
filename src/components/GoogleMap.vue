@@ -11,7 +11,6 @@
 </template>
 
 <script>
-
 import DirectionsRenderer from "./DirectionsRenderer.js";
 import database from '../firebase.js'
 

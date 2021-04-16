@@ -78,7 +78,9 @@ export default {
       //pop out QR code to scan
       database.collection('users').doc(localStorage.uid).update({
           start: "singapore", //after payment, reset the start state to origin
+          distance: Number(localStorage.distance)
       })
+      console.log(localStorage.distance)
       location.reload();
     }
   },
