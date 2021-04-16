@@ -13,12 +13,14 @@
         <p><b>CARBON FOOTPRINT REDUCED (KG): </b>{{carbonCut}}</p>
         <p><b>MONEY SAVED (IN SGD): </b>{{moneySave}}</p>
         <CarbonCutAgainstTimeGraph v-bind:cumulativeCarbonCut="cumulativeCarbonCut" v-bind:journeyDate="journeyDate"></CarbonCutAgainstTimeGraph>
+        <DistanceAgainstTimeGraph v-bind:cumulativeDistance="cumulativeDistance" v-bind:journeyDate="journeyDate"></DistanceAgainstTimeGraph>
     </div>
 </template>
 
 <script>
 import database from '../firebase.js';
 import CarbonCutAgainstTimeGraph from './CarbonCutAgainstTimeGraph.vue';
+import DistanceAgainstTimeGraph from './DistanceAgainstTimeGraph.vue';
 
 export default ({
     data() {
@@ -30,10 +32,12 @@ export default ({
             moneySave: 0,
             travelNum: 0,
             cumulativeCarbonCut: [],
+            cumulativeDistance: [],
         }
     },
     components: {
-        CarbonCutAgainstTimeGraph
+        CarbonCutAgainstTimeGraph,
+        DistanceAgainstTimeGraph
     },
     methods: {
         fetchUserData() {
@@ -41,6 +45,12 @@ export default ({
             database.collection('users').doc(localStorage.uid).get().then(doc => {
                 this.carbonCut = doc.data().carbonCut;
                 this.distance = doc.data().distance;
+                var currentTotalDistance = 0;
+                for (var k = 0; k < doc.data().distance.length; k++) {
+                    currentTotalDistance = Math.round((currentTotalDistance + doc.data().distance[k]) * 1e12) / 1e12;
+                    this.cumulativeDistance[k] = currentTotalDistance;
+                }
+                
                 // Get carbon emissions saved
                 this.journeyCarbonCut = doc.data().journeyCarbonCut;
                 var journeyCarbonCutFromData = doc.data().journeyCarbonCut;
