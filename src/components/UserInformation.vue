@@ -10,9 +10,8 @@
         "Update Personal Information" Button
         "Edit Card Details" Button
         -->
-        <img src = "https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8dHJlZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt = "Photo of Tree"> <!--need to make sure they are all cropped to the same size-->
-        <br> <!--To be changed later with photo url from databse-->
-        <img :src = pic1>
+        <img :src = profilePicture>
+        <br>
         <button>Change Profile Photo</button>
         <input type="file" @change="onFileSelected">
         <button @click="onUpload">Upload</button>
@@ -111,7 +110,6 @@ export default ({
             newPassword2: "",
             alertMessage1: "",
             selectedFile: null,
-            pic1: "",
             newCardholderName: "",
             newCreditCardNumber: "",
             newCardExpiryDate: "",
@@ -120,6 +118,7 @@ export default ({
             newName: "",
             newEmail: "",
             alertMessage3: "",
+            profilePicture: "",
         }
     },
     methods: {
@@ -129,28 +128,24 @@ export default ({
             this.selectedFile = event.target.files[0];
         },
         onUpload() {
-            // Stores the file in Firestore Storgae
-            const ref = firebase.storage().ref().child('some-child');
-            ref.put(this.selectedFile).then((snapshot) => {
-                console.log('Uploaded a blob or file!');
-                console.log(snapshot);
-            });
+            // Create a Storage Ref w/ uid
+            var storageRef = firebase.storage().ref('/profilePicture/'+ localStorage.uid);
 
-            // Need to figure out how to get the link from Firestore Storage to Firestore Database
-
-            /*database.collection('users').doc(localStorage.uid).update({
-                profilePhoto: ref.getDownloadURL(),
-            })*/
-            /*uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                console.log('File available at', downloadURL);
-            });*/
+            // Upload file
+            storageRef.put(this.selectedFile).then(() => {
+                alert("You have successfully changed your profile picture!");
+                location.reload();
+            })
         },
         fetchUserData() {
             database.collection('users').doc(localStorage.uid).get().then(doc => {
                 this.name = doc.data().name;
                 this.email = doc.data().email;
                 this.originalFile = doc.data().profilePic;
-                this.pic1 = doc.data().pic1;
+            })
+            var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
+            storageRef.getDownloadURL().then((url) => {
+                this.profilePicture = url;
             })
         },
         openUpdatePersonalInformationBox() {
