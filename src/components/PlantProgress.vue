@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-ellipse-progress 
-      :progress="this.currentLevel"
+      :progress="currentLevel"
       :legend= true
       :legendValue= this.currentLevel%3>
       <span slot="legend-value">/20</span>
@@ -48,23 +48,23 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .seed { 
-    width: 50%;
+    width: 8%;
     padding: 100px;
     margin-left: auto;
     margin-right: auto;
   }
 
   .sprout {
-    width: 50%;
+    width: 20%;
     padding: 100px;
     margin-left: auto;
     margin-right: auto;
   }
 
   .plant {
-    width: 50%;
+    width: 24%;
     padding: 100px;
     margin-left: auto;
     margin-right: auto;
@@ -72,7 +72,7 @@ export default {
 
   .tree {
     width: 50%;
-    padding: 100px;
+    padding: 45px;
     margin-left: auto;
     margin-right: auto;  
   }
