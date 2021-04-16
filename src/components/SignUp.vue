@@ -1,6 +1,6 @@
 <template>
   <div class="signup-page">
-    <header>Register</header>
+    <h2>REGISTER</h2>
     <div class="form">
       <form class = "signup-form">
         <div>Email:</div>
@@ -12,7 +12,7 @@
         <div>Password:</div>
         <input type="password" v-model="password" placeholder="Password"/>
         <div>Cardholder Name:</div>
-        <input type="text" v-model="cardholder" placeholder="CardHolder Name"/>
+        <input type="text" v-model="cardholder" placeholder="Cardholder Name"/>
         <div>Credit Card Number:</div>
         <input type="number" v-model="creditNum" placeholder="Credit Card Number"/>
         <div>CSV:</div>
@@ -20,7 +20,7 @@
         <div>Expiry date:</div>
         <input type="text" v-model="expiry" placeholder="Expiry Date"/><br><br>
         <button v-on:click.prevent = "signUp">Sign Up</button>
-        <p class="message">Already have an account?  <router-link to="/login" exact>Login</router-link></p>
+        <p class="message">Already have an account? Click <router-link to="/login" exact>here</router-link> to log in.</p>
       </form>
     </div>
   </div>
@@ -74,8 +74,8 @@ export default {
 </script>
 
 <style scoped>
-header {
-  padding: 10px;
+h2 {
+  color: green;
 }
 
 ul {
