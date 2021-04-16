@@ -58,6 +58,7 @@ export default {
       carbonSaved: 0,
       signedIn: false,
       inTrip: false,
+      distances: []
     };
   },
 
@@ -67,21 +68,25 @@ export default {
         database.collection('users').doc(localStorage.uid).get().then(doc => {
           this.name = doc.data().name;
           this.carbonSaved = doc.data().carbonCut;
+          this.distances = doc.data().distance;
           this.signedIn = true;
-          if(doc.data().start != "singapore"){
+          if(doc.data().start != ""){
             this.inTrip=true;
           }
         })
       }
     },
     finishTrip: function(){
-      //pop out QR code to scan
+      
+      console.log(this.distances)
+      this.distances.push(Number(localStorage.distance)) //update local array distances
+      console.log(this.distances)
       database.collection('users').doc(localStorage.uid).update({
-          start: "singapore", //after payment, reset the start state to origin
-          distance: Number(localStorage.distance)
+        start: "", //after payment, reset the start and end states to empty strings
+        end: "", 
+        distance: this.distances //push updated distance array to database
       })
-      console.log(localStorage.distance)
-      location.reload();
+      this.inTrip =false;
     }
   },
 
