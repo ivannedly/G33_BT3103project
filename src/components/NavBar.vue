@@ -7,8 +7,6 @@
               <li><a><router-link to="/profile" exact>Profile</router-link></a></li>
               <li><a><router-link to="/plan" exact>Plan</router-link></a></li>
               <li><a><router-link to="/plantpal" exact>PlantPal</router-link></a></li>
-            
-              <li><a><router-link to="/covidmap" exact> COVID Map</router-link></a></li>
               <li><a><router-link to="/howtouse" exact>How To Use</router-link></a></li>
               <li style="float:right"><a v-on:click = "logOut">LogOut</a></li>
             </div>
