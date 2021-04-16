@@ -12,9 +12,20 @@
         -->
         <img :src = profilePicture>
         <br>
-        <button>Change Profile Photo</button>
-        <input type="file" @change="onFileSelected">
-        <button @click="onUpload">Upload</button>
+        <button v-on:click="openChangeProfilePictureBox">Change Profile Picture</button>
+
+        <div id = "changeProfilePictureBox">
+            <div id = "popUpContent">
+                <p class="close" v-on:click="closeChangeProfilePictureBox">Close this Page</p>
+                <p>Please choose your new profile picture:</p>
+                <input id="uploadImage" type="file" @change="onFileSelected">
+                <br>
+                <img id="uploadPreview" style="width: 100px; height: 100px;" />
+                <!--<img :src = selectedFile>-->
+                <br>
+                <button @click="onUpload">Upload</button>
+            </div>
+        </div>
         
         <p><b>NAME</b></p>
         <p class="field">{{name}}</p>
@@ -98,7 +109,6 @@ import 'firebase/storage';
 export default ({
     data() {
         return {
-            //userInformation: [],
             carbonCut: 0,
             distance: 0,
             email: "",
@@ -124,14 +134,15 @@ export default ({
     methods: {
         onFileSelected(event) {
             console.log(event);
-            // Stores the file in data
             this.selectedFile = event.target.files[0];
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+            oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadPreview").src = oFREvent.target.result;
+        };
         },
         onUpload() {
-            // Create a Storage Ref w/ uid
             var storageRef = firebase.storage().ref('/profilePicture/'+ localStorage.uid);
-
-            // Upload file
             storageRef.put(this.selectedFile).then(() => {
                 alert("You have successfully changed your profile picture!");
                 location.reload();
@@ -147,6 +158,14 @@ export default ({
             storageRef.getDownloadURL().then((url) => {
                 this.profilePicture = url;
             })
+        },
+        openChangeProfilePictureBox() {
+            var modal = document.getElementById("changeProfilePictureBox");
+            modal.style.display = "block";
+        },
+        closeChangeProfilePictureBox() {
+            var modal = document.getElementById("changeProfilePictureBox");
+            modal.style.display = "none";
         },
         openUpdatePersonalInformationBox() {
             console.log("Activating openChangePasswordBox...");
@@ -264,6 +283,19 @@ button {
     padding: 10px;
     width: 300px;
     border-radius: 15px;
+}
+
+#changeProfilePictureBox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
 #updatePersonalInformationBox {
