@@ -1,42 +1,40 @@
 <template>
-<div class="row" v-if="signedIn">
-  <div class="map" v-if="inTrip">
-    <GoogleMap/>
-    <button type="button" class="payment-button" v-on:click="finishTrip">Pay for current trip</button>
-    <br><br>
-  </div>
-  <div class="map-2" v-else>
-    <div class="trip-msgbox">
-    <a class="notrip-msg">You currently don't have upcoming trips.
-      <br>Go Plan page and start planning your next trip!</a></div>
-  </div>
-
-  <div class="userProfile">
-    <div class="welcome-msg">Welcome Back {{this.name}}!</div>
-    <!-- temp profile photo to demonstrate the layout
-      -->
-    <img src = "https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8dHJlZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt = "Photo of Tree">
-    <div class="summary-box">
-      <div class="user-summary">
-        <a>You have saved...</a><br><br>
-        <div class="stats-box">
-          <a>{{this.carbonSaved}}kg of CO2</a>
-        </div><br>
-        <a>for taking a train or bus instead of a car.</a><br><br>
-        <a>Well Done!</a>
+  <div class="row" v-if="signedIn">
+    <div class="map" v-if="inTrip">
+      <GoogleMap/>
+      <button type="button" class="payment-button" v-on:click="finishTrip">Pay for current trip</button> <br> <br>
+    </div>
+    <div class="map-2" v-else>
+      <div class="trip-msgbox">
+        <a class="notrip-msg">You currently don't have upcoming trips.
+          <br> Go Plan page and start planning your next trip! 
+        </a> 
       </div>
     </div>
-    <p class="message"><router-link to="/profile" exact>More in Profile</router-link></p>
-  </div>
 
-  <div class="plantInfo">
-    <div class="plant-info">Your Plantpal</div>
-    <PlantProgress></PlantProgress>
+    <div class="userProfile">
+      <div class="welcome-msg">Welcome Back {{this.name}}! </div>
+      <img src = "https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8dHJlZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt = "Photo of Tree">
+      <div class="summary-box">
+        <div class="user-summary">
+          <a>You have saved... </a> <br> <br>
+          <div class="stats-box">
+            <a>{{this.carbonSaved}}kg of CO2</a>
+          </div> <br>
+          <a>for taking a train or bus instead of a car.</a> <br> <br>
+          <a>Well Done!</a>
+        </div>
+      </div>
+      <p class="message"><router-link to="/profile" exact>More in Profile</router-link></p>
+    </div>
+    <div class="plantInfo">
+      <div class="plant-info">Your Plantpal</div>
+      <PlantProgress></PlantProgress>
+    </div>
   </div>
-</div>
-<div v-else>
-  <SignIn></SignIn>
-</div>
+  <div v-else>
+    <SignIn></SignIn>
+  </div>
 </template>
 
 <script>
@@ -76,8 +74,8 @@ export default {
         })
       }
     },
+
     finishTrip: function(){
-      
       console.log(this.distances)
       this.distances.push(Number(localStorage.distance)) //update local array distances
       console.log(this.distances)
@@ -104,9 +102,11 @@ img {
   height: 150px;
   object-fit: cover;
 }
+
 img:hover {
   box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
+
 .map {
   float: left;
   width: 30%;
@@ -115,6 +115,7 @@ img:hover {
   padding-bottom: 30px;
   border:3px solid seagreen;
 }
+
 .map-2 {
   float: left;
   width: 30%;
@@ -126,6 +127,7 @@ img:hover {
   padding-left: 30px;
   padding-right: 30px;
 }
+
 .trip-msgbox {
   vertical-align: center;
   background: rgba(143, 188, 139, 0.55);
@@ -134,17 +136,20 @@ img:hover {
   padding-left: 50px;
   padding-right: 50px;
 }
+
 .notrip-msg {
   font-size: 25px;
   font-weight: bold;
   color: black;
   vertical-align: center;
 }
+
 .userProfile {
   float: left;
   width: 32%;
   padding-left: 30px;
 }
+
 .plantInfo {
   float: right;
   width: 27%;
@@ -153,28 +158,33 @@ img:hover {
   height: 610px;
   padding: 5px;
 }
+
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
+
 .payment-button {
   text-align: center;
   border: none;
   font-size: 15px;
 }
+
 .welcome-msg {
   padding-top: 20px;
   text-align: center;
   padding-bottom: 30px;
   font-size: 30px;
 }
+
 .summary-box {
   padding-left: 60px;
   padding-right: 60px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
 .user-summary {
   text-align: center;
   font-size: 20px;
@@ -185,6 +195,7 @@ img:hover {
   padding-top: 30px;
   padding-bottom: 30px;
 }
+
 .stats-box {
   text-align: center;
   font-size: 25px;
@@ -194,6 +205,7 @@ img:hover {
   padding-right: 10px;
   font-weight: bold;
 }
+
 .plant-info {
   text-align: left;
   padding-top: 20px;
