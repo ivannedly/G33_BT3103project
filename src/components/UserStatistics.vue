@@ -12,13 +12,13 @@
         <p><b>TOTAL DISTANCE TRAVELLED (KM): </b>{{distance}}</p>
         <p><b>CARBON FOOTPRINT REDUCED (KG): </b>{{carbonCut}}</p>
         <p><b>MONEY SAVED (IN SGD): </b>{{moneySave}}</p>
-        <StatisticsGraph v-bind:cumulativeCarbonCut="cumulativeCarbonCut" v-bind:journeyDate="journeyDate"></StatisticsGraph>
+        <CarbonCutAgainstTimeGraph v-bind:cumulativeCarbonCut="cumulativeCarbonCut" v-bind:journeyDate="journeyDate"></CarbonCutAgainstTimeGraph>
     </div>
 </template>
 
 <script>
 import database from '../firebase.js';
-import StatisticsGraph from './StatisticsGraph.vue';
+import CarbonCutAgainstTimeGraph from './CarbonCutAgainstTimeGraph.vue';
 
 export default ({
     data() {
@@ -33,7 +33,7 @@ export default ({
         }
     },
     components: {
-        StatisticsGraph
+        CarbonCutAgainstTimeGraph
     },
     methods: {
         fetchUserData() {
