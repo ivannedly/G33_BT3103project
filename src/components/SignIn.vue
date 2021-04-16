@@ -1,6 +1,6 @@
 <template>
   <div class="signin-page">
-    <header>Login</header>
+    <h2>LOGIN</h2>
     <div class="form">
       <form class = "signin-form">
         <div>Email:</div>
@@ -8,11 +8,13 @@
         <div>Password:</div>
         <input type="password" v-model="password" placeholder="Password"/>
         <button v-on:click.prevent = "signIn">Login</button>
-        <p class="message">Not register yet?  
-          <router-link to="/signup" exact>Sign Up</router-link>
+        <p class="message">Not registered yet? Click  
+          <router-link to="/signup" exact>here</router-link>
+          to sign up.
         </p>
-        <p class="message">Forgot your password?  
-          <router-link to="/changePw" exact>Reset Password</router-link>
+        <p class="message">Forgot your password? Click 
+          <router-link to="/changePw" exact>here</router-link>
+          to reset your password.
         </p>
       </form>
     </div>
@@ -47,8 +49,8 @@ export default {
 </script>
 
 <style scoped>
-header {
-  padding: 10px;
+h2 {
+  color: green;
 }
 
 ul {
