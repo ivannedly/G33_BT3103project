@@ -9,9 +9,9 @@
         -->
         <h1>JOURNEY STATISTICS</h1>
         <p><b>TOTAL NUMBER OF JOUNEYS: </b>{{travelNum}}</p>
-        <p><b>TOTAL DISTANCE TRAVELLED (KM): </b>{{distance}}</p>
-        <p><b>CARBON FOOTPRINT REDUCED (KG): </b>{{carbonCut}}</p>
-        <p><b>MONEY SAVED (IN SGD): </b>{{moneySave}}</p>
+        <p><b>TOTAL DISTANCE TRAVELLED (KM): </b>{{totalDistance}}</p>
+        <p><b>TOTAL CARBON FOOTPRINT REDUCED (KG): </b>{{totalCarbonCut}}</p>
+        <p><b>TOTAL MONEY SAVED (IN SGD): </b>{{moneySave}}</p>
         <CarbonCutAgainstTimeGraph v-bind:cumulativeCarbonCut="cumulativeCarbonCut" v-bind:journeyDate="journeyDate"></CarbonCutAgainstTimeGraph>
         <DistanceAgainstTimeGraph v-bind:cumulativeDistance="cumulativeDistance" v-bind:journeyDate="journeyDate"></DistanceAgainstTimeGraph>
     </div>
@@ -25,12 +25,12 @@ import DistanceAgainstTimeGraph from './DistanceAgainstTimeGraph.vue';
 export default ({
     data() {
         return {
-            carbonCut: 0,
-            distance: 0,
-            journeyCarbonCut: [],
-            journeyDate: [],
+            totalCarbonCut: 0,
+            totalDistance: 0,
             moneySave: 0,
             travelNum: 0,
+            journeyCarbonCut: [],
+            journeyDate: [],
             cumulativeCarbonCut: [],
             cumulativeDistance: [],
         }
@@ -41,34 +41,29 @@ export default ({
     },
     methods: {
         fetchUserData() {
-            console.log(localStorage.uid);
             database.collection('users').doc(localStorage.uid).get().then(doc => {
-                this.carbonCut = doc.data().carbonCut;
-                this.distance = doc.data().distance;
+                // Get distance
                 var currentTotalDistance = 0;
                 for (var k = 0; k < doc.data().distance.length; k++) {
                     currentTotalDistance = Math.round((currentTotalDistance + doc.data().distance[k]) * 1e12) / 1e12;
                     this.cumulativeDistance[k] = currentTotalDistance;
                 }
+                this.totalDistance = currentTotalDistance;
                 
                 // Get carbon emissions saved
-                this.journeyCarbonCut = doc.data().journeyCarbonCut;
-                var journeyCarbonCutFromData = doc.data().journeyCarbonCut;
-                var currentCarbonCut = 0;
-                for (var i = 0; i < journeyCarbonCutFromData.length; i++) {
-                    currentCarbonCut = Math.round((currentCarbonCut + journeyCarbonCutFromData[i]) * 1e12) / 1e12;
-                    this.cumulativeCarbonCut[i] = currentCarbonCut;
+                var currentTotalCarbonCut = 0;
+                for (var i = 0; i < doc.data().journeyCarbonCut.length; i++) {
+                    currentTotalCarbonCut = Math.round((currentTotalCarbonCut + doc.data().journeyCarbonCut[i]) * 1e12) / 1e12;
+                    this.cumulativeCarbonCut[i] = currentTotalCarbonCut;
                 }
-                console.log(this.cumulativeCarbonCut);
+                this.totalCarbonCut = currentTotalCarbonCut;
+
                 // Get journey dates
                 var journeyDateFromData = doc.data().journeyDate;
                 for (var j = 0; j < journeyDateFromData.length; j++) {
                     var currentJourneyDate = journeyDateFromData[j];
                     this.journeyDate.push(currentJourneyDate.toDate().toISOString());
                 }
-                this.graphData[0] = this.cumulativeCarbonCut;
-                this.graphData[1] = this.journeyDate;
-                console.log("Graph Data: " + this.graphData);
 
                 this.moneySave = doc.data().moneySave;
                 this.travelNum = doc.data().travelNum;
