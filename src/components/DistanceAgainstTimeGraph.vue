@@ -23,7 +23,7 @@ export default({
                 type:"scatter"
             }],
             layout:{
-                title: "Total Distance Travelled Against Time Graph"
+                title: "Total Distance Travelled (in km) Against Time"
             } 
         }
     }

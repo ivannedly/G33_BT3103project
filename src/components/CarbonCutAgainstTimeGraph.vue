@@ -23,7 +23,7 @@ export default({
                 type:"scatter"
             }],
             layout:{
-                title: "StatisticsGraph.vue"
+                title: "Total Carbon Cut (in kg) against Time"
             } 
         }
     }

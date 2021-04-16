@@ -23,7 +23,7 @@ export default({
                 type:"scatter"
             }],
             layout:{
-                title: "Total Number of Journeys Against Time Graph"
+                title: "Total Number of Journeys Against Time"
             } 
         }
     }
