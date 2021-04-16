@@ -9,6 +9,7 @@
     </GmapAutocomplete>
     <br>
     <div>
+    <br>
     <button v-on:click = "planTravel(); getDistance()"> Plan </button>
     </div>
     <br>
@@ -74,7 +75,8 @@ export default {
       database.collection('users').doc(this.uid).update({
         start: this.start,
         end: this.end,
-        ppLevel: increaseBy
+        ppLevel: increaseBy,
+        planTime: firebase.firestore.Timestamp.fromDate(new Date())
       })
       console.log("Trip planned")
     }
