@@ -35,7 +35,7 @@ export default {
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  background-color: rgb(159, 227, 159);
+  background-color:rgb(125, 194, 156);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

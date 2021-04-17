@@ -77,7 +77,7 @@ export default {
     },
 
     planTravel: function() {
-      this.uid = firebase.auth().currentUser.uid;
+      this.uid = localStorage.uid;
       const increaseBy2 = firebase.firestore.FieldValue.increment(2);
       database.collection('users').doc(this.uid).update({
         start: this.start,
