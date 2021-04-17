@@ -20,7 +20,6 @@
       <b>EMAIL</b>
     </p>
     <p class="field">{{email}}</p>
-    <button id="changePasswordButton" v-on:click="openChangePasswordBox">Change Password</button> 
     <button v-on:click="openUpdatePersonalInformationBox">Update Personal Information</button> <br><br>
     <button v-on:click="openEditCardDetailsBox">Update Card Details</button>
     <!--Update Personal Information Pop-up-->
@@ -38,23 +37,6 @@
             <p style="color: red;">{{alertMessage3}}</p>
             <input type="submit" value="Update Personal Information" v-on:click.prevent="updatePersonalInformation">
           </form>
-      </div>
-    </div>
-    <!--Change Password Pop-up-->   
-    <div id="changePasswordBox">
-      <div id="popUpContent">
-        <p class="close" v-on:click="closeChangePasswordBox">Close this Page</p>
-        <h1>
-          <b>Change Password</b>
-        </h1>
-        <form>
-          <label for="pwd1">New Password: </label>
-          <input type="password" id="pwd1" name="pwd1" v-model="newPassword1"> <br> <br>
-          <label for="pwd2">Confirm Your New Password: </label>
-          <input type="password" id="pwd2" name="pwd2" v-model="newPassword2"> <br> <br>
-          <p style="color: red;">{{alertMessage}}</p>
-          <input type="submit" value="Change Password" v-on:click.prevent="changePassword">
-        </form>
       </div>
     </div>
     <!--Change Card Details Pop-up-->
@@ -97,10 +79,6 @@ export default ({
       profilePicture: "",
       
       selectedFile: null,
-
-      newPassword1: "",
-      newPassword2: "",
-      alertMessage1: "",
 
       newCardholderName: "",
       newCreditCardNumber: "",
@@ -189,31 +167,6 @@ export default ({
         })
       }
     },
-    
-    openChangePasswordBox: function() {
-      var modal = document.getElementById("changePasswordBox");
-      modal.style.display = "block";
-    },
-    
-    closeChangePasswordBox: function() {
-      var modal = document.getElementById("changePasswordBox");
-      modal.style.display = "none";
-    },
-
-    // Take out
-    // Need to try this method again after sign-in page has been added as "user" currently has null value.
-    changePassword: function() {
-      if (this.newPassword1 != this.newPassword2 || this.newPassword1.length == 0) {
-        console.log("Passwords do not match");
-        this.alertMessage = "The password(s) you have entered do not match. Please try again.";
-      } else {
-        console.log("Passwords match");
-        this.alertMessage = "";
-        var user = firebase.auth().currentUser;
-        user.updatePassword(this.newPassword1);
-        alert("Your password has been updated successfully");
-      }
-    },
     openEditCardDetailsBox() {
       var modal = document.getElementById("editCardDetailsBox");
       modal.style.display = "block";
@@ -290,20 +243,6 @@ img:hover {
 }
 
 #updatePersonalInformationBox {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-}
-
-
-#changePasswordBox {
     display: none;
     position: fixed;
     z-index: 1;
