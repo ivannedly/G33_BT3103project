@@ -14,9 +14,9 @@
         <div>Cardholder Name:</div>
         <input type="text" v-model="cardholder" placeholder="Cardholder Name"/>
         <div>Credit Card Number:</div>
-        <input type="number" v-model="creditNum" placeholder="Credit Card Number"/>
+        <input type="string" v-model="creditNum" placeholder="Credit Card Number"/>
         <div>CSV:</div>
-        <input type="number" v-model="csv" placeholder="CSV"/>
+        <input type="string" v-model="csv" placeholder="CSV"/>
         <div>Card Expiry date:</div>
         <input type="date" v-model="expiry" placeholder="Expiry Date"/><br><br>
         <button v-on:click.prevent = "signUp">Sign Up</button>
@@ -56,6 +56,9 @@ export default {
         start: "", 
         end: "",
         ppLevel: 0,
+        noOfJourneys: 0,
+        journeyDistance: [],
+        journeyTime: [],
       }
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred =>{
         database.collection("users")
