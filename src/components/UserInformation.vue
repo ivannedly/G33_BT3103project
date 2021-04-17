@@ -196,8 +196,8 @@ export default ({
     },
     
     closeChangePasswordBox: function() {
-        var modal = document.getElementById("changePasswordBox");
-        modal.style.display = "none";
+      var modal = document.getElementById("changePasswordBox");
+      modal.style.display = "none";
     },
 
     // Take out
