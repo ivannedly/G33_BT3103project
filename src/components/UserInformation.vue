@@ -328,13 +328,6 @@ img:hover {
     background-color: rgba(0,0,0,0.4);
 }
 
-.close {
-    color: black;
-    float: right;
-    font-size: 15px;
-    text-decoration: underline;
-}
-
 #editCardDetailsBox {
     display: none;
     position: fixed;
@@ -355,6 +348,12 @@ img:hover {
     width: 80%;
 }
 
+.close {
+    color: black;
+    float: right;
+    font-size: 15px;
+    text-decoration: underline;
+}
 
 .close:hover,
 .close:focus {
