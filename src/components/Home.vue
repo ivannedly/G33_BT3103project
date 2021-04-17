@@ -22,7 +22,7 @@
 
     <div class="userProfile">
       <div class="welcome-msg">Welcome Back {{this.name}}! </div>
-      <img src = "https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8dHJlZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt = "Photo of Tree">
+      <img :src="profilePicture">
       <div class="summary-box">
         <div class="user-summary">
           <a>You have saved... </a> <br> <br>
@@ -68,7 +68,8 @@ export default {
       signedIn: false,
       inTrip: false,
       distances: [],
-      qrCode: qrCode
+      qrCode: qrCode,
+      profilePicture: "",
     };
   },
 
@@ -84,6 +85,10 @@ export default {
             this.inTrip=true;
           }
         })
+        var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
+        storageRef.getDownloadURL().then((url) => {
+        this.profilePicture = url;
+      })
       }
     },
 
