@@ -20,6 +20,10 @@
       <b>EMAIL</b>
     </p>
     <p class="field">{{email}}</p>
+    <p>
+      <b>MOBILE NUMBER</b>
+    </p>
+    <p class="field">{{mobile}}</p>
     <button v-on:click="openChangePasswordBox">Change Password</button> 
     <button v-on:click="openUpdatePersonalInformationBox">Update Personal Information</button> <br><br>
     <button v-on:click="openEditCardDetailsBox">Update Card Details</button>
@@ -34,6 +38,9 @@
             <br><br>
             <label for="newEmail">New Email Account: </label>
             <input type="string" id="newEmail" name="newEmail" v-model="newEmail">
+            <br><br>
+            <label for="newMobile">New Mobile Number: </label>
+            <input type="string" id="newMobile" name="newMobile" v-model="newMobile">
             <br><br>
             <p style="color: red;">{{alertMessage3}}</p>
             <input type="submit" value="Update Personal Information" v-on:click.prevent="updatePersonalInformation">
@@ -92,8 +99,9 @@ require('firebase/auth');
 export default ({
   data() {
     return {
-      email: "",
       name: "",
+      email: "",
+      mobile: "",
       profilePicture: "",
       
       selectedFile: null,
@@ -110,6 +118,7 @@ export default ({
 
       newName: "",
       newEmail: "",
+      newMobile: "",
       alertMessage3: "",
     }
   },
@@ -118,6 +127,7 @@ export default ({
       database.collection('users').doc(localStorage.uid).get().then(doc => {
         this.name = doc.data().name;
         this.email = doc.data().email;
+        this.mobile = doc.data().mobile;
       })
       var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
       storageRef.getDownloadURL().then((url) => {
@@ -165,29 +175,29 @@ export default ({
     },
 
     updatePersonalInformation: function() {
-      if (this.newName.length == 0) {
-        if (this.newEmail.length == 0) {
-          this.alertMessage3 = "You have not keyed in any new username and/or email.";
-        } else {
-          this.alertMessage3 = "";
+      if (this.newName.length == 0 && this.newEmail.length == 0 && this.newMobile.length == 0) {
+        this.alertMessage3 = "You have not keyed in any new username, email and/or mobile number.";
+      } else {
+        if (this.newName.length != 0) {
+          database.collection('users').doc(localStorage.uid).update({
+            name: this.newName
+          })
+        }
+        if (this.newEmail.length != 0) {
           firebase.auth().currentUser.updateEmail(this.newEmail).then(() => {
             database.collection('users').doc(localStorage.uid).update({
               email: this.newEmail
-            }).then(() => {
-              alert("You have successfully updated your email!");
-              location.reload();
             })
           })
         }
-      } else {
-        this.alertMessage3 = "";
-        database.collection('users').doc(localStorage.uid).update({
-          name: this.newName
-        }).then(() => {
-          alert("You have successfully updated your username!");
-          location.reload();
-        })
-      }
+        if (this.newMobile.length != 0) {
+          database.collection('users').doc(localStorage.uid).update({
+            mobile: this.newMobile
+          })
+        }
+        alert("You have successfully updated your personal information!")
+        location.reload();
+      } 
     },
     
     openChangePasswordBox: function() {
@@ -200,7 +210,6 @@ export default ({
         modal.style.display = "none";
     },
 
-    // Need to try this method again after sign-in page has been added as "user" currently has null value.
     changePassword: function() {
       if (this.newPassword1 != this.newPassword2) {
         this.alertMessage1 = "The password(s) you have entered do not match. Please try again.";
