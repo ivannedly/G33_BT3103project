@@ -89,6 +89,8 @@ export default {
         ppLevel: increaseBy7
       })
       this.inTrip =false;
+
+      // Add more functions
     }
   },
 
