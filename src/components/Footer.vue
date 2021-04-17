@@ -2,7 +2,9 @@
   <div class="row">
     <div class="left">
       <h3> SGTravel Buddy </h3>
-      SGTravelBuddy is your companion, determined to help you save the world, one ride at a time. We believe that we can all do our part in making Sinagpore and the world clean and green. The pandemic may be here to stay, but we can still do our part fot the environment!
+      SGTravelBuddy is your companion, determined to help you save the world, one ride at a time.<br>
+      We believe that we can all do our part in making Sinagpore and the world clean and green. <br>
+      The pandemic may be here to stay, but we can still do our part for the environment!
     </div>
     <div class="middle">
       <h3> Contact Us </h3>
