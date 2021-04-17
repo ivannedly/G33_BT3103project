@@ -163,7 +163,7 @@ export default ({
       var modal = document.getElementById("updatePersonalInformationBox");
       modal.style.display = "none";
     },
-
+    // Take out email
     updatePersonalInformation: function() {
       if (this.newName.length == 0) {
         if (this.newEmail.length == 0) {
@@ -200,6 +200,7 @@ export default ({
         modal.style.display = "none";
     },
 
+    // Take out
     // Need to try this method again after sign-in page has been added as "user" currently has null value.
     changePassword: function() {
       if (this.newPassword1 != this.newPassword2 || this.newPassword1.length == 0) {

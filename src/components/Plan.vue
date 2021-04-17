@@ -13,6 +13,13 @@
     <button v-on:click = "planTravel(); getDistance()"> Plan </button>
     </div>
     <br>
+    <!--Alert that trip has been plannes successfully-->
+    <div id="alertBox">
+      <div id="popUpContent">
+        <p class="close" v-on:click="closeAlertBox">Close this Page</p>
+          <h1><b>You have successfully planned your trip!</b></h1>
+      </div> 
+    </div>
     <GmapMap :zoom="12" :center="{ lat: 1.364917, lng: 103.822872 }">
       <DirectionsRenderer travelMode="TRANSIT" :origin="start" :destination="end">
         </DirectionsRenderer>
@@ -79,7 +86,13 @@ export default {
         planTime: firebase.firestore.Timestamp.fromDate(new Date())
       })
       console.log("Trip planned")
-    }
+      var modal = document.getElementById("alertBox");
+      modal.style.display = "block";
+    },       
+    closeAlertBox() {
+      var modal = document.getElementById("alertBox");
+      modal.style.display = "none";
+    },    
   }
 }
 </script>
@@ -89,5 +102,29 @@ export default {
   height: 600px;
   position:relative
 
+}
+#alertBox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+#popUpContent {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid black;
+    width: 80%;
+}
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
 }
 </style>
