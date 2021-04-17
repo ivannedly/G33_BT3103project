@@ -74,6 +74,11 @@ export default {
       this.distance = parseFloat(Number(earthRadius * Math.asin(Math.sqrt(distanceFactor))).toFixed(1));
       localStorage.distance = this.distance  
       console.log(localStorage.distance)
+
+      // Update currentDistance into database
+      database.collection('users').doc(localStorage.uid).update({
+        currentDistance: this.distance
+      })
     },
 
     planTravel: function() {
