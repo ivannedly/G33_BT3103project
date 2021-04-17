@@ -41,6 +41,7 @@ export default {
   text-align: center;
   font-size: 40px;
   padding-top: 20px;
+  width: 100%;
 }
 
 .article {
@@ -52,6 +53,5 @@ export default {
   color: black;
   background-color:rgb(242, 234, 141);
   height: 60px;
-  text-shadow: 0.5px 0.5px black;
 }
 </style>

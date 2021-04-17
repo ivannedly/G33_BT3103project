@@ -86,7 +86,7 @@ export default {
         start: "", //after payment, reset the start and end states to empty strings
         end: "", 
         distance: this.distances, //push updated distance array to database
-        ppLevel: increaseBy7
+        ppLevel: increaseBy7,
       })
       this.inTrip =false;
     }
