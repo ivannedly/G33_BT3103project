@@ -1,18 +1,22 @@
 <template>
     <div>
-        <!--
-        ##### Order of Items #####
-        Photo
-        "Change Profile Photo" Button
-        Name Label and Field 
-        Email Label and Field    
-        Password Label and Field (to be changed?)
-        "Update Personal Information" Button
-        "Edit Card Details" Button
-        -->
-        <img src = "https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8dHJlZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt = "Photo of Tree"> <!--need to make sure they are all cropped to the same size-->
-        <br> <!--To be changed later with photo url from databse-->
-        <button>Change Profile Photo</button>
+        <img :src = profilePicture>
+        <br>
+        <button v-on:click="openChangeProfilePictureBox">Change Profile Picture</button>
+
+        <!--Change Profile Picture Pop-up-->
+        <div id = "changeProfilePictureBox">
+            <div id = "popUpContent">
+                <p class="close" v-on:click="closeChangeProfilePictureBox">Close this Page</p>
+                <p>Please choose your new profile picture:</p>
+                <input id="uploadImage" type="file" @change="updateSelectedFile">
+                <br>
+                <img id="uploadPreview">
+                <br>
+                <button @click="uploadSelectedFile">Upload</button>
+            </div>
+        </div>
+        
         <p><b>NAME</b></p>
         <p class="field">{{name}}</p>
         <p><b>EMAIL</b></p>
@@ -50,17 +54,25 @@ require('firebase/auth');
 export default ({
     data() {
         return {
-            //userInformation: [],
-            carbonCut: 0,
-            distance: 0,
             email: "",
-            mobile: "",
-            moneySave: "",
             name: "",
-            travelNum: 0,
+            profilePicture: "",
+
+            selectedFile: null,
+
             newPassword1: "",
             newPassword2: "",
-            alertMessage: "",
+            alertMessage1: "",
+
+            newCardholderName: "",
+            newCreditCardNumber: "",
+            newCardExpiryDate: "",
+            newCsv: "",
+            alertMessage2: "",
+
+            newName: "",
+            newEmail: "",
+            alertMessage3: "",
         }
     },
     methods: {
@@ -69,9 +81,70 @@ export default ({
                 this.name = doc.data().name;
                 this.email = doc.data().email;
             })
+            var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
+            storageRef.getDownloadURL().then((url) => {
+                this.profilePicture = url;
+            })
+        },
+        updateSelectedFile(event) {
+            console.log(event);
+            this.selectedFile = event.target.files[0];
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+            oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadPreview").src = oFREvent.target.result;
+        };
+        },
+        uploadSelectedFile() {
+            var storageRef = firebase.storage().ref('/profilePicture/'+ localStorage.uid);
+            storageRef.put(this.selectedFile).then(() => {
+                alert("You have successfully changed your profile picture!");
+                location.reload();
+            })
+        },
+        openChangeProfilePictureBox() {
+            var modal = document.getElementById("changeProfilePictureBox");
+            modal.style.display = "block";
+        },
+        closeChangeProfilePictureBox() {
+            var modal = document.getElementById("changeProfilePictureBox");
+            modal.style.display = "none";
+        },
+        openUpdatePersonalInformationBox() {
+            console.log("Activating openChangePasswordBox...");
+            var modal = document.getElementById("updatePersonalInformationBox");
+            modal.style.display = "block";
+        },
+        closeUpdatePersonalInformationBox() {
+            var modal = document.getElementById("updatePersonalInformationBox");
+            modal.style.display = "none";
+        },
+        updatePersonalInformation() {
+            if (this.newName.length == 0) {
+                if (this.newEmail.length == 0) {
+                    this.alertMessage3 = "You have not keyed in any new username or email in the fields above.";
+                } else {
+                    this.alertMessage3 = "";
+                    firebase.auth().currentUser.updateEmail(this.newEmail).then(() => {
+                        database.collection('users').doc(localStorage.uid).update({
+                            email: this.newEmail
+                        }).then(() => {
+                            alert("You have successfully updated your email!");
+                            location.reload();
+                        })
+                    })
+                }
+            } else {
+                this.alertMessage3 = "";
+                database.collection('users').doc(localStorage.uid).update({
+                    name: this.newName
+                }).then(() => {
+                    alert("You have successfully updated your username!");
+                    location.reload();
+                })
+            }
         },
         openChangePasswordBox() {
-            console.log("Activating openChangePasswordBox...");
             var modal = document.getElementById("changePasswordBox");
             modal.style.display = "block";
         },
@@ -116,6 +189,33 @@ button {
     width: 300px;
     border-radius: 15px;
 }
+
+#changeProfilePictureBox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+#updatePersonalInformationBox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
 
 #changePasswordBox {
     display: none;
