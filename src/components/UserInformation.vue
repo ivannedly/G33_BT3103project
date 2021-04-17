@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="content">
     <img :src = profilePicture> <br>
     <button v-on:click="openChangeProfilePictureBox">Change Profile Picture</button>
     <!--Change Profile Picture Pop-up-->
@@ -271,7 +271,7 @@ img:hover {
     background-color: green;
     color: white;
     padding: 10px;
-    width: 300px;
+    width: 400px;
     border-radius: 15px;
 }
 
