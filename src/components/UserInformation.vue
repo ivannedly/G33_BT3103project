@@ -196,8 +196,8 @@ export default ({
     },
     
     closeChangePasswordBox: function() {
-        var modal = document.getElementById("changePasswordBox");
-        modal.style.display = "none";
+      var modal = document.getElementById("changePasswordBox");
+      modal.style.display = "none";
     },
 
     // Need to try this method again after sign-in page has been added as "user" currently has null value.

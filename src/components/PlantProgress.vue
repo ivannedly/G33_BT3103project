@@ -3,16 +3,16 @@
     <vue-ellipse-progress 
       :progress="currentLevel"
       :legend= true
-      :legendValue= this.currentLevel%3>
+      :legendValue= this.currentLevel%20>
       <span slot="legend-value">/20</span>
       <p slot="legend-caption" v-if="this.currentLevel==0"> Level 0/20</p>
       <p slot="legend-caption" v-else> Level {{ Math.floor(this.currentLevel/20) }} </p>
     </vue-ellipse-progress>
     <div>
-      <h v-if="Math.floor(this.currentLevel/20) < 10"> <img :src="seeds" class="seed"/> </h>
-      <h v-else-if="Math.floor(this.currentLevel/20) < 20"> <img :src="sprout" class="sprout"/> </h>
-      <h v-else-if="Math.floor(this.currentLevel/20) < 30"> <img :src="plant" class ="plant"/> </h>
-      <h v-else> <img :src="tree" class="tree"/> </h>
+      <h6 v-if="Math.floor(this.currentLevel/20) < 10"> <img :src="seeds" class="seed"/> </h6>
+      <h6 v-else-if="Math.floor(this.currentLevel/20) < 20"> <img :src="sprout" class="sprout"/> </h6>
+      <h6 v-else-if="Math.floor(this.currentLevel/20) < 30"> <img :src="plant" class ="plant"/> </h6>
+      <h6 v-else> <img :src="tree" class="tree"/> </h6>
     </div>
   </div>
 </template>
