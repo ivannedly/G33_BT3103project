@@ -5,7 +5,7 @@
       <form class = "signup-form">
         <div>Email:</div>
         <input type="text" v-model="email" placeholder="Email"/>
-        <div>Name:</div>
+        <div>Username:</div>
         <input type="text" v-model="name" placeholder="Name"/>
         <div>Mobile Number:</div>
         <input type="tel" v-model="phone" placeholder="Mobile Number"/>
@@ -17,7 +17,7 @@
         <input type="number" v-model="creditNum" placeholder="Credit Card Number"/>
         <div>CSV:</div>
         <input type="number" v-model="csv" placeholder="CSV"/>
-        <div>Expiry date:</div>
+        <div>Card Expiry date:</div>
         <input type="date" v-model="expiry" placeholder="Expiry Date"/><br><br>
         <button v-on:click.prevent = "signUp">Sign Up</button>
         <p class="message">Already have an account? Click <router-link to="/login" exact>here</router-link> to log in.</p>
@@ -53,10 +53,6 @@ export default {
         creditNum: this.creditNum,
         csv: this.csv,
         expiry: this.expiry,
-        travelNum: 0, 
-        distance: [], 
-        carbonCut: 0, 
-        moneySave: 0, 
         start: "", 
         end: "" 
       }
@@ -66,7 +62,6 @@ export default {
                 .set(Object.assign({}, new_user));
       }).then(() => {
         this.$router.push({path: "/login"});
-        this.$parent.forceRerender();
       })
     }
   }
