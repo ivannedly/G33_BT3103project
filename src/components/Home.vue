@@ -67,19 +67,26 @@ export default {
       carbonSaved: 0,
       signedIn: false,
       inTrip: false,
-      distances: [],
+      //distances: [],
       qrCode: qrCode,
       profilePicture: "",
+      currentDistance: 0,
+      journeyDistance: [],
+      journeyTime: [],
     };
   },
 
   methods: {
-    fetchUserName: function(){
+    fetchUserData: function(){
       if(localStorage.uid != null){
         database.collection('users').doc(localStorage.uid).get().then(doc => {
           this.name = doc.data().name;
-          this.carbonSaved = doc.data().carbonCut;
-          this.distances = doc.data().distance;
+          this.currentDistance = doc.data().currentDistance;
+          this.journeyDistance = doc.data().journeyDistance;
+          this.journeyTime = doc.data().journeyTime;
+          console.log(this.currentDistance);
+          //this.carbonSaved = doc.data().carbonCut;
+          //this.distances = doc.data().distance;
           this.signedIn = true;
           if(doc.data().start != ""){
             this.inTrip=true;
@@ -92,23 +99,29 @@ export default {
       }
     },
 
+    // Change how ppLevel is increased
     finishTrip: function(){
       const increaseBy7 = firebase.firestore.FieldValue.increment(7);
-      console.log(this.distances)
-      this.distances.push(Number(localStorage.distance)) //update local array distances
-      console.log(this.distances)
       database.collection('users').doc(localStorage.uid).update({
         start: "", //after payment, reset the start and end states to empty strings
         end: "", 
-        distance: this.distances, //push updated distance array to database
         ppLevel: increaseBy7,
       })
       this.inTrip =false;
+
       // Generate QR Code
       var modal = document.getElementById("qrCodeBox");
       modal.style.display = "block";
-      // Add more functions
-      // ...
+
+      // Update arrays
+      this.journeyDistance.push(this.currentDistance);
+      this.journeyTime.push(firebase.firestore.Timestamp.fromDate(new Date()));
+
+      // To add: Time + Distance
+      database.collection('users').doc(localStorage.uid).update({
+        journeyDistance: this.journeyDistance,
+        journeyTime: this.journeyTime,
+      })
     },    
     closeQrCodeBox: function() {
       var modal = document.getElementById("qrCodeBox");
@@ -116,7 +129,7 @@ export default {
     },
   },
   created() {
-    this.fetchUserName();
+    this.fetchUserData();
   }
 }
 </script>
