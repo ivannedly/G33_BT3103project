@@ -11,7 +11,6 @@
         <p><b>TOTAL NUMBER OF JOURNEYS: </b>{{totalNoOfJourneys}}</p>
         <p><b>TOTAL DISTANCE TRAVELLED (KM): </b>{{totalDistance}}</p>
         <p><b>TOTAL CARBON FOOTPRINT REDUCED (KG): </b>{{totalCarbonCut}}</p>
-        <p><b>TOTAL MONEY SAVED (IN SGD): </b>{{moneySave}}</p>
         <br>
         <button type="button" v-on:click="showCarbonCutAgainstTimeGraph()"> Carbon Cut VS Time </button> 
         <button type="button" v-on:click="showDistanceAgainstTimeGraph()"> Distance VS Time </button>
@@ -34,7 +33,6 @@ export default ({
             totalNoOfJourneys: 0,
             totalCarbonCut: 0,
             totalDistance: 0,
-            moneySave: 0,
             journeyCarbonCut: [],
             journeyDate: [],
             cumulativeNoOfJourneys: [],
@@ -77,9 +75,7 @@ export default ({
                     var currentJourneyDate = doc.data().journeyDate[j];
                     this.journeyDate.push(currentJourneyDate.toDate().toISOString());
                 }
-                this.totalNoOfJourneys = currentTotalNoOfJourneys;
-
-                this.moneySave = doc.data().moneySave;            
+                this.totalNoOfJourneys = currentTotalNoOfJourneys;            
             })
         },
         showCarbonCutAgainstTimeGraph() {
