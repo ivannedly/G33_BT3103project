@@ -1,8 +1,8 @@
 <template>
 <div class="row">
-  
+
   <div class="article">
-    <Article></Article>
+    <Article/>
   </div>
 
   <div class="plantInfo">
@@ -19,7 +19,7 @@
 <script>
 
 import PlantProgress from './PlantProgress.vue';
-import Article from './PlantArticles.vue';
+import Article from './Articles.vue';
 import Reward from './Rewards.vue';
 
 export default { 
