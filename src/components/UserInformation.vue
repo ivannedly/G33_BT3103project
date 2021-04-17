@@ -21,8 +21,26 @@
     </p>
     <p class="field">{{email}}</p>
     <button id="changePasswordButton" v-on:click="openChangePasswordBox">Change Password</button> 
-    <button>Update Personal Information</button> <br><br>
-    <button>Edit Card Details</button>    
+    <button v-on:click="openUpdatePersonalInformationBox">Update Personal Information</button> <br><br>
+    <button v-on:click="openEditCardDetailsBox">Edit Card Details</button>
+    <!--Update Personal Information Pop-up-->
+    <div id="updatePersonalInformationBox">
+      <div id="popUpContent">
+        <p class="close" v-on:click="closeUpdatePersonalInformationBox">Close this Page</p>
+          <h1><b>Update Personal Information</b></h1>
+          <form>
+          <label for="newName">New Username: </label>
+            <input type="string" id="newName" name="newName" v-model="newName">
+            <br><br>
+            <label for="newEmail">New Email Account: </label>
+            <input type="string" id="newEmail" name="newEmail" v-model="newEmail">
+            <br><br>
+            <p style="color: red;">{{alertMessage3}}</p>
+            <input type="submit" value="Update Personal Information" v-on:click.prevent="updatePersonalInformation">
+          </form>
+      </div>
+    </div>
+    <!--Change Password Pop-up-->   
     <div id="changePasswordBox">
       <div id="changePasswordContent">
         <p class="close" v-on:click="closeChangePasswordBox">Close this Page</p>
@@ -36,6 +54,29 @@
           <input type="password" id="pwd2" name="pwd2" v-model="newPassword2"> <br> <br>
           <p style="color: red;">{{alertMessage}}</p>
           <input type="submit" value="Change Password" v-on:click.prevent="changePassword">
+        </form>
+      </div>
+    </div>
+    <!--Change Card Details Pop-up-->
+    <div id="editCardDetailsBox">
+      <div id="popUpContent">
+        <p class="close" v-on:click="closeEditCardDetailsBox">Close this Page</p>
+        <h1><b>Update Card Details</b></h1>
+        <form>
+          <label for="cardholderName">Cardholder Name: </label>
+          <input type="string" id="cardholderName" name="cardholderName" v-model="newCardholderName">
+          <br><br>
+          <label for="creditCardNumber">Credit Card Number: </label>
+          <input type="string" id="creditCardNumber" name="creditCardNumber" v-model="newCreditCardNumber">
+          <br><br>
+          <label for="csv">CSV: </label>
+          <input type="string" id="csv" name="csv" v-model="newCsv">
+          <br><br>
+          <label for="cardExpiryDate">Expiry Date: </label>
+          <input type="date" id="cardExpiryDate" name="cardExpiryDate" v-model="newCardExpiryDate">
+          <br><br>
+          <p style="color: red;">{{alertMessage2}}</p>
+          <input type="submit" value="Update Card Details" v-on:click.prevent="updateCardDetails">
         </form>
       </div>
     </div>
@@ -170,6 +211,30 @@ export default ({
         user.updatePassword(this.newPassword1);
         alert("Your password has been updated successfully");
       }
+    },
+    openEditCardDetailsBox() {
+      var modal = document.getElementById("editCardDetailsBox");
+      modal.style.display = "block";
+    },        
+    closeEditCardDetailsBox() {
+      var modal = document.getElementById("editCardDetailsBox");
+      modal.style.display = "none";
+    },
+    updateCardDetails() {
+      if (this.newCardholderName.length==0 || this.newCreditCardNumber.length==0 || this.newCsv.length==0 || this.newCardExpiryDate.length==0) {
+        this.alertMessage2 = "You have not filled in one or more of the required fields. Please try again.";
+      } else {
+        this.alertMessage2 = "";
+        database.collection('users').doc(localStorage.uid).update({
+          cardholder: this.newCardholderName,
+          creditNum: this.newCreditCardNumber,
+          csv: this.newCsv,
+          expiry: this.newCardExpiryDate,
+        }).then(() => {
+          alert("Your card details have been updated successfully!");
+          location.reload()
+        });
+      }
     }
   },
   created() {
@@ -178,7 +243,7 @@ export default ({
 })
 </script>
 
-<!--
+
 <style scoped>
 p {
     text-align: left;
@@ -186,6 +251,19 @@ p {
 
 button {
     margin: 15px;
+}
+
+img {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 5px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
 
 .field {
@@ -251,6 +329,27 @@ button {
     text-decoration: underline;
 }
 
+#editCardDetailsBox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+#popUpContent {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid black;
+    width: 80%;
+}
+
+
 .close:hover,
 .close:focus {
     color: red;
@@ -262,4 +361,3 @@ form {
 }
 
 </style> 
--->
