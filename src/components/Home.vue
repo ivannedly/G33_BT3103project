@@ -11,6 +11,14 @@
         </a> 
       </div>
     </div>
+    <!--QR Code Pop-up-->
+    <div id = "qrCodeBox">
+      <div id = "popUpContent">
+        <p class="close" v-on:click="closeQrCodeBox">Close this Page</p>
+        <h1><b>Scan this QR Code to make your payment!</b></h1>
+        <img :src="qrCode" /> <br>
+      </div>
+    </div>
 
     <div class="userProfile">
       <div class="welcome-msg">Welcome Back {{this.name}}! </div>
@@ -44,6 +52,7 @@ import firebase from '@firebase/app';
 require('firebase/auth');
 import PlantProgress from './PlantProgress.vue';
 import SignIn from './SignIn.vue'
+import qrCode from "../assets/qr_code.png";
 
 export default { 
   components: {
@@ -58,7 +67,8 @@ export default {
       carbonSaved: 0,
       signedIn: false,
       inTrip: false,
-      distances: []
+      distances: [],
+      qrCode: qrCode
     };
   },
 
@@ -89,17 +99,43 @@ export default {
         ppLevel: increaseBy7,
       })
       this.inTrip =false;
-
+      // Generate QR Code
+      var modal = document.getElementById("qrCodeBox");
+      modal.style.display = "block";
       // Add more functions
-    }
+      // ...
+    },    
+    closeQrCodeBox: function() {
+      var modal = document.getElementById("qrCodeBox");
+      modal.style.display = "none";
+    },
   },
-
   created() {
     this.fetchUserName();
   }
 }
 </script>
 <style scoped>
+#qrCodeBox {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+#popUpContent {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid black;
+    width: 80%;
+}
+
 img {
   border: 1px solid #ddd;
   border-radius: 50%;
