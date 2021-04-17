@@ -54,11 +54,11 @@ export default {
         csv: this.csv,
         expiry: this.expiry,
         travelNum: 0, 
-        distance: 0, 
+        distance: [], 
         carbonCut: 0, 
         moneySave: 0, 
-        start: "singapore", 
-        end: "singapore" 
+        start: "", 
+        end: "" 
       }
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred =>{
         database.collection("users")

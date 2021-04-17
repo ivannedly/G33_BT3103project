@@ -40,6 +40,8 @@
 <script>
 import GoogleMap from './GoogleMap.vue'
 import database from '../firebase.js';
+import firebase from '@firebase/app';
+require('firebase/auth');
 import PlantProgress from './PlantProgress.vue';
 import SignIn from './SignIn.vue'
 
@@ -76,13 +78,15 @@ export default {
     },
 
     finishTrip: function(){
+      const increaseBy7 = firebase.firestore.FieldValue.increment(7);
       console.log(this.distances)
       this.distances.push(Number(localStorage.distance)) //update local array distances
       console.log(this.distances)
       database.collection('users').doc(localStorage.uid).update({
         start: "", //after payment, reset the start and end states to empty strings
         end: "", 
-        distance: this.distances //push updated distance array to database
+        distance: this.distances, //push updated distance array to database
+        ppLevel: increaseBy7
       })
       this.inTrip =false;
     }
