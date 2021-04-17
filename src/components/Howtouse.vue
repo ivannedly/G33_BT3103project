@@ -31,7 +31,7 @@
       </div>
 
       <div v-if="part3">
-        <h1>FAQs</h1> <br> 
+        <h1><b>FAQs</b></h1> <br> 
         <h2> How do I earn points for my PlantPal? </h2>
         <p> You can earn points by planning your trips via this application, and the points will be credited to you the moment you make the planned trip. </p>
         <br>
@@ -39,7 +39,7 @@
         <p> Once you have earned a reward, the discounts will automatically be applied to your next public transport commute. </p>
         <br>
         <h2> Are there any benefits at different PlantPal levels? </h2>
-        <p> Yes! There will be attractive rewards the moment your PlantPal evolves to the next stage, you will know when your PlantPal changes, and the rewards will automatically be credited into your account! </p>
+        <p> Yes! There will be attractive rewards the moment your PlantPal evolves to the next stage. You will know when your PlantPal changes, and the rewards will automatically be credited into your account! </p>
         <br>
         <h2> My card might be expiring soon. Where can I update my card details? </h2>
         <p> Simply click on the Profile page, and there will be a button which will direct you to change your card details. </p>
