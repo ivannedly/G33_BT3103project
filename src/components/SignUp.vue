@@ -54,7 +54,8 @@ export default {
         csv: this.csv,
         expiry: this.expiry,
         start: "", 
-        end: "" 
+        end: "",
+        ppLevel: 0,
       }
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred =>{
         database.collection("users")
