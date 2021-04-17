@@ -6,7 +6,7 @@
     <div id = "changeProfilePictureBox">
       <div id = "popUpContent">
         <p class="close" v-on:click="closeChangeProfilePictureBox">Close this Page</p>
-        <p>Please choose your new profile picture:</p>
+        <h1><b>My New Profile Picture</b></h1>
         <input id="uploadImage" type="file" @change="updateSelectedFile"> <br>
         <img id="uploadPreview"> <br>
         <button @click="uploadSelectedFile">Upload</button>
@@ -22,7 +22,7 @@
     <p class="field">{{email}}</p>
     <button id="changePasswordButton" v-on:click="openChangePasswordBox">Change Password</button> 
     <button v-on:click="openUpdatePersonalInformationBox">Update Personal Information</button> <br><br>
-    <button v-on:click="openEditCardDetailsBox">Edit Card Details</button>
+    <button v-on:click="openEditCardDetailsBox">Update Card Details</button>
     <!--Update Personal Information Pop-up-->
     <div id="updatePersonalInformationBox">
       <div id="popUpContent">
@@ -42,7 +42,7 @@
     </div>
     <!--Change Password Pop-up-->   
     <div id="changePasswordBox">
-      <div id="changePasswordContent">
+      <div id="popUpContent">
         <p class="close" v-on:click="closeChangePasswordBox">Close this Page</p>
         <h1>
           <b>Change Password</b>
@@ -63,18 +63,19 @@
         <p class="close" v-on:click="closeEditCardDetailsBox">Close this Page</p>
         <h1><b>Update Card Details</b></h1>
         <form>
-          <label for="cardholderName">Cardholder Name: </label>
+          <label for="cardholderName">Cardholder Name*: </label>
           <input type="string" id="cardholderName" name="cardholderName" v-model="newCardholderName">
           <br><br>
-          <label for="creditCardNumber">Credit Card Number: </label>
+          <label for="creditCardNumber">Credit Card Number*: </label>
           <input type="string" id="creditCardNumber" name="creditCardNumber" v-model="newCreditCardNumber">
           <br><br>
-          <label for="csv">CSV: </label>
+          <label for="csv">CSV*: </label>
           <input type="string" id="csv" name="csv" v-model="newCsv">
           <br><br>
-          <label for="cardExpiryDate">Expiry Date: </label>
+          <label for="cardExpiryDate">Expiry Date*: </label>
           <input type="date" id="cardExpiryDate" name="cardExpiryDate" v-model="newCardExpiryDate">
           <br><br>
+          <p>* indicates required fields</p>
           <p style="color: red;">{{alertMessage2}}</p>
           <input type="submit" value="Update Card Details" v-on:click.prevent="updateCardDetails">
         </form>
@@ -166,7 +167,7 @@ export default ({
     updatePersonalInformation: function() {
       if (this.newName.length == 0) {
         if (this.newEmail.length == 0) {
-          this.alertMessage3 = "You have not keyed in any new username or email in the fields above.";
+          this.alertMessage3 = "You have not keyed in any new username and/or email.";
         } else {
           this.alertMessage3 = "";
           firebase.auth().currentUser.updateEmail(this.newEmail).then(() => {
@@ -312,14 +313,6 @@ img:hover {
     overflow: auto;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
-}
-
-#changePasswordContent {
-    background-color: white;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid black;
-    width: 80%;
 }
 
 .close {
