@@ -72,46 +72,4 @@ export default {
 h2 {
   color: green;
 }
-
-ul {
-  display: flex;
-  flex-wrap: none;
-  list-style-type: none;
-  padding: 0px;
-}
-
-li {
-  flex-grow: 1;
-  flex-basis: 200px;
-  text-align: center;
-  padding: 0px;
-  border: none;
-  margin: 0px;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  background-color: rgb(159, 227, 159);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #02305e;
-  margin-top: 0px;
-  border: none;
-}
-
-#content {
-  float: bottom;
-  padding: 60px;
-  background-color: rgb(171, 249, 207);
-
-  border: none;
-}
-
-#footer { 
-  background-color: rgb(125, 194, 156);
-  height: 120px;
-  padding: 10px;
-  border: none;
-}
 </style>
