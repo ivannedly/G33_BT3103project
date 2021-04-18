@@ -1,5 +1,6 @@
 <template>
     <div>
+        {{cumulativeNoOfJourneys}}
         <Plotly :data="data" :layout="layout"></Plotly>
     </div>
 </template>
@@ -26,6 +27,9 @@ export default({
                 title: "Total Number of Journeys Against Time"
             } 
         }
+    },
+    updated() {
+        console.log("this.cumulativeNoOfJourneys in Graph: " + this.cumulativeNoOfJourneys);
     }
 })
 </script>
