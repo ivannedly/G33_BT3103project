@@ -76,8 +76,8 @@
           <label for="creditCardNumber">Credit Card Number*: </label>
           <input type="string" id="creditCardNumber" name="creditCardNumber" v-model="newCreditCardNumber">
           <br><br>
-          <label for="csv">CSV*: </label>
-          <input type="string" id="csv" name="csv" v-model="newCsv">
+          <label for="cvv">CVV*: </label>
+          <input type="string" id="cvv" name="cvv" v-model="newCvv">
           <br><br>
           <label for="cardExpiryDate">Expiry Date*: </label>
           <input type="date" id="cardExpiryDate" name="cardExpiryDate" v-model="newCardExpiryDate">
@@ -113,7 +113,7 @@ export default ({
       newCardholderName: "",
       newCreditCardNumber: "",
       newCardExpiryDate: "",
-      newCsv: "",
+      newCvv: "",
       alertMessage2: "",
 
       newName: "",
@@ -235,14 +235,14 @@ export default ({
       modal.style.display = "none";
     },
     updateCardDetails() {
-      if (this.newCardholderName.length==0 || this.newCreditCardNumber.length==0 || this.newCsv.length==0 || this.newCardExpiryDate.length==0) {
+      if (this.newCardholderName.length==0 || this.newCreditCardNumber.length==0 || this.newCvv.length==0 || this.newCardExpiryDate.length==0) {
         this.alertMessage2 = "You have not filled in one or more of the required fields. Please try again.";
       } else {
         this.alertMessage2 = "";
         database.collection('users').doc(localStorage.uid).update({
           cardholder: this.newCardholderName,
           creditNum: this.newCreditCardNumber,
-          csv: this.newCsv,
+          cvv: this.newCvv,
           expiry: this.newCardExpiryDate,
         }).then(() => {
           alert("Your card details have been updated successfully!");

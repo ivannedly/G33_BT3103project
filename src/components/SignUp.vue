@@ -15,8 +15,8 @@
         <input type="text" v-model="cardholder" placeholder="Cardholder Name"/>
         <div>Credit Card Number:</div>
         <input type="string" v-model="creditNum" placeholder="Credit Card Number"/>
-        <div>CSV:</div>
-        <input type="string" v-model="csv" placeholder="CSV"/>
+        <div>CVV:</div>
+        <input type="string" v-model="cvv" placeholder="CSV"/>
         <div>Card Expiry date:</div>
         <input type="date" v-model="expiry" placeholder="Expiry Date"/><br><br>
         <p style="color: red;">{{alertMessage}}</p>
@@ -40,7 +40,7 @@ export default {
       phone: "",
       cardholder: "",
       creditNum: "",
-      csv: "",
+      cvv: "",
       expiry: "",
       alertMessage: "",
     }
@@ -53,7 +53,7 @@ export default {
         mobile: this.phone,
         cardholder: this.cardholder,
         creditNum: this.creditNum,
-        csv: this.csv,
+        cvv: this.cvv,
         expiry: this.expiry,
         start: "", 
         end: "",
