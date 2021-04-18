@@ -20,9 +20,8 @@
         <div>CVV:</div>
         <input type="string" v-model="cvv" placeholder="E.g. 333"/>
         <div>Card Expiry date:</div>
-        <input type="date" v-model="expiry" placeholder="Expiry Date"/><br><br>
-        <p style="color: red;">{{invalidCardMessage}}</p>
-        <br><p style="color: red;">{{alertMessage}}</p>
+        <input type="date" v-model="expiry" placeholder="Expiry Date"/><br>
+        <p style="color: red;">{{alertMessage}}</p>
         <button v-on:click.prevent = "signUp">Sign Up</button>
         <p class="message">Already have an account? Click <router-link to="/login" exact>here</router-link> to log in.</p>
       </form>
@@ -50,30 +49,36 @@ export default {
   },
   methods:{
     signUp: function(){
-      const new_user = {
-        email: this.email,
-        name: this.name,
-        mobile: this.phone,
-        cardholder: this.cardholder,
-        creditNum: this.creditNum,
-        cvv: this.cvv,
-        expiry: this.expiry,
-        start: "", 
-        end: "",
-        ppLevel: 0,
-        noOfJourneys: 0,
-        journeyDistance: [],
-        journeyTime: [],
+      var currentTime = new Date();
+      var enteredExpiryDate = new Date(this.expiry);
+      if (enteredExpiryDate.getTime() <= currentTime.getTime() || this.creditNum.length != 15 || this.cvv.length != 3) {
+        this.alertMessage = "The card detail(s) that you have provided is/are invalid.";
+      } else {
+        const new_user = {
+          email: this.email,
+          name: this.name,
+          mobile: this.phone,
+          cardholder: this.cardholder,
+          creditNum: this.creditNum,
+          cvv: this.cvv,
+          expiry: this.expiry,
+          start: "", 
+          end: "",
+          ppLevel: 0,
+          noOfJourneys: 0,
+          journeyDistance: [],
+          journeyTime: [],
+        }
+        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred =>{
+          database.collection("users")
+                  .doc(cred.user.uid)
+                  .set(Object.assign({}, new_user));
+        }).then(() => {
+          this.$router.push({path: "/login"});
+        }).catch((error) => {
+          this.alertMessage = error.message;
+        })
       }
-      firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred =>{
-        database.collection("users")
-                .doc(cred.user.uid)
-                .set(Object.assign({}, new_user));
-      }).then(() => {
-        this.$router.push({path: "/login"});
-      }).catch((error) => {
-        this.alertMessage = error.message;
-      })
     }
   }
 }
