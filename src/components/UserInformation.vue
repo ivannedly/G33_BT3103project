@@ -132,6 +132,12 @@ export default ({
       var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
       storageRef.getDownloadURL().then((url) => {
         this.profilePicture = url;
+      }).catch((error) => {
+        console.log(error.message);
+        storageRef = firebase.storage().ref('/profilePicture/default_user_pic.png');
+        storageRef.getDownloadURL().then((url) => {
+          this.profilePicture = url;
+        })
       })
     },
 
