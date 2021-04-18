@@ -21,16 +21,16 @@
     </div>
 
     <div class="userProfile">
-      <div class="welcome-msg">Welcome Back {{this.name}}! </div>
+      <div class="welcome-msg">Welcome Back, {{this.name}}! </div>
       <img :src="profilePicture">
       <div class="summary-box">
         <div class="user-summary">
-          <a>You have saved... </a> <br> <br>
+          <a>You have travelled a total distance of ... </a> <br> <br>
           <div class="stats-box">
-            <a>{{this.carbonSaved}}kg of CO2</a>
+            <a>{{totalDistance}}km</a>
           </div> <br>
-          <a>for taking a train or bus instead of a car.</a> <br> <br>
-          <a>Well Done!</a>
+          <a>... by using public transport instead of private transport!</a> <br> <br>
+          <a><b>Well Done!</b></a>
         </div>
       </div>
       <p class="message"><router-link to="/profile" exact>More in Profile</router-link></p>
@@ -64,15 +64,14 @@ export default {
   data() {
     return {
       name: "",
-      carbonSaved: 0,
       signedIn: false,
       inTrip: false,
-      //distances: [],
       qrCode: qrCode,
       profilePicture: "",
       currentDistance: 0,
       journeyDistance: [],
       journeyTime: [],
+      totalDistance: 0,
     };
   },
 
@@ -82,11 +81,14 @@ export default {
         database.collection('users').doc(localStorage.uid).get().then(doc => {
           this.name = doc.data().name;
           this.currentDistance = doc.data().currentDistance;
+
           this.journeyDistance = doc.data().journeyDistance;
+          for (var i = 0; i < this.journeyDistance.length; i++) {
+            this.totalDistance += this.journeyDistance[i];
+          }
+
           this.journeyTime = doc.data().journeyTime;
           console.log(this.currentDistance);
-          //this.carbonSaved = doc.data().carbonCut;
-          //this.distances = doc.data().distance;
           this.signedIn = true;
           if(doc.data().start != ""){
             this.inTrip=true;
