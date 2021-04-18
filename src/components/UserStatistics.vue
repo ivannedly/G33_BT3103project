@@ -15,9 +15,9 @@
         <button type="button" v-on:click="showCarbonCutAgainstTimeGraph()"> Carbon Cut VS Time </button> 
         <button type="button" v-on:click="showDistanceAgainstTimeGraph()"> Distance VS Time </button>
         <button type="button" v-on:click="showNoOfJourneysAgainstTimeGraph()"> Number of Journeys VS Time </button>
-        <CarbonCutAgainstTimeGraph v-show="showGraph1" v-bind:cumulativeCarbonCut="cumulativeCarbonCut" v-bind:journeyDate="journeyDate"></CarbonCutAgainstTimeGraph>
-        <DistanceAgainstTimeGraph v-show="showGraph2" v-bind:cumulativeDistance="cumulativeDistance" v-bind:journeyDate="journeyDate"></DistanceAgainstTimeGraph>
-        <NoOfJourneysAgainstTimeGraph v-show="showGraph3" v-bind:cumulativeDistance="cumulativeNoOfJourneys" v-bind:journeyDate="journeyDate"></NoOfJourneysAgainstTimeGraph>    
+        <CarbonCutAgainstTimeGraph v-show="showGraph1" v-bind:cumulativeCarbonCut="cumulativeCarbonCut" v-bind:journeyDate="journeyTime"></CarbonCutAgainstTimeGraph>
+        <DistanceAgainstTimeGraph v-show="showGraph2" v-bind:cumulativeDistance="cumulativeDistance" v-bind:journeyDate="journeyTime"></DistanceAgainstTimeGraph>
+        <NoOfJourneysAgainstTimeGraph v-show="showGraph3" v-bind:cumulativeDistance="cumulativeNoOfJourneys" v-bind:journeyDate="journeyTime"></NoOfJourneysAgainstTimeGraph>    
     </div>
 </template>
 
@@ -34,7 +34,7 @@ export default ({
             totalCarbonCut: 0,
             totalDistance: 0,
             journeyCarbonCut: [],
-            journeyDate: [],
+            journeyTime: [],
             cumulativeNoOfJourneys: [],
             cumulativeCarbonCut: [],
             cumulativeDistance: [],
@@ -53,29 +53,50 @@ export default ({
             database.collection('users').doc(localStorage.uid).get().then(doc => {               
                 // Get distance
                 var currentTotalDistance = 0;
-                for (var k = 0; k < doc.data().distance.length; k++) {
-                    currentTotalDistance = Math.round((currentTotalDistance + doc.data().distance[k]) * 1e12) / 1e12;
+                for (var k = 0; k < doc.data().journeyDistance.length; k++) {
+                    currentTotalDistance = Math.round((currentTotalDistance + doc.data().journeyDistance[k]) * 1e12) / 1e12;
                     this.cumulativeDistance[k] = currentTotalDistance;
                 }
                 this.totalDistance = currentTotalDistance;
                 
                 // Get carbon emissions saved
-                var currentTotalCarbonCut = 0;
+                /*var currentTotalCarbonCut = 0;
                 for (var i = 0; i < doc.data().journeyCarbonCut.length; i++) {
                     currentTotalCarbonCut = Math.round((currentTotalCarbonCut + doc.data().journeyCarbonCut[i]) * 1e12) / 1e12;
                     this.cumulativeCarbonCut[i] = currentTotalCarbonCut;
                 }
                 this.totalCarbonCut = currentTotalCarbonCut;
+                */
 
                 // Get journey dates
                 var currentTotalNoOfJourneys = 0;
-                for (var j = 0; j < doc.data().journeyDate.length; j++) {
-                    currentTotalNoOfJourneys += 1;
-                    this.cumulativeNoOfJourneys[j] = currentTotalNoOfJourneys;
-                    var currentJourneyDate = doc.data().journeyDate[j];
-                    this.journeyDate.push(currentJourneyDate.toDate().toISOString());
+                var sameJourneyDayCounter = 0;
+                var currentJourneyTime = null;
+                var newJourneyTime = null;
+                var date = null;
+                for (var j = 0; j < doc.data().journeyTime.length; j++) {
+                    newJourneyTime = doc.data().journeyTime[j].toDate();
+                    console.log("newJourneyTime: " + newJourneyTime);
+                    if (currentJourneyTime == null) {
+                        currentJourneyTime = newJourneyTime;
+                    } else {
+                        // If same year and date
+                        if (currentJourneyTime.getFullYear() == newJourneyTime.getFullYear() && currentJourneyTime.getDate() == newJourneyTime.getDate() && j != (doc.data().journeyTime.length - 1)) {
+                            sameJourneyDayCounter += 1;
+                        } else {
+                            console.log("Different day!");
+                            currentTotalNoOfJourneys += sameJourneyDayCounter;
+                            sameJourneyDayCounter = 0;
+                            date = new Date(newJourneyTime.getFullYear(),newJourneyTime.getMonth(),newJourneyTime.getDay());
+                            console.log("date: " + date);
+                            this.journeyTime.push(date.toISOString());
+                            this.cumulativeNoOfJourneys[j] = currentTotalNoOfJourneys;
+                        }
+                    }
+                    currentTotalNoOfJourneys += sameJourneyDayCounter;
+                    console.log("this.journeyTime: " + this.journeyTime);
                 }
-                this.totalNoOfJourneys = currentTotalNoOfJourneys;            
+                this.totalNoOfJourneys = doc.data().journeyTime.length;            
             })
         },
         showCarbonCutAgainstTimeGraph() {
