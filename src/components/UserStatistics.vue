@@ -51,51 +51,74 @@ export default ({
     methods: {
         fetchUserData() {
             database.collection('users').doc(localStorage.uid).get().then(doc => {               
-                // Get distance
                 var currentTotalDistance = 0;
-                for (var k = 0; k < doc.data().journeyDistance.length; k++) {
-                    currentTotalDistance = Math.round((currentTotalDistance + doc.data().journeyDistance[k]) * 1e12) / 1e12;
-                    this.cumulativeDistance[k] = currentTotalDistance;
-                }
-                this.totalDistance = currentTotalDistance;
-                
-                // Get carbon emissions saved
-                /*var currentTotalCarbonCut = 0;
-                for (var i = 0; i < doc.data().journeyCarbonCut.length; i++) {
-                    currentTotalCarbonCut = Math.round((currentTotalCarbonCut + doc.data().journeyCarbonCut[i]) * 1e12) / 1e12;
-                    this.cumulativeCarbonCut[i] = currentTotalCarbonCut;
-                }
-                this.totalCarbonCut = currentTotalCarbonCut;
-                */
-
-                // Get journey dates
                 var currentTotalNoOfJourneys = 0;
+                var sameJourneyDayDistance = 0;
                 var sameJourneyDayCounter = 0;
                 var currentJourneyTime = null;
                 var newJourneyTime = null;
                 var date = null;
                 for (var j = 0; j < doc.data().journeyTime.length; j++) {
+                    console.log("");
+                    console.log("##### Journey Number " + (j+1));
                     newJourneyTime = doc.data().journeyTime[j].toDate();
                     console.log("newJourneyTime: " + newJourneyTime);
                     if (currentJourneyTime == null) {
+                        sameJourneyDayDistance = doc.data().journeyDistance[j];
+                        sameJourneyDayCounter += 1;
                         currentJourneyTime = newJourneyTime;
                     } else {
-                        // If same year and date
-                        if (currentJourneyTime.getFullYear() == newJourneyTime.getFullYear() && currentJourneyTime.getDate() == newJourneyTime.getDate() && j != (doc.data().journeyTime.length - 1)) {
+                        console.log("Previous Year: " + currentJourneyTime.getFullYear() + ", Previous Month: " + currentJourneyTime.getMonth() + ", Previous Date: " + currentJourneyTime.getDate());
+                        console.log("New Year: " + newJourneyTime.getFullYear() + ", New Month: " + newJourneyTime.getMonth() + ", New Date: " + newJourneyTime.getDate());
+                        // if same day
+                        if (currentJourneyTime.getFullYear() == newJourneyTime.getFullYear() && currentJourneyTime.getMonth() == newJourneyTime.getMonth() && currentJourneyTime.getDate() == newJourneyTime.getDate()) {
+                            console.log("same day!");
                             sameJourneyDayCounter += 1;
+                            sameJourneyDayDistance = Math.round((sameJourneyDayDistance + doc.data().journeyDistance[j]) * 1e12) / 1e12;
+                            if (j == (doc.data().journeyTime.length - 1)) {
+                                console.log("Last journey!");
+                                currentTotalDistance += sameJourneyDayDistance;
+                                currentTotalNoOfJourneys += sameJourneyDayCounter;
+                                this.cumulativeDistance.push(currentTotalDistance);
+                                date = new Date(newJourneyTime.getFullYear(),newJourneyTime.getMonth(),newJourneyTime.getDate(),0,0,0,0);
+                                this.journeyTime.push(date.toISOString());
+                                this.cumulativeNoOfJourneys.push(currentTotalNoOfJourneys); 
+                                console.log("this.journeyTime: " + this.journeyTime);
+                                console.log("this.cumulativeDistance: " + this.cumulativeDistance);
+                                console.log("this.cumulativeNoOfJourneys: " + this.cumulativeNoOfJourneys);                               
+                            }
                         } else {
                             console.log("Different day!");
+                            currentTotalDistance += sameJourneyDayDistance;
                             currentTotalNoOfJourneys += sameJourneyDayCounter;
-                            sameJourneyDayCounter = 0;
-                            date = new Date(newJourneyTime.getFullYear(),newJourneyTime.getMonth(),newJourneyTime.getDay());
+                            this.cumulativeNoOfJourneys.push(currentTotalNoOfJourneys);
+                            //currentTotalNoOfJourneys += sameJourneyDayCounter;
+                            date = new Date(currentJourneyTime.getFullYear(),currentJourneyTime.getMonth(),currentJourneyTime.getDate());
                             console.log("date: " + date);
+                            currentJourneyTime = newJourneyTime;
+                            this.cumulativeDistance.push(currentTotalDistance);
                             this.journeyTime.push(date.toISOString());
-                            this.cumulativeNoOfJourneys[j] = currentTotalNoOfJourneys;
+                            console.log("currentTotalNoOfJourneys: " + currentTotalNoOfJourneys);
+                            console.log("this.cumulativeDistance: " + this.cumulativeDistance);
+                            console.log("this.journeyTime: " + this.journeyTime);
+                            sameJourneyDayDistance = doc.data().journeyDistance[j];
+                            sameJourneyDayCounter = 1;
+                            if (j == (doc.data().journeyTime.length - 1)) {
+                                console.log("Last journey!");
+                                currentTotalDistance += sameJourneyDayDistance;
+                                currentTotalNoOfJourneys += sameJourneyDayCounter;
+                                this.cumulativeDistance.push(currentTotalDistance);
+                                date = new Date(newJourneyTime.getFullYear(),newJourneyTime.getMonth(),newJourneyTime.getDate(),0,0,0,0);
+                                this.journeyTime.push(date.toISOString());
+                                this.cumulativeNoOfJourneys.push(currentTotalNoOfJourneys); 
+                                console.log("this.journeyTime: " + this.journeyTime);
+                                console.log("this.cumulativeDistance: " + this.cumulativeDistance);
+                                console.log("this.cumulativeNoOfJourneys: " + this.cumulativeNoOfJourneys);                               
+                            }
                         }
                     }
-                    currentTotalNoOfJourneys += sameJourneyDayCounter;
-                    console.log("this.journeyTime: " + this.journeyTime);
                 }
+                this.totalDistance = currentTotalDistance;
                 this.totalNoOfJourneys = doc.data().journeyTime.length;            
             })
         },
