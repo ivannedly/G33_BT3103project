@@ -3,7 +3,7 @@
     <img :src = profilePicture> <br>
     <button v-on:click="openChangeProfilePictureBox">Change Profile Picture</button>
     <!--Change Profile Picture Pop-up-->
-    <div id = "changeProfilePictureBox">
+    <div id = "changeProfilePictureBox" class = "popUpClass">
       <div id = "popUpContent">
         <p class="close" v-on:click="closeChangeProfilePictureBox">Close this Page</p>
         <h1><b>My New Profile Picture</b></h1>
@@ -28,7 +28,7 @@
     <button v-on:click="openUpdatePersonalInformationBox">Update Personal Information</button> <br><br>
     <button v-on:click="openEditCardDetailsBox">Update Card Details</button>
     <!--Update Personal Information Pop-up-->
-    <div id="updatePersonalInformationBox">
+    <div id="updatePersonalInformationBox" class = "popUpClass">
       <div id="popUpContent">
         <p class="close" v-on:click="closeUpdatePersonalInformationBox">Close this Page</p>
           <h1><b>Update Personal Information</b></h1>
@@ -48,7 +48,7 @@
       </div>
     </div>
     <!--Change Password Pop-up-->   
-    <div id="changePasswordBox">
+    <div id="changePasswordBox" class = "popUpClass">
       <div id="popUpContent">
         <p class="close" v-on:click="closeChangePasswordBox">Close this Page</p>
         <h1>
@@ -65,7 +65,7 @@
       </div>
     </div>
     <!--Change Card Details Pop-up-->
-    <div id="editCardDetailsBox">
+    <div id="editCardDetailsBox" class = "popUpClass">
       <div id="popUpContent">
         <p class="close" v-on:click="closeEditCardDetailsBox">Close this Page</p>
         <h1><b>Update Card Details</b></h1>
@@ -296,8 +296,7 @@ img:hover {
     border-radius: 15px;
 }
 
-#changeProfilePictureBox {
-    display: none;
+.popUpClass {
     position: fixed;
     z-index: 1;
     left: 0;
@@ -309,45 +308,23 @@ img:hover {
     background-color: rgba(0,0,0,0.4);
 }
 
+#changeProfilePictureBox {
+    display: none;
+}
+
 #updatePersonalInformationBox {
     display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
 }
 
 
 #changePasswordBox {
     display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
 }
 
 #editCardDetailsBox {
     display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
 }
+
 #popUpContent {
     background-color: white;
     margin: 15% auto;
