@@ -1,12 +1,5 @@
 <template>
     <div>
-        <!--
-        ##### Order of Items #####
-        Number of Journeys
-        Total Distance Travelled
-        Carbon Footprint Reduced
-        Money Saved (from rewards)
-        -->
         <h1>JOURNEY STATISTICS</h1>
         <p><b>TOTAL NUMBER OF JOURNEYS: </b>{{totalNoOfJourneys}}</p>
         <p><b>TOTAL DISTANCE TRAVELLED (KM): </b>{{totalDistance}}</p>
@@ -103,8 +96,7 @@ export default ({
                     }
                 }
                 this.totalDistance = currentTotalDistance;
-                this.totalNoOfJourneys = doc.data().journeyTime.length;  
-                console.log(this.journeyTime);          
+                this.totalNoOfJourneys = doc.data().journeyTime.length;          
             })
         },
         showCarbonCutAgainstTimeGraph() {
