@@ -19,6 +19,7 @@
         <input type="string" v-model="csv" placeholder="CSV"/>
         <div>Card Expiry date:</div>
         <input type="date" v-model="expiry" placeholder="Expiry Date"/><br><br>
+        <p style="color: red;">{{alertMessage}}</p>
         <button v-on:click.prevent = "signUp">Sign Up</button>
         <p class="message">Already have an account? Click <router-link to="/login" exact>here</router-link> to log in.</p>
       </form>
@@ -41,6 +42,7 @@ export default {
       creditNum: "",
       csv: "",
       expiry: "",
+      alertMessage: "",
     }
   },
   methods:{
@@ -66,6 +68,8 @@ export default {
                 .set(Object.assign({}, new_user));
       }).then(() => {
         this.$router.push({path: "/login"});
+      }).catch((error) => {
+        this.alertMessage = error.message;
       })
     }
   }
