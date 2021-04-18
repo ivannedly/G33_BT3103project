@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{cumulativeNoOfJourneys}}
         <Plotly :data="data" :layout="layout"></Plotly>
     </div>
 </template>
