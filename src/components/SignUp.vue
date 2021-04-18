@@ -51,7 +51,7 @@ export default {
     signUp: function(){
       var currentTime = new Date();
       var enteredExpiryDate = new Date(this.expiry);
-      if (enteredExpiryDate.getTime() <= currentTime.getTime() || this.creditNum.length != 15 || this.cvv.length != 3) {
+      if (enteredExpiryDate.getTime() <= currentTime.getTime() || this.creditNum.length != 19 || this.cvv.length != 3) {
         this.alertMessage = "The card detail(s) that you have provided is/are invalid.";
       } else {
         const new_user = {
