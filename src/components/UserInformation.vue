@@ -133,7 +133,7 @@ export default ({
       storageRef.getDownloadURL().then((url) => {
         this.profilePicture = url;
       }).catch((error) => {
-        console.log(error.message);
+        console.log(error);
         storageRef = firebase.storage().ref('/profilePicture/default_user_pic.png');
         storageRef.getDownloadURL().then((url) => {
           this.profilePicture = url;
@@ -142,7 +142,6 @@ export default ({
     },
 
     updateSelectedFile: function(event) {
-      console.log(event);
       this.selectedFile = event.target.files[0];
       var oFReader = new FileReader();
       oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
@@ -170,7 +169,6 @@ export default ({
     },
 
     openUpdatePersonalInformationBox: function() {
-      console.log("Activating openChangePasswordBox...");
       var modal = document.getElementById("updatePersonalInformationBox");
       modal.style.display = "block";
     },
@@ -246,10 +244,6 @@ export default ({
       if (this.newCardholderName.length==0 || this.newCreditCardNumber.length==0 || this.newCvv.length==0 || this.newCardExpiryDate.length==0) {
         this.alertMessage2 = "You have not filled in one or more of the required fields. Please try again.";
       } else if (enteredExpiryDate.getTime() <= currentTime.getTime() || this.newCreditCardNumber.length != 19 || this.newCvv.length != 3) {
-        console.log("");
-        console.log(enteredExpiryDate.getTime() <= currentTime.getTime());
-        console.log(this.newCreditCardNumber.length != 19);
-        console.log(this.newCvv.length != 3);
         this.alertMessage2 = "The card detail(s) that you have provided is/are invalid.";
       } else {
         this.alertMessage2 = "";
