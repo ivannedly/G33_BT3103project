@@ -126,6 +126,7 @@ export default {
     closeQrCodeBox: function() {
       var modal = document.getElementById("qrCodeBox");
       modal.style.display = "none";
+      location.reload();
     },
   },
   created() {
