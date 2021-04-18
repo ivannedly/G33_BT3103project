@@ -7,6 +7,7 @@
         <input type="text" v-model="email" placeholder="Email"/>
         <div>Password:</div>
         <input type="password" v-model="password" placeholder="Password"/>
+        <p style="color: red;">{{alertMessage}}</p>
         <button v-on:click.prevent = "signIn">Login</button>
         <p class="message">Not registered yet? Click  
           <router-link to="/signup" exact>here</router-link>
@@ -30,19 +31,33 @@ export default {
     return {
       email: "",
       password: "",
+      alertMessage: "",
     }
   },
   methods:{
     signIn: function(){
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) =>{
-        var currUser = user.user;
-        localStorage.uid = currUser.uid;
-        console.log(localStorage.uid)
-        alert("You are now successfully logged in as " + currUser.email);
-      }).then(() => {
-        this.$router.push('/');
-        location.reload();
-      });
+      if (this.email.length == 0 || this.password.length == 0) {
+        this.alertMessage = "You have not entered your email and/or your password.";
+      } else {
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) =>{
+          var currUser = user.user;
+          localStorage.uid = currUser.uid;
+          console.log(localStorage.uid)
+          alert("You are now successfully logged in as " + currUser.email);
+        }).then(() => {
+          this.$router.push('/');
+          location.reload();
+        }).catch((error) => {
+          this.alertMessage = error.message;
+          if (error.message == "There is no user record corresponding to this identifier. The user may have been deleted.") {
+            this.alertMessage = "The email you have provided is invalid.";
+          } else if (error.message == "The password is invalid or the user does not have a password.") {
+            this.alertMessage = "The password you have entered is invalid for the email you have provided.";
+          } else {
+            this.alertMessage = error.message;
+          }
+        })
+      }
     }
   },
 }
