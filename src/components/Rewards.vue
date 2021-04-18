@@ -82,7 +82,7 @@ export default {
           this.reward1 = true;
           this.reward2 = true;
           this.reward3 = true;
-        }else{
+        }else if(this.rewardLevel >= 40){
           this.reward1 = true;
           this.reward2 = true;
           this.reward3 = true;
