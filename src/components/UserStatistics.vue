@@ -12,10 +12,8 @@
         <p><b>TOTAL DISTANCE TRAVELLED (KM): </b>{{totalDistance}}</p>
         <p><b>TOTAL CARBON FOOTPRINT REDUCED (KG): </b>{{totalCarbonCut}}</p>
         <br>
-        <button type="button" v-on:click="showCarbonCutAgainstTimeGraph()"> Carbon Cut VS Time </button> 
         <button type="button" v-on:click="showDistanceAgainstTimeGraph()"> Distance VS Time </button>
         <button type="button" v-on:click="showNoOfJourneysAgainstTimeGraph()"> Number of Journeys VS Time </button>
-        <CarbonCutAgainstTimeGraph v-show="showGraph1" v-bind:cumulativeCarbonCut="cumulativeCarbonCut" v-bind:journeyDate="journeyTime"></CarbonCutAgainstTimeGraph>
         <DistanceAgainstTimeGraph v-show="showGraph2" v-bind:cumulativeDistance="cumulativeDistance" v-bind:journeyDate="journeyTime"></DistanceAgainstTimeGraph>
         <NoOfJourneysAgainstTimeGraph v-show="showGraph3" v-bind:cumulativeNoOfJourneys="cumulativeNoOfJourneys" v-bind:journeyDate="journeyTime"></NoOfJourneysAgainstTimeGraph>    
     </div>
@@ -23,7 +21,6 @@
 
 <script>
 import database from '../firebase.js';
-import CarbonCutAgainstTimeGraph from './CarbonCutAgainstTimeGraph.vue';
 import DistanceAgainstTimeGraph from './DistanceAgainstTimeGraph.vue';
 import NoOfJourneysAgainstTimeGraph from './NoOfJourneysAgainstTimeGraph.vue';
 
@@ -38,13 +35,11 @@ export default ({
             cumulativeNoOfJourneys: [],
             cumulativeCarbonCut: [],
             cumulativeDistance: [],
-            showGraph1: true,
-            showGraph2: false,
+            showGraph2: true,
             showGraph3: false,
         }
     },
     components: {
-        CarbonCutAgainstTimeGraph,
         DistanceAgainstTimeGraph,
         NoOfJourneysAgainstTimeGraph
     },
@@ -155,7 +150,7 @@ button {
   padding: 10px 24px;
   background-color:black;
   color: white;
-  width: 33%;
+  width: 50%;
 }
 
 button:hover{
