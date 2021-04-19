@@ -3,6 +3,7 @@
     <div class="map" v-if="inTrip">
       <GoogleMap/>
       <button type="button" class="payment-button" v-on:click="finishTrip">Pay for current trip</button> <br> <br>
+      <button v-on:click="cancelTrip">Cancel Trip</button>
     </div>
     <div class="map-2" v-else>
       <div class="trip-msgbox">
@@ -137,6 +138,16 @@ export default {
       modal.style.display = "none";
       location.reload();
     },
+    cancelTrip: function() {
+      this.inTrip = false;
+      database.collection('users').doc(localStorage.uid).update({
+        start: "",
+        end: "",
+      }).then(() => {
+        alert("You have successfully cancelled your trip!");
+        location.reload();
+      })
+    }
   },
   created() {
     this.fetchUserData();
