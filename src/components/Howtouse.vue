@@ -24,7 +24,11 @@
       </div>
 
       <div v-if="part2">
-        <h1>Payment methods: </h1> <br>
+        <h1>Payment methods: </h1>
+        <p>
+          These are the various types of payment modes that are accepted on SG Travel Buddy.
+          Only wireless payment modes will be accepted. 
+        </p>
         <img :src="visa"/> 
         <img :src="mastercard"/> 
         <img :src="americanexpress"/>
@@ -124,6 +128,8 @@ p {
 img {
   width: 120px;
   height: 80px;
+  padding-left: 40px;
+  padding-right: 20px;
 }
 
 </style>
