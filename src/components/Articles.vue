@@ -48,7 +48,6 @@ div {
 .title {
   text-align: center;
   font-size: 40px;
-  padding: 10px;
   width: 100%;
 }
 

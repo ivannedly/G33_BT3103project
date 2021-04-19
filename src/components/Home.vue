@@ -78,6 +78,7 @@ export default {
   methods: {
     fetchUserData: function(){
       if(localStorage.uid != null){
+        this.signedIn = true;
         database.collection('users').doc(localStorage.uid).get().then(doc => {
           this.name = doc.data().name;
           this.currentDistance = doc.data().currentDistance;
@@ -89,7 +90,6 @@ export default {
 
           this.journeyTime = doc.data().journeyTime;
           console.log(this.currentDistance);
-          this.signedIn = true;
           if(doc.data().start != ""){
             this.inTrip=true;
           }
