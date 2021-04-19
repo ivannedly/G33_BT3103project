@@ -3,7 +3,7 @@
     <h2>REGISTER</h2>
     <div class="form">
       <form class = "signup-form">
-        <br><h3>PERSONAL INFORMATION</h3>
+        <h3>PERSONAL INFORMATION</h3>
         <div>Email*:</div>
         <input type="text" v-model="email" placeholder="Email"/>
         <div>Username*:</div>
@@ -12,7 +12,7 @@
         <input type="tel" v-model="phone" placeholder="E.g. 9123 4567"/>
         <div>Password*:</div>
         <input type="password" v-model="password" placeholder="Password"/>
-        <br><br><h3>CARD DETAILS</h3>
+        <br><h3>CARD DETAILS</h3>
         <div>Cardholder Name*:</div>
         <input type="text" v-model="cardholder" placeholder="Cardholder Name"/>
         <div>Credit Card Number*:</div>
@@ -46,6 +46,7 @@ export default {
       cvv: "",
       expiry: "",
       alertMessage: "",
+
     }
   },
   methods:{
@@ -83,7 +84,7 @@ export default {
           this.alertMessage = error.message;
         })
       }
-    }
+    },
   }
 }
 </script>
@@ -91,5 +92,8 @@ export default {
 <style scoped>
 h2 {
   color: green;
+}
+div{
+  padding-top: 10px;
 }
 </style>
