@@ -70,6 +70,11 @@ export default {
       } else {
         var modal = document.getElementById("resetPasswordBox");
         modal.style.display = "block";
+        var auth = firebase.auth();
+        var userEmail = this.email;
+        auth.sendPasswordResetEmail(userEmail).then(function() {
+          console.log(userEmail);
+        });
       }
     },        
     closeResetPasswordBox() {
@@ -145,6 +150,7 @@ li {
     padding: 20px;
     border: 1px solid black;
     width: 80%;
+    text-align: center;
 }
 
 .close {
