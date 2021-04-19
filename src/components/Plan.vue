@@ -83,12 +83,13 @@ export default {
 
     planTravel: function() {
       this.uid = localStorage.uid;
+      console.log("Trip planned")
       database.collection('users').doc(this.uid).update({
         start: this.start,
         end: this.end,
         planTime: firebase.firestore.Timestamp.fromDate(new Date())
       })
-      console.log("Trip planned")
+      
       var modal = document.getElementById("alertBox");
       modal.style.display = "block";
     },       

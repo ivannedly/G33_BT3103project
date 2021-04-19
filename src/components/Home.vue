@@ -29,7 +29,7 @@
         <div class="user-summary">
           <a>You have travelled a total distance of ... </a> <br> <br>
           <div class="stats-box">
-            <a>{{totalDistance}}km</a>
+            <a>{{totalDistance.toFixed(2)}} km</a>
           </div> <br>
           <a>... by using public transport instead of private transport!</a> <br> <br>
           <a><b>Well Done!</b></a>

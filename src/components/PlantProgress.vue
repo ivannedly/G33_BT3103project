@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-ellipse-progress 
-      :progress = "newLevel"
+      :progress = "newLevel" 
       :legend = true
       :legend-value = newLevel
       >
