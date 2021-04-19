@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-ellipse-progress 
-      :progress = "newLevel" 
+      :progress = "progressLevel"
       :legend = true
       :legend-value = newLevel
       >
@@ -33,7 +33,8 @@ export default {
       sprout: sprout,
       plant: plant,
       tree: tree,
-      newLevel:0,  
+      newLevel:0,
+      progressLevel:0
     }
   },
 
@@ -42,6 +43,7 @@ export default {
       database.collection('users').doc(localStorage.uid).get().then(doc => {
       this.currentLevel = doc.data().ppLevel;
       this.newLevel = this.currentLevel%20;
+      this.progressLevel = (this.newLevel/20) * 100
       });
     }
   },
