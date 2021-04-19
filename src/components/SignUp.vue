@@ -82,7 +82,7 @@ export default {
           currUser.sendEmailVerification().then(function() {
             console.log(currUser);
           })
-          alert("A verfication email has been sent to your email, vertify your email address now!");
+          alert("A verification email has been sent to your email, verify your email address now!");
         }).then(() => {
           alert("You have successfully created a new account!");
           this.$router.push({path: "/login"});
