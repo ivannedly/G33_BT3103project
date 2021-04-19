@@ -77,11 +77,11 @@ export default {
           database.collection("users")
                   .doc(cred.user.uid)
                   .set(Object.assign({}, new_user));
-          var currUser = database.collection('users').doc(localStorage.uid).get();
+          var currUser = firebase.auth().currentUser;
           currUser.sendEmailVerification().then(function() {
             console.log(currUser);
           })
-
+          alert("A verfication email has been sent to your email, vertify your email address now!");
         }).then(() => {
           alert("You have successfully created a new account!");
           this.$router.push({path: "/login"});
