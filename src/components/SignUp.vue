@@ -77,6 +77,11 @@ export default {
           database.collection("users")
                   .doc(cred.user.uid)
                   .set(Object.assign({}, new_user));
+          var currUser = database.collection('users').doc(localStorage.uid).get();
+          currUser.sendEmailVerification().then(function() {
+            console.log(currUser);
+          })
+
         }).then(() => {
           alert("You have successfully created a new account!");
           this.$router.push({path: "/login"});
