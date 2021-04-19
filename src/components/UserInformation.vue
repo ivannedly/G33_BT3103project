@@ -128,17 +128,19 @@ export default ({
         this.name = doc.data().name;
         this.email = doc.data().email;
         this.mobile = doc.data().mobile;
+        this.haveProfilePicture = doc.data().haveProfilePicture;
       })
-      var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
-      storageRef.getDownloadURL().then((url) => {
-        this.profilePicture = url;
-      }).catch((error) => {
-        console.log(error);
+      if (this.haveProfilePicture) {
+        var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
+        storageRef.getDownloadURL().then((url) => {
+          this.profilePicture = url;
+        })
+      } else {
         storageRef = firebase.storage().ref('/profilePicture/default_user_pic.png');
         storageRef.getDownloadURL().then((url) => {
           this.profilePicture = url;
         })
-      })
+      }
     },
 
     updateSelectedFile: function(event) {

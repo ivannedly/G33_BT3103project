@@ -74,6 +74,7 @@ export default {
       journeyDistance: [],
       journeyTime: [],
       totalDistance: 0,
+      haveProfilePicture: false,
     };
   },
 
@@ -82,6 +83,7 @@ export default {
       if(localStorage.uid != null){
         database.collection('users').doc(localStorage.uid).get().then(doc => {
           this.name = doc.data().name;
+          this.haveProfilePicture = doc.data().haveProfilePicture;
           this.currentDistance = doc.data().currentDistance;
           this.signedIn = true;
           this.journeyDistance = doc.data().journeyDistance;
@@ -96,16 +98,17 @@ export default {
             this.inTrip=true;
           }
         })
-        var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
-        storageRef.getDownloadURL().then((url) => {
-          this.profilePicture = url;
-        }).catch((error) => {
-          console.log(error.message);
+        if (this.haveProfilePicture) {
+          var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
+          storageRef.getDownloadURL().then((url) => {
+            this.profilePicture = url;
+          })
+        } else {
           storageRef = firebase.storage().ref('/profilePicture/default_user_pic.png');
           storageRef.getDownloadURL().then((url) => {
             this.profilePicture = url;
           })
-        })
+        }
       }
     },
 
