@@ -15,7 +15,8 @@
     <div id = "qrCodeBox">
       <div id = "popUpContent">
         <p class="close" v-on:click="closeQrCodeBox">Close this Page</p>
-        <h1><b>Scan this QR Code to make your payment!</b></h1>
+        <h1><b>Congratulations! You have completed your trip!</b></h1>
+        <h1><b>Scan the QR code below to claim your PlantPal points!</b></h1>
         <img :src="qrCode" /> <br>
       </div>
     </div>
