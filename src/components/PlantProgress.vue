@@ -77,7 +77,7 @@ export default {
   }
 
   .tree {
-    width: 50%;
+    width: 30%;
     padding: 45px;
     margin-left: auto;
     margin-right: auto;  
