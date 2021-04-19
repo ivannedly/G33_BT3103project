@@ -232,7 +232,7 @@ img:hover {
 .userProfile {
   float: left;
   width: 32%;
-  padding-left: 30px;
+  margin-left: 4%;
 }
 
 .plantInfo {
