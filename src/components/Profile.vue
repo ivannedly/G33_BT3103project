@@ -29,8 +29,8 @@ export default {
 }
 .right{
     float: left;
-    width: 65%;
-    padding-left: 20px;
+    width: 66%;
+    padding-left: 30px;
 }
 .row:after {
   content: "";
