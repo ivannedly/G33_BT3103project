@@ -32,14 +32,6 @@ export default {
 }
 </script>
 <style scoped>
-/*.article {
-  float: left;
-  width: 32%;
-  height: 700px;
-  background-color: darkseagreen;
-  border-radius: 10px;
-  padding-right: 10px;
-}*/
 .plantInfo {
   float: left;
   width: 33%;
