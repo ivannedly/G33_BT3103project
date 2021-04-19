@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="title">  News Articles </div> <br>
+    <div class="list1">
     <form action="https://www.straitstimes.com/singapore/transport/covid-19-pandemic-still-taking-a-toll-on-public-transport-worldwide">
       <input type="submit" value="Covid-19 Pandemic Still Taking A Toll On Public Transport Worldwide" class="article"/>
     </form> <br> 
@@ -28,6 +29,7 @@
     <form action="https://www.channelnewsasia.com/news/singapore/hougang-mrt-station-cross-island-line-start-construction-q4-14495982">
       <input type="submit" value="Hougang MRT station on Cross Island Line to start construction in Q4" class="article"/>
     </form> <br> 
+    </div>
   </div>
 </template>
 
@@ -44,6 +46,7 @@ export default {
   width: 100%;
 }
 
+
 .article {
   position: relative;
   border-width: 1px;
@@ -55,3 +58,5 @@ export default {
   height: 60px;
 }
 </style>
+
+
