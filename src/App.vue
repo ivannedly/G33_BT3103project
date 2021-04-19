@@ -52,7 +52,7 @@ export default {
   padding-bottom: 20px;
   background-color: white;
   border: none;
-  min-height: 650px;
+  min-height: 600px;
 }
 
 #footer { 

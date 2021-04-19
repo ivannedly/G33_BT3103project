@@ -2,8 +2,8 @@
   <div class="row" v-if="signedIn">
     <div class="map" v-if="inTrip">
       <GoogleMap/>
-      <button type="button" class="payment-button" v-on:click="finishTrip">Pay for current trip</button> <br> <br>
-      <button v-on:click="cancelTrip">Cancel Trip</button>
+      <button type="button" class="payment-button" v-on:click="finishTrip">Pay for current trip</button>
+      <button type="button" class="payment-button" v-on:click="cancelTrip">Cancel Trip</button>
     </div>
     <div class="map-2" v-else>
       <div class="trip-msgbox">
@@ -195,7 +195,7 @@ img:hover {
   float: left;
   width: 30%;
   border-radius: 10px;
-  height: 610px;
+  height: 620px;
   padding-bottom: 30px;
   border:3px solid seagreen;
 }
@@ -252,8 +252,10 @@ img:hover {
 
 .payment-button {
   text-align: center;
-  border: none;
+  border-radius: 3px;
+  border: 1px solid seagreen;
   font-size: 15px;
+  margin-left: 10px;
 }
 
 .welcome-msg {
