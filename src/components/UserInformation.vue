@@ -3,7 +3,7 @@
     <img :src = profilePicture> <br>
     <button v-on:click="openChangeProfilePictureBox">Change Profile Picture</button>
     <!--Change Profile Picture Pop-up-->
-    <div id = "changeProfilePictureBox">
+    <div id = "changeProfilePictureBox" class = "popUpClass">
       <div id = "popUpContent">
         <p class="close" v-on:click="closeChangeProfilePictureBox">Close this Page</p>
         <h1><b>My New Profile Picture</b></h1>
@@ -28,7 +28,7 @@
     <button v-on:click="openUpdatePersonalInformationBox">Update Personal Information</button> <br><br>
     <button v-on:click="openEditCardDetailsBox">Update Card Details</button>
     <!--Update Personal Information Pop-up-->
-    <div id="updatePersonalInformationBox">
+    <div id="updatePersonalInformationBox" class = "popUpClass">
       <div id="popUpContent">
         <p class="close" v-on:click="closeUpdatePersonalInformationBox">Close this Page</p>
           <h1><b>Update Personal Information</b></h1>
@@ -48,7 +48,7 @@
       </div>
     </div>
     <!--Change Password Pop-up-->   
-    <div id="changePasswordBox">
+    <div id="changePasswordBox" class = "popUpClass">
       <div id="popUpContent">
         <p class="close" v-on:click="closeChangePasswordBox">Close this Page</p>
         <h1>
@@ -65,7 +65,7 @@
       </div>
     </div>
     <!--Change Card Details Pop-up-->
-    <div id="editCardDetailsBox">
+    <div id="editCardDetailsBox" class = "popUpClass">
       <div id="popUpContent">
         <p class="close" v-on:click="closeEditCardDetailsBox">Close this Page</p>
         <h1><b>Update Card Details</b></h1>
@@ -133,7 +133,7 @@ export default ({
       storageRef.getDownloadURL().then((url) => {
         this.profilePicture = url;
       }).catch((error) => {
-        console.log(error.message);
+        console.log(error);
         storageRef = firebase.storage().ref('/profilePicture/default_user_pic.png');
         storageRef.getDownloadURL().then((url) => {
           this.profilePicture = url;
@@ -142,7 +142,6 @@ export default ({
     },
 
     updateSelectedFile: function(event) {
-      console.log(event);
       this.selectedFile = event.target.files[0];
       var oFReader = new FileReader();
       oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
@@ -170,7 +169,6 @@ export default ({
     },
 
     openUpdatePersonalInformationBox: function() {
-      console.log("Activating openChangePasswordBox...");
       var modal = document.getElementById("updatePersonalInformationBox");
       modal.style.display = "block";
     },
@@ -246,10 +244,6 @@ export default ({
       if (this.newCardholderName.length==0 || this.newCreditCardNumber.length==0 || this.newCvv.length==0 || this.newCardExpiryDate.length==0) {
         this.alertMessage2 = "You have not filled in one or more of the required fields. Please try again.";
       } else if (enteredExpiryDate.getTime() <= currentTime.getTime() || this.newCreditCardNumber.length != 19 || this.newCvv.length != 3) {
-        console.log("");
-        console.log(enteredExpiryDate.getTime() <= currentTime.getTime());
-        console.log(this.newCreditCardNumber.length != 19);
-        console.log(this.newCvv.length != 3);
         this.alertMessage2 = "The card detail(s) that you have provided is/are invalid.";
       } else {
         this.alertMessage2 = "";
@@ -274,11 +268,11 @@ export default ({
 
 <style scoped>
 p {
-    text-align: left;
+  text-align: left;
 }
 
 button {
-    margin: 15px;
+  margin: 15px;
 }
 
 img {
@@ -298,62 +292,38 @@ img:hover {
     background-color: green;
     color: white;
     padding: 10px;
-    width: 400px;
     border-radius: 15px;
+}
+
+.popUpClass {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
 #changeProfilePictureBox {
     display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
 }
 
 #updatePersonalInformationBox {
     display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
 }
 
 
 #changePasswordBox {
     display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
 }
 
 #editCardDetailsBox {
     display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
 }
+
 #popUpContent {
     background-color: white;
     margin: 15% auto;

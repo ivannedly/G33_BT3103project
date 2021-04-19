@@ -2,8 +2,7 @@
   <div class="row">
     <div class="left">
       <h3> SGTravel Buddy </h3>
-      SGTravelBuddy is your companion, determined to help you save the world, one ride at a time.<br>
-      We believe that we can all do our part in making Sinagpore and the world clean and green. <br>
+      SGTravelBuddy is your companion, determined to help you save the world, one ride at a time. We believe that we can all do our part in making Sinagpore and the world clean and green. <br>
       The pandemic may be here to stay, but we can still do our part for the environment!
     </div>
     <div class="middle">
@@ -38,9 +37,9 @@ export default {
 <style scoped>
 #footer { 
   background-color: rgb(125, 194, 156);
-  height: 120px;
-  padding: 10px;
+  height: 130px;
   border: none;
+  padding: 20px;
 }
 
 img {
@@ -51,14 +50,14 @@ img {
 
 .left {
   float: left;
-  width: 47%;
+  width: 46%;
   text-align: left;
 }
 
 .middle {
   float: left;
   width: 24%;
-  padding-left: 10px;
+  padding-left: 30px;
   text-align: left;
 }
 
