@@ -25,12 +25,11 @@ export default {
 <style scoped>
 .left {
   float: left;
-  width: 30%;
-  
+  width: 30%;  
 }
 .right{
     float: left;
-    width: 68%;
+    width: 65%;
     padding-left: 20px;
 }
 .row:after {

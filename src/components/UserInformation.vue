@@ -268,11 +268,11 @@ export default ({
 
 <style scoped>
 p {
-    text-align: left;
+  text-align: left;
 }
 
 button {
-    margin: 15px;
+  margin: 15px;
 }
 
 img {
@@ -292,7 +292,6 @@ img:hover {
     background-color: green;
     color: white;
     padding: 10px;
-    width: 400px;
     border-radius: 15px;
 }
 
