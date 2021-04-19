@@ -2,7 +2,7 @@
   <div class="row" v-if="signedIn">
     <div class="map" v-if="inTrip">
       <GoogleMap/>
-      <button id="button1" type="button" class="buttonClass" v-on:click="finishTrip">Redeem PlantPal Points</button>
+      <button id="button1" type="button" class="buttonClass" v-on:click="finishTrip">Complete Trip</button>
       <button id="button2" class="buttonClass" v-on:click="cancelTrip">Cancel Trip</button>
     </div>
     <div class="map-2" v-else>
@@ -16,8 +16,7 @@
     <div id = "qrCodeBox">
       <div id = "popUpContent">
         <p class="close" v-on:click="closeQrCodeBox">Close this Page</p>
-        <h1><b>Congratulations! You have completed your trip!</b></h1>
-        <h1><b>Scan the QR code below to claim your PlantPal points!</b></h1>
+        <h1><b>Scan the QR code below to make payment! </b></h1>
         <img :src="qrCode" /> <br>
       </div>
     </div>
