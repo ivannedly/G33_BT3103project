@@ -78,18 +78,17 @@ export default {
   methods: {
     fetchUserData: function(){
       if(localStorage.uid != null){
-        this.signedIn = true;
         database.collection('users').doc(localStorage.uid).get().then(doc => {
           this.name = doc.data().name;
           this.currentDistance = doc.data().currentDistance;
-
+          this.signedIn = true;
           this.journeyDistance = doc.data().journeyDistance;
           for (var i = 0; i < this.journeyDistance.length; i++) {
             this.totalDistance += this.journeyDistance[i];
           }
-
           this.journeyTime = doc.data().journeyTime;
           console.log(this.currentDistance);
+          console.log(this.start);
           if(doc.data().start != ""){
             this.inTrip=true;
           }
