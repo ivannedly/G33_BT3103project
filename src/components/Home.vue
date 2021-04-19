@@ -85,12 +85,13 @@ export default {
           this.currentDistance = doc.data().currentDistance;
           this.signedIn = true;
           this.journeyDistance = doc.data().journeyDistance;
+          console.log(1);
           for (var i = 0; i < this.journeyDistance.length; i++) {
             this.totalDistance += this.journeyDistance[i];
           }
+          console.log(2);
           this.journeyTime = doc.data().journeyTime;
           console.log(this.currentDistance);
-          console.log(this.start);
           if(doc.data().start != ""){
             this.inTrip=true;
           }
