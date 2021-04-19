@@ -103,6 +103,7 @@ export default ({
       email: "",
       mobile: "",
       profilePicture: "",
+      haveProfilePicture: null,
       
       selectedFile: null,
 
@@ -129,18 +130,19 @@ export default ({
         this.email = doc.data().email;
         this.mobile = doc.data().mobile;
         this.haveProfilePicture = doc.data().haveProfilePicture;
+      }).then (() => {
+        if (this.haveProfilePicture) {
+          var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
+          storageRef.getDownloadURL().then((url) => {
+            this.profilePicture = url;
+          })
+        } else {
+          storageRef = firebase.storage().ref('/profilePicture/default_user_pic.png');
+          storageRef.getDownloadURL().then((url) => {
+            this.profilePicture = url;
+          })
+        }
       })
-      if (this.haveProfilePicture) {
-        var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
-        storageRef.getDownloadURL().then((url) => {
-          this.profilePicture = url;
-        })
-      } else {
-        storageRef = firebase.storage().ref('/profilePicture/default_user_pic.png');
-        storageRef.getDownloadURL().then((url) => {
-          this.profilePicture = url;
-        })
-      }
     },
 
     updateSelectedFile: function(event) {
@@ -156,6 +158,9 @@ export default ({
       var storageRef = firebase.storage().ref('/profilePicture/'+ localStorage.uid);
       storageRef.put(this.selectedFile).then(() => {
           alert("You have successfully changed your profile picture!");
+          database.collection('users').doc(localStorage.uid).update({
+            haveProfilePicture: true
+          })
           location.reload();
       })
     },

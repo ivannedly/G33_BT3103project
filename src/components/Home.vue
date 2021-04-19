@@ -96,18 +96,19 @@ export default {
           if(doc.data().start != ""){
             this.inTrip=true;
           }
+        }).then(() => {
+          if (this.haveProfilePicture) {
+            var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
+            storageRef.getDownloadURL().then((url) => {
+              this.profilePicture = url;
+            })
+          } else {
+            storageRef = firebase.storage().ref('/profilePicture/default_user_pic.png');
+            storageRef.getDownloadURL().then((url) => {
+              this.profilePicture = url;
+            })
+          }
         })
-        if (this.haveProfilePicture) {
-          var storageRef = firebase.storage().ref('/profilePicture/' + localStorage.uid);
-          storageRef.getDownloadURL().then((url) => {
-            this.profilePicture = url;
-          })
-        } else {
-          storageRef = firebase.storage().ref('/profilePicture/default_user_pic.png');
-          storageRef.getDownloadURL().then((url) => {
-            this.profilePicture = url;
-          })
-        }
       }
     },
 
