@@ -2,8 +2,8 @@
   <div class="row" v-if="signedIn">
     <div class="map" v-if="inTrip">
       <GoogleMap/>
-      <button type="button" class="payment-button" v-on:click="finishTrip">Pay for current trip</button>
-      <button type="button" class="payment-button" v-on:click="cancelTrip">Cancel Trip</button>
+      <button id="button1" type="button" class="buttonClass" v-on:click="finishTrip">Redeem PlantPal Points</button>
+      <button id="button2" class="buttonClass" v-on:click="cancelTrip">Cancel Trip</button>
     </div>
     <div class="map-2" v-else>
       <div class="trip-msgbox">
@@ -250,12 +250,18 @@ img:hover {
   clear: both;
 }
 
-.payment-button {
+button {
+  display: inline-block;
+}
+
+#button1 {
+  margin-right: 15px;
+}
+
+.buttonClass {
   text-align: center;
-  border-radius: 3px;
-  border: 1px solid seagreen;
+  border: none;
   font-size: 15px;
-  margin-left: 10px;
 }
 
 .welcome-msg {
