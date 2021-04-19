@@ -82,7 +82,7 @@ export default {
           this.reward1 = true;
           this.reward2 = true;
           this.reward3 = true;
-        }else if(this.rewardLevel >= 40){
+        }else{
           this.reward1 = true;
           this.reward2 = true;
           this.reward3 = true;
@@ -99,7 +99,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .reward-title {
   text-align: center;
   font-size: 40px;
