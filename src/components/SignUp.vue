@@ -69,7 +69,6 @@ export default {
           start: "", 
           end: "",
           ppLevel: 0,
-          noOfJourneys: 0,
           journeyDistance: [],
           journeyTime: [],
           haveProfilePicture: false,
