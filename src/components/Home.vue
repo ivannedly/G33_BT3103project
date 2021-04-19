@@ -200,8 +200,9 @@ img:hover {
 .trip-msgbox {
   vertical-align: center;
   background: rgba(143, 188, 139, 0.55);
-  padding-top: 250px;
-  padding-bottom: 255px;
+  height: 640px;
+  vertical-align: middle;
+  display: table-cell;
   padding-left: 50px;
   padding-right: 50px;
 }
@@ -210,7 +211,7 @@ img:hover {
   font-size: 25px;
   font-weight: bold;
   color: black;
-  vertical-align: center;
+  vertical-align: middle;
 }
 
 .userProfile {
