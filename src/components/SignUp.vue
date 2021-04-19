@@ -72,6 +72,7 @@ export default {
           noOfJourneys: 0,
           journeyDistance: [],
           journeyTime: [],
+          haveProfilePicture: false,
         }
         firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred =>{
           database.collection("users")
