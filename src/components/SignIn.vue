@@ -47,7 +47,6 @@ export default {
         firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) =>{
           var currUser = user.user;
           localStorage.uid = currUser.uid;
-          console.log(localStorage.uid)
           alert("You are now successfully logged in as " + currUser.email);
         }).then(() => {
           this.$router.push('/');
@@ -73,7 +72,6 @@ export default {
         var auth = firebase.auth();
         var userEmail = this.email;
         auth.sendPasswordResetEmail(userEmail).then(function() {
-          console.log(userEmail);
         });
       }
     },        
