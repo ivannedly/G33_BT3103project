@@ -2,6 +2,7 @@
   <div>
     <img :src = profilePicture> <br>
     <button v-on:click="openChangeProfilePictureBox">Change Profile Picture</button>
+    
     <!--Change Profile Picture Pop-up-->
     <div id = "changeProfilePictureBox" class = "popUpClass">
       <div id = "popUpContent">
@@ -12,6 +13,7 @@
         <button @click="uploadSelectedFile">Upload</button>
       </div>
     </div>
+    
     <p>
       <b>NAME</b>
     </p>
@@ -27,6 +29,7 @@
     <button v-on:click="openChangePasswordBox">Change Password</button> 
     <button v-on:click="openUpdatePersonalInformationBox">Update Personal Information</button> <br><br>
     <button v-on:click="openEditCardDetailsBox">Update Card Details</button>
+    
     <!--Update Personal Information Pop-up-->
     <div id="updatePersonalInformationBox" class = "popUpClass">
       <div id="popUpContent">
@@ -47,6 +50,7 @@
           </form>
       </div>
     </div>
+    
     <!--Change Password Pop-up-->   
     <div id="changePasswordBox" class = "popUpClass">
       <div id="popUpContent">
@@ -64,6 +68,7 @@
         </form>
       </div>
     </div>
+    
     <!--Change Card Details Pop-up-->
     <div id="editCardDetailsBox" class = "popUpClass">
       <div id="popUpContent">
