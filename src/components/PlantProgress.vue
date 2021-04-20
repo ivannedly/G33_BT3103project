@@ -6,8 +6,6 @@
       :legend-value = newLevel
       >
       <span slot="legend-value">/20</span>
-      <!--<p slot="legend-caption" v-if="this.currentLevel==0"> Level 0/20</p>-->
-      <!--<p slot="legend-caption" v-else> Level {{ Math.floor(this.currentLevel/20) }} </p>-->
       <p slot="legend-caption"> Level {{ Math.floor(this.currentLevel/20) }} </p>
     </vue-ellipse-progress>
     <div>
