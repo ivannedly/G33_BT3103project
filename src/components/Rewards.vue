@@ -11,7 +11,7 @@
         <div class="reward-list">
           <a>$3 off next train/bus ride!</a>
         </div>
-        <a style="float:right">Reach Level 10 to lock reward!</a>
+        <a style="float:right">Reach Level 10 to unlock this reward!</a>
       </div> <br>
 
       <div v-if="reward2">
@@ -23,7 +23,7 @@
         <div class="reward-list">
           <a>$5 off next train/bus ride!</a>
         </div>
-        <a style="float:right">Reach Level 20 to lock reward!</a>
+        <a style="float:right">Reach Level 20 to unlock this reward!</a>
       </div> <br>
 
       <div v-if="reward3">
@@ -35,7 +35,7 @@
         <div class="reward-list">
           <a>$10 cashback!</a>
         </div>
-        <a style="float:right">Reach Level 30 to lock reward!</a>
+        <a style="float:right">Reach Level 30 to unlock this reward!</a>
       </div> <br>
 
       <div v-if="reward4">
@@ -47,7 +47,7 @@
         <div class="reward-list">
           <a>$15 cashback!</a>
         </div>
-        <a style="float:right">Reach Level 40 to lock reward!</a>
+        <a style="float:right">Reach Level 40 to unlock this reward!</a>
       </div> <br>
     </div>
   </div>
