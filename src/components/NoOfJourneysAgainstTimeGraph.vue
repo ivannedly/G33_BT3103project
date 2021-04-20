@@ -27,9 +27,6 @@ export default({
             } 
         }
     },
-    updated() {
-        console.log("this.cumulativeNoOfJourneys in Graph: " + this.cumulativeNoOfJourneys);
-    }
 })
 </script>
 
