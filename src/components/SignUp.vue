@@ -79,7 +79,6 @@ export default {
                   .set(Object.assign({}, new_user));
           var currUser = firebase.auth().currentUser;
           currUser.sendEmailVerification().then(function() {
-            console.log(currUser);
           })
           alert("A verification email has been sent to your email, verify your email address now!");
         }).then(() => {
