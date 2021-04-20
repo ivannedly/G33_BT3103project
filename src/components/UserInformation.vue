@@ -190,25 +190,30 @@ export default ({
       if (this.newName.length == 0 && this.newEmail.length == 0 && this.newMobile.length == 0) {
         this.alertMessage3 = "You have not keyed in any new username, email and/or mobile number.";
       } else {
-        if (this.newName.length != 0) {
+        var finalName = this.newName;
+        var finalEmail = this.newEmail;
+        var finalMobile = this.newMobile;
+        if (this.newName.length == 0) {
+          finalName = this.name;
+        }
+        if (this.newEmail.length == 0) {
+          finalEmail = this.email;
+        }
+        if (this.newMobile.length == 0) {
+          finalMobile = this.mobile;
+        }
+        firebase.auth().currentUser.updateEmail(finalEmail).then(() => {
           database.collection('users').doc(localStorage.uid).update({
-            name: this.newName
+            name: finalName,
+            email: finalEmail,
+            mobile: finalMobile,
+          }).then(() => {
+            alert("You have successfully updated your personal information!");
+            location.reload();
           })
-        }
-        if (this.newEmail.length != 0) {
-          firebase.auth().currentUser.updateEmail(this.newEmail).then(() => {
-            database.collection('users').doc(localStorage.uid).update({
-              email: this.newEmail
-            })
-          })
-        }
-        if (this.newMobile.length != 0) {
-          database.collection('users').doc(localStorage.uid).update({
-            mobile: this.newMobile
-          })
-        }
-        alert("You have successfully updated your personal information!")
-        location.reload();
+        }).catch((error) => {
+          this.alertMessage3 = error.message;
+        })
       } 
     },
     
