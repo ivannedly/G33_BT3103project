@@ -61,7 +61,6 @@ export default {
       this.end = place.name;
       this.endcoords.lat = place.geometry.location.lat();
       this.endcoords.lng = place.geometry.location.lng();
-      console.log(this.endcoords.lng)
     },
 
     getDistance: function() {
@@ -73,7 +72,6 @@ export default {
         (1 - cos((this.endcoords.lng - this.startcoords.lng) * mathPi))/2;
       this.distance = parseFloat(Number(earthRadius * Math.asin(Math.sqrt(distanceFactor))).toFixed(1));
       localStorage.distance = this.distance  
-      console.log(localStorage.distance)
 
       // Update currentDistance into database
       database.collection('users').doc(localStorage.uid).update({
@@ -83,7 +81,6 @@ export default {
 
     planTravel: function() {
       this.uid = localStorage.uid;
-      console.log("Trip planned")
       database.collection('users').doc(this.uid).update({
         start: this.start,
         end: this.end,
