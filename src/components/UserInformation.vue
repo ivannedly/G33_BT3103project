@@ -160,8 +160,9 @@ export default ({
           alert("You have successfully changed your profile picture!");
           database.collection('users').doc(localStorage.uid).update({
             haveProfilePicture: true
+          }).then(() => {
+            location.reload();
           })
-          location.reload();
       })
     },
 
