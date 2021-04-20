@@ -51,11 +51,6 @@ export default {
   clear: both;
 }
 
-.welcome-msg {
-  padding-top: 50px;
-  text-align: center;
-  padding-bottom: 30px;
-}
 .plant-info {
   text-align: left;
   padding-top: 20px;
