@@ -235,6 +235,8 @@ export default ({
         user.updatePassword(this.newPassword1).then(() => {
           alert("Your password has been updated successfully");
           location.reload();
+        }).catch((error) => {
+          this.alertMessage1 = error.message;
         })
       }
     },
