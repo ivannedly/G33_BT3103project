@@ -38,7 +38,6 @@ export default {
     
     loginCheck: function() {
       if(firebase.auth().currentUser != null) {
-        console.log(this.signedIn)
         this.signedIn = true;
         this.currentUser = firebase.auth().currentUser;
       }
