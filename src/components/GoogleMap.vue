@@ -30,7 +30,6 @@ export default {
   methods: { 
     fetchItems: function() {
       this.user = localStorage.uid;
-      console.log(this.user);
       database.collection('users').doc(this.user).get().then(doc => {
         this.start = doc.data().start;
         this.end = doc.data().end;
