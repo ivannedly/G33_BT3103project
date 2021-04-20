@@ -73,8 +73,6 @@ export default {
         this.rewardLevel = Math.floor(doc.data().ppLevel/20);
         if(this.rewardLevel < 20 && this.rewardLevel >= 10){
           this.reward1 = true;
-          console.log(this.rewardLevel);
-          console.log(this.reward1);
         }else if(this.rewardLevel < 30 && this.rewardLevel >= 20){
           this.reward1 = true;
           this.reward2 = true;
@@ -94,7 +92,6 @@ export default {
 
   created() {
     this.fetchPlantInfo();
-    console.log("1");
   }
 }
 </script>
