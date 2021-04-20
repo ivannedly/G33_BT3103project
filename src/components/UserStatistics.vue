@@ -54,6 +54,16 @@ export default ({
                         sameJourneyDayDistance = doc.data().journeyDistance[j];
                         sameJourneyDayCounter += 1;
                         currentJourneyTime = newJourneyTime;
+
+                        // If Last Journey
+                        if (j == (doc.data().journeyTime.length - 1)) {
+                            currentTotalDistance += sameJourneyDayDistance;
+                            currentTotalNoOfJourneys += sameJourneyDayCounter;
+                            this.cumulativeDistance.push(currentTotalDistance);
+                            this.cumulativeNoOfJourneys.push(currentTotalNoOfJourneys); 
+                            date = new Date(newJourneyTime.getFullYear(),newJourneyTime.getMonth(),newJourneyTime.getDate(),0,0,0,0);
+                            this.journeyTime.push(date.toISOString());                            
+                        }
                     
                     // Not First Journey
                     } else {
