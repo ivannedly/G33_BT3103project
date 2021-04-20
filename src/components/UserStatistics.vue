@@ -107,7 +107,7 @@ export default ({
                 }
                 this.totalDistance = currentTotalDistance;
                 this.totalNoOfJourneys = doc.data().journeyTime.length;
-                this.totalCarbonCut = this.totalDistance * 0.005;
+                this.totalCarbonCut = this.totalDistance * 0.05;
                 this.totalCarbonCut = Math.round((this.totalCarbonCut + Number.EPSILON) * 100) / 100;
             })
         },
